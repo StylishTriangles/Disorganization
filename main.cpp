@@ -15,7 +15,7 @@ int main(){
         sf::CircleShape shape(std::sin( stoper.getElapsedTime().asSeconds()) * app.getSize().y / 8 + app.getSize().y / 4);
         shape.setOrigin(sf::Vector2f( shape.getRadius(), shape.getRadius()));
         shape.setPosition(app.getSize().x / 2.0f, app.getSize().y / 2.0f);
-        shape.setFillColor(sf::Color::Yellow);
+        shape.setFillColor(sf::Color(0xFF11EEFF));
         app.draw(shape);
 
         app.display();
