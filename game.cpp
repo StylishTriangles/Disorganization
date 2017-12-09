@@ -139,7 +139,7 @@ void Game::createObjects(){
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
-    anims["catMove"] = new Anim(&assets.catMove, 676, sf::milliseconds(300));
+    anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
     anims["doorRight"] = new Anim(&assets.doorRight);
     anims["clock"] = new Anim(&assets.clock);
     anims["clockHand"] = new Anim(&assets.clockHand);
