@@ -7,7 +7,7 @@
 
 class Anim {
 public:
-    Anim () {};
+    Anim () {}
     Anim (sf::Texture* SpriteSheet, int frameWidth, sf::Time dur) {
         spriteSheet = SpriteSheet;
         width = frameWidth;
@@ -58,13 +58,13 @@ public:
 
 class AnimSprite: public sf::Sprite {
 public:
-    AnimSprite() {};
+    AnimSprite() {}
     AnimSprite(Anim* anim, bool looped = true) {
         setAnimation(anim);
         m_looped = looped;
     }
-    bool isLooped() {return m_looped;};
-    bool shouldDestroy() {return m_destroy;};
+    bool isLooped() {return m_looped;}
+    bool shouldDestroy() {return m_destroy;}
     int currentFrame = 0;
     void update (double delta) {
         runTime+=delta;
