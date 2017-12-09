@@ -10,7 +10,9 @@ public:
 	enum ItemType {
 		BOOK,
 		GLASS,
-        DOOR
+        DOOR,
+        CLOCK,
+        CLOCK_HAND
 	};
 
 	enum ItemState {
@@ -32,7 +34,7 @@ public:
     virtual void onClick() = 0;
     virtual void onDrag(int dx, int dy);
     virtual void onDrop();
-    virtual void changeState() = 0;
+    virtual void changeState();
 
     static bool cmpLayer(Item* lhs, Item* rhs) {
         return lhs->layer < rhs->layer;

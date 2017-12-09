@@ -22,6 +22,6 @@ void Item::update(sf::Time dt){
 
 }
 
-void changeState(){
+void Item::changeState(){
 
 }

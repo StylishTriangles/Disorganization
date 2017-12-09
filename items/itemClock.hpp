@@ -6,7 +6,7 @@
 class ItemClockHand: public Item{
 public:
     ItemClockHand(Anim* a, float layer=0.0)
-    :Item(a, layer)
+    :Item(a, CLOCK_HAND, layer)
     {
         setScale(0.5, 0.5);
     }
@@ -19,7 +19,7 @@ public:
 class ItemClock: public Item{
 public:
     ItemClock(Anim* a, ItemClockHand* clockHand, float* timeLeft, float* totalTime, float layer=0.0)
-    :Item(a, layer), itemClockHand(clockHand), secondsLeft(timeLeft), secondsTotal(totalTime)
+    :Item(a, CLOCK, layer), itemClockHand(clockHand), secondsLeft(timeLeft), secondsTotal(totalTime)
     {
         itemClockHand->setOrigin(0, itemClockHand->getLocalBounds().height/2.0f);
         itemClockHand->setRotation(270);
