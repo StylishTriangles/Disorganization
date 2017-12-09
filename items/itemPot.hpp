@@ -8,7 +8,7 @@
 class ItemPot: public Item{
 public:
     ItemPot(Anim* a, float layer=0.0)
-    :Item(a, layer)
+    :Item(a, BOOK, layer)
     {
     }
 
@@ -18,6 +18,13 @@ public:
 
     void onDrop() override {
         std::cout << "pot has been planted\n";
+    }
+
+    void changeState() override {
+		if (state == DEFAULT)
+			state = BROKEN;
+		if (state == BROKEN)
+			state = DEFAULT;
     }
 };
 

@@ -5,6 +5,7 @@ class TextureContainer{
 public:
     sf::Texture pot;
     sf::Texture catIdle;
+    sf::Texture catMove;
     sf::Texture room1;
     sf::Texture room2;
     sf::Texture dymek;

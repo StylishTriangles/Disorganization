@@ -2,8 +2,9 @@
 
 #include "game.hpp"
 
-Prank::Prank(Game* g)
+Prank::Prank(Game* g) : game(g)
 {
+
 }
 
 void Prank::onStart() {

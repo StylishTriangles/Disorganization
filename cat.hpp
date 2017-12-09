@@ -12,7 +12,8 @@ enum catState {
 	TRAVEL,
 	PRANK,
 	RUN,
-	CLOSETOPRANK
+	CLOSETOPRANK,
+	GOINGTOPATH
 };
 
 enum direction {
@@ -28,6 +29,7 @@ public:
 	Prank* activePrank = nullptr;
 	int prankProgress;
 	std::map<std::string, Anim*> anims;
+	int pathCoordY = 400;
 
 
 	void create(std::map<std::string, Anim*>);
