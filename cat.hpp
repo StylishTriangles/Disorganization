@@ -12,14 +12,21 @@ enum catState {
 	RUN
 };
 
+enum direction {
+	NONE,
+	LEFT,
+	RIGHT
+};
+
 class Cat : public AnimSprite {
 public:
 	catState state = IDLE;
+	direction travelDirection = NONE;
 	Prank* activePrank = nullptr;
-	float prankProgress;
+	int prankProgress;
 
 
-
+	void create(std::map<std::string, Anim*>);
 	void update(sf::Time, std::map<std::string, Anim*>);
 	void setNextPrank(Prank*);
 	bool isIdle();

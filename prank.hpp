@@ -6,13 +6,17 @@
 
 class Prank{
 public:
-    Prank(std::map<std::string, Item*>* its);
+    Prank(std::map<std::string, Item*>* its, int xPosition);
 
     virtual bool isAvailable()=0;
     Anim* catAnim;
-    float prankTime = 0;
+    int prankTime = 0; //in milliseconds
+    int xCoord;
+
 
     std::map<std::string, Item*>* items;
+
+    virtual void onFinish();
 };
 
 
