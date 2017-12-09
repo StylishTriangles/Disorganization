@@ -13,16 +13,15 @@ public:
     }
 
     void onClick() override {
-        std::cout << "TWi clicked\n";
+        std::cout << "pot clicked\n";
     }
 
     void onDrag(int dx, int dy) override {
-        setPosition(dx, dy);
-        //std::cout << "moved: " << dx << ", " << dy << "\n";
+        move(dx, dy);
     };
 
     void onDrop() override {
-        std::cout << "TWi has been planted\n";
+        std::cout << "pot has been planted\n";
     }
 };
 
