@@ -45,6 +45,7 @@ void Cat::update(sf::Time deltaTime) {
 			setAnimation(activePrank->catAnim);
 			activePrank->onStart();
 			state = PRANK;
+			std::cout << "closetoprank\n";
 		}
 		else {
 			move(Utils::normalized(activePrank->activeItem->getPosition() - getPosition()) * (float)dT / 3.0f);

@@ -146,16 +146,27 @@ void Game::createObjects(){
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
+    items["pot2"] = new ItemPot(anims["pot"], 1.0f);
+    items["pot2"]->move(200, 400);
+    items["pot3"] = new ItemPot(anims["pot"], 1.0f);
+    items["pot3"]->move(400, 200);
+
     ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 1.0f);
     items["clockHand"] = itemClockHand;
     items["clock"] = new ItemClock(anims["clock"], itemClockHand, &secondsPassed, &totalTimeInSeconds, 1.0f);
     items["clock"]->setPosition(200, 100);
     items["clock"]->setScale(0.4, 0.4);
 
-    ItemDoor* doorRight = new ItemDoor(anims["doorRight"], 1.0f);
+    ItemDoor* doorRight = new ItemDoor(anims["doorRight"], false, 1.0f);
     doorRight->setGame(this);
     items["doorRight"] = doorRight;
     items["doorRight"]->move(1150, 400);
+
+    ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["doorRight"], true, 1.0f);
+    doorLeftSecondRoom->setScale(-1, 1);
+    doorLeftSecondRoom->setGame(this);
+    items["doorLeftSecondRoom"] = doorLeftSecondRoom;
+    items["doorLeftSecondRoom"]->move(130+1280, 400);
 
     pranks.push_back(new PrankBookThrow(this));
 

@@ -8,7 +8,7 @@
 class ItemDoor : public Item
 {
 public:
-    ItemDoor(Anim *a, float layer);
+    ItemDoor(Anim *a, bool leftDoors, float layer);
 
     void onClick() override;
 
@@ -20,7 +20,9 @@ public:
 
     void setGame(Game *gam);
 
-  private:
+
+    bool leftDoors;
+protected:
     Game* g;
 };
 
