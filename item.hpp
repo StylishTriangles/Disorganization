@@ -40,6 +40,7 @@ public:
     virtual void onClick() = 0;
     virtual void onDrag(int dx, int dy);
     virtual void onDrop();
+    virtual void onRightClick();
     virtual void onTrash(Item* trash);
     virtual void changeState();
 

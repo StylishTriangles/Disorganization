@@ -9,17 +9,20 @@ ItemTrash::ItemTrash(Anim *a, float _layer)
 }
 
 void ItemTrash::onClick() {
+}
+
+void ItemTrash::onRightClick() {
     if (myItems.empty()) {
         return;
     }
-   Item* top = myItems.top();
+    Item* top = myItems.top();
 
-   sf::Vector2f mypos = this->getPosition();
-   mypos.x += randInt(-75,75);
-   top->setPosition(mypos);
-   top->state = DEFAULT;
+    sf::Vector2f mypos = this->getPosition();
+    mypos.x += randInt(-120,120);
+    top->setPosition(mypos);
+    top->state = DEFAULT;
 
-   myItems.pop();
+    myItems.pop();
 }
 
 void ItemTrash::insert(Item* item) {

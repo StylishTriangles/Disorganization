@@ -167,6 +167,14 @@ void Game::executeMouseEvents(sf::Event* ev){
                 }
             }
         }
+        else if (ev->mouseButton.button == sf::Mouse::Right){
+            for(const auto& p: items){
+                if(Utils::isMouseOnSprite(*p.second, &window)){
+                    if(p.second->clickable)
+                        p.second->onRightClick();
+                }
+            }
+        }
     }
     if (ev->type == sf::Event::MouseMoved){
         if(isMouseDown && draggedItem != nullptr){
@@ -225,7 +233,7 @@ void Game::createObjects(){
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
     assets.catMove.loadFromFile("files/graphics/catMove.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
-    assets.room2.loadFromFile("files/graphics/pokoj2.png");
+    assets.room2.loadFromFile("files/graphics/pokoj3.png");
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
     assets.clock.loadFromFile("files/graphics/clock.png");
@@ -264,10 +272,15 @@ void Game::createObjects(){
     items["clock"]->setPosition(200, 100);
     items["clock"]->setScale(0.4, 0.4);
 
-    ItemDoor* doorRight = new ItemDoor(anims["door"], false, 1.0f);
-    doorRight->setGame(this);
-    items["doorRight"] = doorRight;
-    items["doorRight"]->move(1150, 400);
+    ItemDoor* doorRightFirstRoom = new ItemDoor(anims["door"], false, 1.0f);
+    doorRightFirstRoom->setGame(this);
+    items["doorRightFirstRoom"] = doorRightFirstRoom;
+    items["doorRightFirstRoom"]->move(1150, 400);
+
+    ItemDoor *doorRightSecondRoom = new ItemDoor(anims["door"], false, 1.0f);
+    doorRightSecondRoom->setGame(this);
+    items["doorRightSecondRoom"] = doorRightSecondRoom;
+    items["doorRightSecondRoom"]->move(1150 + 1280, 400);
 
     ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 1.0f);
     doorLeftSecondRoom->setScale(-1, 1);
@@ -275,10 +288,16 @@ void Game::createObjects(){
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;
     items["doorLeftSecondRoom"]->move(130+1280, 400);
 
+    ItemDoor *doorLeftThirdRoom = new ItemDoor(anims["door"], true, 1.0f);
+    doorLeftThirdRoom->setScale(-1, 1);
+    doorLeftThirdRoom->setGame(this);
+    items["doorLeftThirdRoom"] = doorLeftThirdRoom;
+    items["doorLeftThirdRoom"]->move(130 + 2560, 400);
+
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
     items["sink"]->move(600+1280, 100);
 
-    items["trash1"] = new ItemTrash(anims["trash"], 1.0f);
+    items["trash1"] = new ItemTrash(anims["trash"]);
     items["trash1"]->move(300, 500);
 
     items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
@@ -289,7 +308,7 @@ void Game::createObjects(){
     pranks.push_back(new PrankBookThrow(this));
 
     roomSprite = sf::Sprite(assets.room2);
-    roomSprite.setScale(window.getSize().x * 2.0f / roomSprite.getGlobalBounds().width,
+    roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
