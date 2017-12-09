@@ -86,14 +86,19 @@ void Game::draw(sf::Time dT){
 void Game::executeMouseEvents(sf::Event* ev){
     if (ev->type == sf::Event::MouseButtonPressed){
         if (ev->mouseButton.button == sf::Mouse::Left){
-            isMouseDown=true;
-            lastMouseX = window.mapPixelToCoords(sf::Mouse::getPosition(window)).x;
-            lastMouseY = window.mapPixelToCoords(sf::Mouse::getPosition(window)).y;
-            for(const auto& p: items){
-                if(Utils::isMouseOnSprite(*p.second, &window)){
-                    isMouseDown=true;
-                    p.second->onClick();
-                    draggedItem = p.second;
+            if(Utils::isMouseOnSprite(cat, &window) && hasWaterGun){
+                shotWater();
+            }
+            else{
+                isMouseDown=true;
+                lastMouseX = window.mapPixelToCoords(sf::Mouse::getPosition(window)).x;
+                lastMouseY = window.mapPixelToCoords(sf::Mouse::getPosition(window)).y;
+                for(const auto& p: items){
+                    if(Utils::isMouseOnSprite(*p.second, &window)){
+                        isMouseDown=true;
+                        p.second->onClick();
+                        draggedItem = p.second;
+                    }
                 }
             }
         }
@@ -123,6 +128,11 @@ void Game::drawStats(){
     textMum.setColor(sf::Color::Red);
     textMum.setCharacterSize(20);
     window.draw(textMum);
+}
+
+void Game::shotWater(){
+    hasWaterGun=false;
+    std::cout << "tango down\n";
 }
 
 void Game::createObjects(){
