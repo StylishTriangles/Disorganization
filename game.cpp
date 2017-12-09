@@ -222,16 +222,27 @@ void Game::createObjects(){
     items["clock"]->setPosition(200, 100);
     items["clock"]->setScale(0.4, 0.4);
 
-    ItemDoor* doorRight = new ItemDoor(anims["door"], false, 1.0f);
-    doorRight->setGame(this);
-    items["doorRight"] = doorRight;
-    items["doorRight"]->move(1150, 400);
+    ItemDoor* doorRightFirstRoom = new ItemDoor(anims["door"], false, 1.0f);
+    doorRightFirstRoom->setGame(this);
+    items["doorRightFirstRoom"] = doorRightFirstRoom;
+    items["doorRightFirstRoom"]->move(1150, 400);
+
+    ItemDoor *doorRightSecondRoom = new ItemDoor(anims["door"], false, 1.0f);
+    doorRightSecondRoom->setGame(this);
+    items["doorRightSecondRoom"] = doorRightSecondRoom;
+    items["doorRightSecondRoom"]->move(1150 + 1280, 400);
 
     ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 1.0f);
     doorLeftSecondRoom->setScale(-1, 1);
     doorLeftSecondRoom->setGame(this);
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;
     items["doorLeftSecondRoom"]->move(130+1280, 400);
+
+    ItemDoor *doorLeftThirdRoom = new ItemDoor(anims["door"], true, 1.0f);
+    doorLeftThirdRoom->setScale(-1, 1);
+    doorLeftThirdRoom->setGame(this);
+    items["doorLeftThirdRoom"] = doorLeftThirdRoom;
+    items["doorLeftThirdRoom"]->move(130 + 2560, 400);
 
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
     items["sink"]->move(600+1280, 100);
