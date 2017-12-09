@@ -34,3 +34,7 @@ build-*
 #code::blocks
 *.cbp
 *.depend
+*.layout
+
+
+*.ini
