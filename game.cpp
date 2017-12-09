@@ -210,11 +210,12 @@ void Game::drawStats(){
     for(const auto& it: items){
         if(it.second->state == Item::BROKEN){
             messiness+=2;
+            if(it.second->state && Item::TRASHED)
+                messiness--;
         }
     }
     std::string str =   "Time left " + Utils::stringify((int)(totalTimeInSeconds - secondsPassed)) + "s\n\n"
                         "Messiness: " + Utils::stringify(messiness)+"\n";
-
     sf::Text textStats(str, font);
     textStats.setColor(sf::Color::Red);
     textStats.move(Settings::room*Settings::windowSize.x, 0);
