@@ -40,8 +40,8 @@ sf::Color randColor (int from, int to) {
 }
 
 bool isMouseOnSprite(sf::Sprite& sp, sf::RenderWindow* window) {
-    if (sf::Mouse::getPosition(*window).x >= sp.getGlobalBounds().left && sf::Mouse::getPosition(*window).x <= sp.getPosition().x+sp.getGlobalBounds().width &&
-        sf::Mouse::getPosition(*window).y >= sp.getGlobalBounds().top && sf::Mouse::getPosition(*window).y <= sp.getPosition().y+sp.getGlobalBounds().height)
+    if (sf::Mouse::getPosition(*window).x >= sp.getGlobalBounds().left && sf::Mouse::getPosition(*window).x <= sp.getGlobalBounds().left+sp.getGlobalBounds().width &&
+        sf::Mouse::getPosition(*window).y >= sp.getGlobalBounds().top && sf::Mouse::getPosition(*window).y <= sp.getGlobalBounds().top+sp.getGlobalBounds().height)
         return true;
     return false;
 }
