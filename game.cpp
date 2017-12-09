@@ -236,8 +236,10 @@ void Game::createObjects(){
     items["trash1"] = new ItemTrash(anims["trash"], 1.0f);
     items["trash1"]->move(300, 500);
 
-    items["gamepad"] = new ItemGamepad(anims["gamepad"], 1.0f);
-    items["gamepad"] -> move(350, 200);
+    items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad1"] -> move(350, 300);
+    items["gamepad2"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad2"] -> move(420, 300);
 
     pranks.push_back(new PrankBookThrow(this));
 
