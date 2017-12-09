@@ -99,9 +99,11 @@ void Game::executeMouseEvents(sf::Event* ev){
     }
     if (ev->type == sf::Event::MouseMoved){
         if(isMouseDown && draggedItem != nullptr){
-            draggedItem->onDrag(ev->mouseMove.x-lastMouseX, ev->mouseMove.y-lastMouseY);
-            lastMouseX = ev->mouseMove.x;
-            lastMouseY = ev->mouseMove.y;
+            sf::Vector2f temp = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+            draggedItem->onDrag(temp.x - lastMouseX,
+                                temp.y - lastMouseY);
+            lastMouseX = temp.x;
+            lastMouseY = temp.y;
         }
     }
     if(ev->type == sf::Event::MouseButtonReleased){
