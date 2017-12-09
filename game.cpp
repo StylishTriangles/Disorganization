@@ -41,16 +41,18 @@ void Game::run() {
 void Game::draw(sf::Time dT){
 	std::cout << dT.asMilliseconds() << std::endl;
 	window.draw(roomSprite);
+
     std::vector<Item*> vItems;
-    vItems.reserve(vItems.size());
-    for(const auto& p: items){
+    vItems.reserve(items.size());
+    for(const auto& p: items) {
         vItems.push_back(p.second);
     }
-    std::sort(vItems.rbegin(), vItems.rend());
-    for(Item* item: vItems) {
+    std::sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
+    for(Item *item: vItems) {
         window.draw(*item);
         Utils::drawBoundingBox(*item, &window);
     }
+
     window.draw(cat);
     if (cat.isIdle())
 	{
@@ -116,12 +118,12 @@ void Game::createObjects(){
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
 
-    items["pot"] = new ItemPot(anims["pot"]);
+    items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
 
-    items["pot2"] = new ItemPot(anims["pot"], -3.f);
+    items["pot2"] = new ItemPot(anims["pot"], -2.f);
     items["pot2"]->move(100, 100);
-    items["pot3"] = new ItemPot(anims["pot"]);
+    items["pot3"] = new ItemPot(anims["pot"], 0.0f);
     items["pot3"]->move(200, 200);
 
     pranks.push_back(new PrankBookThrow(&items));
