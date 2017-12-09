@@ -1,7 +1,7 @@
 #ifndef ITEM_CLOCK_SH
 #define ITEM_CLOCK_SH
 
-#include "Item.hpp"
+#include "../item.hpp"
 
 class ItemClockHand: public Item{
 public:
