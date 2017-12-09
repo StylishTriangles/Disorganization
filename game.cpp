@@ -69,13 +69,24 @@ void Game::executeMouseEvents(sf::Event* ev){
             isMouseDown=true;
             for(const auto& p: items){
                 if(Utils::isMouseOnSprite(*p.second, &window)){
+                    isMouseDown=true;
                     p.second->onClick();
+                    draggedItem = p.second;
                 }
             }
         }
     }
     if (ev->type == sf::Event::MouseMoved){
-
+        if(isMouseDown && draggedItem != nullptr){
+            draggedItem->onDrag(ev->mouseMove.x, ev->mouseMove.y);
+        }
+    }
+    if(ev->type == sf::Event::MouseButtonReleased){
+        if (ev->mouseButton.button == sf::Mouse::Left && isMouseDown==true && draggedItem != nullptr){
+            isMouseDown=false;
+            draggedItem->onDrop();
+            draggedItem=nullptr;
+        }
     }
 }
 

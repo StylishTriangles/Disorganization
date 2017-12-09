@@ -33,6 +33,7 @@ public:
 
 protected:
     bool isMouseDown=false;
+    Item* draggedItem=nullptr;
 };
 
 #endif // GAME_HPP
