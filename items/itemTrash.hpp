@@ -9,6 +9,7 @@ public:
     ItemTrash(Anim *a, float _layer = 1.0f);
 
     void onClick() override;
+    void onRightClick() override;
     void insert(Item* item);
 
     std::stack<Item*> myItems;
