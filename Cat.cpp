@@ -23,6 +23,7 @@ void Cat::update(sf::Time deltaTime) {
 		}
 	}
 	else if (state == PRANK) {
+			std::cout << prankProgress << std::endl;
 		if (prankProgress > activePrank->prankTime) {
 			state = GOINGTOPATH;
 			prankProgress = 0;
@@ -46,7 +47,7 @@ void Cat::update(sf::Time deltaTime) {
 		}
 	}
 	else if (state == CLOSETOPRANK) {
-		if (abs(getPosition().x-activePrank->activeItem->getPosition().x) < 5) {
+		if (Utils::getMagnitude(getPosition(), activePrank->activeItem->getPosition()) < 5) {
 			setAnimation(activePrank->catAnim);
 			activePrank->onStart();
 			state = PRANK;

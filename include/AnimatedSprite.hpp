@@ -126,7 +126,7 @@ public:
         playSpeed = -playSpeed;
     }
     void centerOrigin() {
-        setOrigin(getTextureRect().width/2, getTextureRect().height/2);
+        setOrigin(getLocalBounds().width/2, getLocalBounds().height/2);
     }
     Anim* getAnim() {
         return animation;

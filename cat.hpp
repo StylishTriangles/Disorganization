@@ -28,7 +28,7 @@ public:
 	catState state = IDLE;
 	direction travelDirection = NONE;
 	Prank* activePrank = nullptr;
-	int prankProgress;
+	int prankProgress = 0;
 	std::map<std::string, Anim*> anims;
 	int runTo;
 

@@ -72,7 +72,7 @@ void Game::draw(sf::Time dT){
 
     window.draw(cat);
     if (cat.isIdle()) {
-		if (Utils::chance(1)) {
+		if (Utils::chance(1.0/(60.0*3))) {
 			int availablePranks = 0;
 			for (auto p : pranks) {
 				availablePranks += p->isAvailable();
@@ -239,5 +239,5 @@ void Game::createObjects(){
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
-    cat.move(640, 400);
+    cat.move(640, Settings::floorLevel);
 }
