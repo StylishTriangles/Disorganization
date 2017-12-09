@@ -10,10 +10,6 @@ public:
 
     void onClick() override {} // NO CLICKING
 
-    void onDrag(int, int) override {} // PLS DON'T DRAG
-
-    void onDrop() override {} // YOU SERIOUS?
-
     void changeState() override;
 };
 
