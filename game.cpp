@@ -184,4 +184,6 @@ void Game::createObjects(){
     roomSprite.setScale(window.getSize().x * 2.0f / roomSprite.getGlobalBounds().width,
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
+
+    cat.move(640, 400);
 }

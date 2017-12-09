@@ -33,15 +33,16 @@ void Cat::update(sf::Time deltaTime) {
 		prankProgress += deltaTime.asMilliseconds();
 	}
 	else if (state == RUN) {
+		AnimSprite::update(2*deltaTime.asMilliseconds());
 		if (abs(getPosition().x - runTo) < 15) {
-			state = IDLE;
-			setAnimation(anims["catIdle"]);
+			state = GOINGTOPATH;
+			setAnimation(anims["catMove"]);
 		}
         if (travelDirection == RIGHT) {
-			move((float)dT * Utils::normalized(sf::Vector2f(runTo, pathCoordY)));
+			move((float)dT * Utils::normalized(sf::Vector2f(runTo, pathCoordY-getPosition().y)));
 		}
 		else {
-			move((float)dT * Utils::normalized(sf::Vector2f(runTo, pathCoordY)));
+			move((float)dT * Utils::normalized(sf::Vector2f(runTo, pathCoordY-getPosition().y)));
 		}
 	}
 	else if (state == CLOSETOPRANK) {
@@ -87,11 +88,13 @@ void Cat::setNextPrank(Prank* prank) {
 
 void Cat::getRekt() {
 	do {
-		runTo = Utils::randInt(-1280, 2560);
+		runTo = Utils::randInt(0, 2560);
 	}
 	while (abs(runTo - getPosition().x) < 500);
 	state = RUN;
+	prankProgress = 0;
 	setAnimation(anims["catMove"]);
+	setScale(abs(getScale().x) * Utils::sgn(runTo - getPosition().x), getScale().y);
 }
 
 bool Cat::isIdle() {
