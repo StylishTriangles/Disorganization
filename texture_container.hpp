@@ -4,6 +4,7 @@
 class TextureContainer{
 public:
     sf::Texture pot;
+    sf::Texture catIdle;
 };
 
 #endif // TEXTURE_CONTAINER_HPP

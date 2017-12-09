@@ -7,5 +7,5 @@ PrankBookThrow::PrankBookThrow(std::map<std::string, Item*>* its, int xPosition)
 }
 
 bool PrankBookThrow::isAvailable(){
-
+	return true;
 }
