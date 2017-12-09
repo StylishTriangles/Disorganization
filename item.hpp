@@ -13,7 +13,8 @@ public:
         DOOR,
         CLOCK,
         CLOCK_HAND,
-        SINK
+        SINK,
+        POOL
 	};
 
 	enum ItemState {

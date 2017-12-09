@@ -6,6 +6,7 @@
 #include "items/itemDoor.hpp"
 #include "items/itemClock.hpp"
 #include "items/itemSink.hpp"
+#include "items/itemPool.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
@@ -94,12 +95,22 @@ void Game::executeMouseEvents(sf::Event* ev){
                 isMouseDown=true;
                 lastMouseX = window.mapPixelToCoords(sf::Mouse::getPosition(window)).x;
                 lastMouseY = window.mapPixelToCoords(sf::Mouse::getPosition(window)).y;
+                bool shouldMakePool=true;
                 for(const auto& p: items){
                     if(Utils::isMouseOnSprite(*p.second, &window)){
+                        shouldMakePool=false;
                         isMouseDown=true;
                         p.second->onClick();
                         draggedItem = p.second;
                     }
+                }
+                if(shouldMakePool && hasWaterGun){
+                    ItemPool* pool = new ItemPool(anims["pool"]);
+                    pool->setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)).x,
+                                      window.mapPixelToCoords(sf::Mouse::getPosition(window)).y);
+                    items["pool"+Utils::stringify(objectNamesCtr)] = pool;
+                    objectNamesCtr++;
+                    hasWaterGun=false;
                 }
             }
         }
@@ -147,6 +158,7 @@ void Game::createObjects(){
     assets.clock.loadFromFile("files/graphics/clock.png");
     assets.clockHand.loadFromFile("files/graphics/clockhand.png");
     assets.sink.loadFromFile("files/graphics/sink.png");
+    assets.pool.loadFromFile("files/graphics/pool0.png");
 
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
@@ -156,6 +168,7 @@ void Game::createObjects(){
     anims["clock"] = new Anim(&assets.clock);
     anims["clockHand"] = new Anim(&assets.clockHand);
     anims["sink"] = new Anim(&assets.sink);
+    anims["pool"] = new Anim(&assets.pool);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
