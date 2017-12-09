@@ -9,3 +9,11 @@ PrankBookThrow::PrankBookThrow(std::map<std::string, Item*>* its)
 bool PrankBookThrow::isAvailable(){
 	return true;
 }
+
+void PrankBookThrow::onStart() {
+
+}
+
+void PrankBookThrow::onFinish() {
+
+}

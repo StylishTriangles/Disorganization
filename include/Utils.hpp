@@ -28,6 +28,7 @@ double getAngle (sf::Vector2f p1, sf::Vector2f p2);
 float getMagnitude(sf::Vector2f p1, sf::Vector2f p2);
 sf::Vector2f rotatedPoint(sf::Vector2f p, sf::Vector2f center, float d);
 void normalize(sf::Vector2f &v);
+sf::Vector2f normalized(sf::Vector2f);
 float dotProduct(sf::Vector3f a, sf::Vector3f b);
 sf::Vector3f crossProduct(sf::Vector3f a, sf::Vector3f b);
 void normalize3f(sf::Vector3f& vec);

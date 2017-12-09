@@ -7,15 +7,17 @@ void Cat::create(std::map<std::string, Anim*> animations) {
 }
 
 void Cat::update(sf::Time deltaTime) {
+	int dT = deltaTime.asMilliseconds();
 	if (state == IDLE) {
 
 	}
 	else if (state == TRAVEL) {
-        if (travelDirection == RIGHT) {
-			move(5, 0);
+		std::cout << "Travelling";
+		if (travelDirection == RIGHT) {
+			move((float)dT/3.0f, 0);
 		}
 		else {
-			move(-5, 0);
+			move(-(float)dT/3.0f, 0);
 		}
 		if (abs(getPosition().x-activePrank->activeItem->getPosition().x) < 15) {
 			state = CLOSETOPRANK;
@@ -32,16 +34,21 @@ void Cat::update(sf::Time deltaTime) {
 	}
 	else if (state == RUN) {
         if (travelDirection == RIGHT) {
-			move(15, 0);
+			move(dT, 0);
 		}
 		else {
-			move(-15, 0);
+			move(-dT, 0);
 		}
 	}
 	else if (state == CLOSETOPRANK) {
-
+		if (abs(getPosition().x-activePrank->activeItem->getPosition().x) < 5) {
 			setAnimation(activePrank->catAnim);
 			activePrank->onStart();
+			state = PRANK;
+		}
+		else {
+			move(Utils::normalized(activePrank->activeItem->getPosition() - getPosition()) * (float)dT / 3.0f);
+		}
 	}
 	AnimSprite::update(deltaTime.asMilliseconds());
 }

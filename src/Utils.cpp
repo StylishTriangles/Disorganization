@@ -118,6 +118,14 @@ void normalize(sf::Vector2f &v) {
         v = sf::Vector2f(v.x/length, v.y/length);
 }
 
+sf::Vector2f normalized(sf::Vector2f v) {
+	float length = sqrt(v.x*v.x+v.y*v.y);
+    if (length==0)
+        return sf::Vector2f(0, 0);
+    else
+		return sf::Vector2f(v.x/length, v.y/length);
+}
+
 float dotProduct(sf::Vector3f a, sf::Vector3f b)
 {
     return a.x*b.x + a.y*b.y + a.z*b.z;

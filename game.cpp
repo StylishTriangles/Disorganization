@@ -39,7 +39,6 @@ void Game::run() {
 }
 
 void Game::draw(sf::Time dT){
-	std::cout << dT.asMilliseconds() << std::endl;
 	window.draw(roomSprite);
     std::vector<Item*> vItems;
     vItems.reserve(vItems.size());
@@ -70,7 +69,7 @@ void Game::draw(sf::Time dT){
 			}
 			while (!pranks[i]->isAvailable());
 
-			//cat.setNextPrank(pranks[i]);
+			cat.setNextPrank(pranks[i]);
 		}
     }
     cat.update(dT);
@@ -111,18 +110,20 @@ void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/doniczka.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
+    assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
 
 
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
+    anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
 
     items["pot"] = new ItemPot(anims["pot"]);
     items["pot"]->move(600, 100);
 
-    items["pot2"] = new ItemPot(anims["pot"], -3.f);
-    items["pot2"]->move(100, 100);
-    items["pot3"] = new ItemPot(anims["pot"]);
-    items["pot3"]->move(200, 200);
+    //items["pot2"] = new ItemPot(anims["pot"], -3.f);
+    //items["pot2"]->move(100, 100);
+    //items["pot3"] = new ItemPot(anims["pot"]);
+    //items["pot3"]->move(200, 200);
 
     pranks.push_back(new PrankBookThrow(&items));
 
