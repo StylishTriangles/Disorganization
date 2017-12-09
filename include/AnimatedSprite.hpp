@@ -87,6 +87,8 @@ protected:
     int countReplays=0;
 };
 
+
+
 namespace ARO {
     class Anim {
     public:
