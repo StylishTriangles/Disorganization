@@ -42,8 +42,9 @@ protected:
     Item* draggedItem=nullptr;
 
     sf::Font font;
-    int secondsUntilYourMumComes=3600*2;
-    float totalTimeInSeconds=3600*2;
+    float secondsPassed=0;
+    float totalTimeInSeconds=3600;
+    float timeSpeed = 6;
 };
 
 #endif // GAME_HPP
