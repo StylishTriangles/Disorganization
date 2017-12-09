@@ -187,7 +187,7 @@ void Game::createObjects(){
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
     assets.catMove.loadFromFile("files/graphics/catMove.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
-    assets.room2.loadFromFile("files/graphics/pokoj2.png");
+    assets.room2.loadFromFile("files/graphics/pokoj3.png");
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
     assets.clock.loadFromFile("files/graphics/clock.png");
@@ -247,7 +247,7 @@ void Game::createObjects(){
     pranks.push_back(new PrankBookThrow(this));
 
     roomSprite = sf::Sprite(assets.room2);
-    roomSprite.setScale(window.getSize().x * 2.0f / roomSprite.getGlobalBounds().width,
+    roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
