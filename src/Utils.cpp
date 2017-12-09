@@ -68,9 +68,9 @@ float det3f(sf::Vector3f top, sf::Vector3f mid, sf::Vector3f bot)
 
 int sgn(double x)
 {
-    if (x==0) return 0;
     if (x>0) return 1;
     if (x<0) return -1;
+    return 0;
 }
 
 std::string getDate() {
