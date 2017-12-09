@@ -56,7 +56,6 @@ void Game::draw(sf::Time dT){
 			}
 			if (availablePranks == 0) {
 				///Winner winner chicken dinner
-				std::cout << "cookol";
 			}
 			int i;
 			do
@@ -112,9 +111,9 @@ void Game::createObjects(){
     anims["catIdle"] = new Anim(&assets.catIdle);
 
     items["pot"] = new ItemPot(anims["pot"]);
-    items["pot"]->move(100, 100);
+    items["pot"]->move(600, 100);
 
-    pranks.push_back(new PrankBookThrow(&items, 1000));
+    pranks.push_back(new PrankBookThrow(&items));
 
     roomSprite = sf::Sprite(assets.room1);
     roomSprite.setScale(window.getSize().x / roomSprite.getGlobalBounds().width,
