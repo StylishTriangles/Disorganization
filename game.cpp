@@ -41,9 +41,15 @@ void Game::run() {
 void Game::draw(sf::Time dT){
 	std::cout << dT.asMilliseconds() << std::endl;
 	window.draw(roomSprite);
+    std::vector<Item*> vItems;
+    vItems.reserve(vItems.size());
     for(const auto& p: items){
-        window.draw(*p.second);
-        Utils::drawBoundingBox(*p.second, &window);
+        vItems.push_back(p.second);
+    }
+    std::sort(vItems.rbegin(), vItems.rend());
+    for(Item* item: vItems) {
+        window.draw(*item);
+        Utils::drawBoundingBox(*item, &window);
     }
     window.draw(cat);
     if (cat.isIdle())

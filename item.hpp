@@ -5,10 +5,11 @@
 
 class Item: public AnimSprite{
 public:
-    Item(Anim* a, bool looped=true);
+    Item(Anim* a, float layer = 1.0f);
 
     bool clickable;
     bool dragndrop;
+    float layer;
 
     virtual void onClick()=0;
     virtual void onDrag(int dx, int dy);
