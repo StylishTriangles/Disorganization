@@ -70,7 +70,7 @@ void Game::draw(sf::Time dT){
 			}
 			while (!pranks[i]->isAvailable());
 
-			//cat.setNextPrank(pranks[i]);
+			cat.setNextPrank(pranks[i]);
 		}
     }
     cat.update(dT);
@@ -124,7 +124,7 @@ void Game::createObjects(){
     items["pot3"] = new ItemPot(anims["pot"]);
     items["pot3"]->move(200, 200);
 
-    pranks.push_back(new PrankBookThrow(&items));
+    pranks.push_back(new PrankBookThrow(this));
 
     roomSprite = sf::Sprite(assets.room1);
     roomSprite.setScale(window.getSize().x / roomSprite.getGlobalBounds().width,

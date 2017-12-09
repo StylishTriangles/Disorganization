@@ -9,11 +9,11 @@ Item::Item(Anim* a, float _layer)
     Utils::setOriginInCenter(*this);
 }
 
-void Item::Item::onDrag(int dx, int dy){
+void Item::onDrag(int dx, int dy){
 
 }
 
-void Item::Item::onDrop(){
+void Item::onDrop(){
 
 }
 
