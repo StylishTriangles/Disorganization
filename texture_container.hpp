@@ -3,8 +3,7 @@
 
 class TextureContainer{
 public:
-    sf::Texture potDefault;
-    sf::Texture potBroken;
+    sf::Texture pot;
     sf::Texture catIdle;
     sf::Texture catMove;
     sf::Texture room1;

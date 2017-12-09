@@ -23,7 +23,7 @@ public:
     void changeState() override {
 		if (state == DEFAULT){
 			state = BROKEN;
-            setColor(sf::Color::Red);
+            nextFrame();
 		}
 		else if (state == BROKEN){
             state = DEFAULT;
