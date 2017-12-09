@@ -62,7 +62,6 @@ void Game::introLogic(sf::Time dT){
         }
         if(introClock.getElapsedTime().asSeconds() >= 4.0){
             introDone = true;
-            std::cout << "intro Done\n";
         }
     }
 }
@@ -277,18 +276,18 @@ void Game::createObjects(){
     items["doorRightFirstRoom"] = doorRightFirstRoom;
     items["doorRightFirstRoom"]->move(1150, 400);
 
-    ItemDoor *doorRightSecondRoom = new ItemDoor(anims["door"], false, 1.0f);
+    ItemDoor *doorRightSecondRoom = new ItemDoor(anims["door"], false, 10.0f);
     doorRightSecondRoom->setGame(this);
     items["doorRightSecondRoom"] = doorRightSecondRoom;
     items["doorRightSecondRoom"]->move(1150 + 1280, 400);
 
-    ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 1.0f);
+    ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 10.0f);
     doorLeftSecondRoom->setScale(-1, 1);
     doorLeftSecondRoom->setGame(this);
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;
     items["doorLeftSecondRoom"]->move(130+1280, 400);
 
-    ItemDoor *doorLeftThirdRoom = new ItemDoor(anims["door"], true, 1.0f);
+    ItemDoor *doorLeftThirdRoom = new ItemDoor(anims["door"], true, 10.0f);
     doorLeftThirdRoom->setScale(-1, 1);
     doorLeftThirdRoom->setGame(this);
     items["doorLeftThirdRoom"] = doorLeftThirdRoom;
@@ -297,7 +296,7 @@ void Game::createObjects(){
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
     items["sink"]->move(600+1280, 100);
 
-    items["trash1"] = new ItemTrash(anims["trash"]);
+    items["trash1"] = new ItemTrash(anims["trash"], 5.f);
     items["trash1"]->move(300, 500);
 
     items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
@@ -328,4 +327,7 @@ void Game::createObjects(){
     countText = sf::Text("", font);
     countText.setCharacterSize(50);
     countText.setColor(sf::Color::Red);
+
+    momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
+    momText.setPosition(momCloud.getPosition());
 }
