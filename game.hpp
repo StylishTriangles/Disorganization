@@ -33,6 +33,7 @@ public:
 
     Cat cat;
     sf::Sprite roomSprite;
+    sf::View view;
 
 protected:
     bool isMouseDown=false;
