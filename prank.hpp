@@ -10,6 +10,7 @@ public:
 
     virtual bool isAvailable()=0;
     Anim* catAnim;
+    float prankTime = 0;
 
     std::map<std::string, Item*>* items;
 };

@@ -38,6 +38,26 @@ void Game::draw(){
     for(const auto& p: items){
         window.draw(*p.second);
     }
+    if (cat.isIdle())
+	{
+		if (Utils::chance(0.01))
+		{
+			int availablePranks = 0;
+			for (auto p : pranks) {
+				availablePranks += p->isAvailable();
+			}
+			if (availablePranks == 0) {
+				///WYGRA£EŒ
+			}
+			int i;
+			//do
+			//{
+			//	i = Utils::randInt(0, pranks.size());
+			//}
+			//while (pranks[i]->isAvailable());
+			//cat.setNextPrank(pranks[i]);
+		}
+    }
 }
 
 void Game::createObjects(){

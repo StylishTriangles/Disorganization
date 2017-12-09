@@ -9,6 +9,8 @@
 #include "prank.hpp"
 #include "item.hpp"
 #include "texture_container.hpp"
+#include "cat.hpp"
+#include "Utils.hpp"
 
 class Game {
 public:
@@ -25,6 +27,8 @@ public:
     std::vector<Prank*> pranks;
     std::map<std::string, Item*> items;
     std::map<std::string, Anim*> anims;
+
+    Cat cat;
 };
 
 #endif // GAME_HPP

@@ -3,6 +3,7 @@
 
 #include "AnimatedSprite.hpp"
 #include "prank.hpp"
+#include <string>
 
 enum catState {
 	IDLE,
@@ -14,8 +15,15 @@ enum catState {
 class Cat : public AnimSprite {
 public:
 	catState state = IDLE;
-	void update();
+	Prank* activePrank = nullptr;
+	float prankProgress;
+
+
+
+	void update(sf::Time, std::map<std::string, Anim*>);
 	void setNextPrank(Prank*);
+	bool isIdle();
+	//void
 };
 
 #endif // CAT_HPP
