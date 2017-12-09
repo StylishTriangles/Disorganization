@@ -8,6 +8,7 @@ class Settings {
 public :
 	static sf::Vector2f windowSize;
 	static int floorLevel;
+	static int room;
 };
 
 #endif //SETTINGS_HPP

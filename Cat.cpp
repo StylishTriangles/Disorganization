@@ -39,14 +39,14 @@ void Cat::update(sf::Time deltaTime) {
 			setAnimation(anims["catMove"]);
 		}
         if (travelDirection == RIGHT) {
-			move((float)dT * Utils::normalized(sf::Vector2f(runTo, pathCoordY-getPosition().y)));
+			move((float)dT * Utils::normalized(sf::Vector2f(runTo, Settings::floorLevel-getPosition().y)));
 		}
 		else {
-			move(-(float)dT * Utils::normalized(sf::Vector2f(runTo, -pathCoordY+getPosition().y)));
+			move(-(float)dT * Utils::normalized(sf::Vector2f(runTo, -Settings::floorLevel+getPosition().y)));
 		}
 	}
 	else if (state == CLOSETOPRANK) {
-		if (abs(getPosition().x-activePrank->activeItem->getPosition().x) < 5) {
+		if (Utils::getMagnitude(getPosition(), activePrank->activeItem->getPosition()) < 10) {
 			setAnimation(activePrank->catAnim);
 			activePrank->onStart();
 			state = PRANK;
@@ -56,16 +56,16 @@ void Cat::update(sf::Time deltaTime) {
 		}
 	}
 	else if (state == GOINGTOPATH) {
-		if (abs(getPosition().y-pathCoordY) < 10) {
+		if (abs(getPosition().y-Settings::floorLevel) < 10) {
 			state = IDLE;
 			setAnimation(anims["catIdle"]);
 		}
 
-		else if (getPosition().y < pathCoordY) {
+		else if (getPosition().y < Settings::floorLevel) {
 			move(0, (float)dT / 3.0f);
 		}
 
-		else if (getPosition().y > pathCoordY) {
+		else if (getPosition().y > Settings::floorLevel) {
 			move(0, -(float)dT / 3.0f);
 		}
 	}

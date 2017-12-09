@@ -4,6 +4,7 @@
 #include "AnimatedSprite.hpp"
 #include "prank.hpp"
 #include "Utils.hpp"
+#include "Settings.hpp"
 #include <string>
 #include <cmath>
 
@@ -27,9 +28,8 @@ public:
 	catState state = IDLE;
 	direction travelDirection = NONE;
 	Prank* activePrank = nullptr;
-	int prankProgress;
+	int prankProgress = 0;
 	std::map<std::string, Anim*> anims;
-	int pathCoordY = 400;
 	int runTo;
 
 

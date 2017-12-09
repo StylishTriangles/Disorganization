@@ -7,12 +7,15 @@ ItemDoor::ItemDoor(Anim *a, bool lDoors, float layer = 0.0)
 {
 }
 
-void ItemDoor::onClick()
-{
-    if(leftDoors)
-        g->view.move(-1280, 0);
-    else
-        g->view.move(1280, 0);
+void ItemDoor::onClick(){
+    if(leftDoors){
+        Settings::room--;
+        g->view.move(-Settings::windowSize.x, 0);
+    }
+    else{
+        Settings::room++;
+        g->view.move(Settings::windowSize.x, 0);
+    }
 }
 
 void ItemDoor::onDrag(int dx, int dy)

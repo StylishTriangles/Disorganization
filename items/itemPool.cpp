@@ -3,7 +3,7 @@
 ItemPool::ItemPool(Anim* a, float layer)
 :Item(a, POOL, layer)
 {
-
+    state = BROKEN;
 }
 
 void ItemPool::onClick(){

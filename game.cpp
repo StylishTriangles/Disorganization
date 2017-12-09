@@ -8,6 +8,7 @@
 #include "items/itemSink.hpp"
 #include "items/itemPool.hpp"
 #include "items/itemTrash.hpp"
+#include "items/itemGamepad.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
@@ -72,7 +73,7 @@ void Game::draw(sf::Time dT){
 
     window.draw(cat);
     if (cat.isIdle()) {
-		if (Utils::chance(1)) {
+		if (Utils::chance(1.0/(60.0*3))) {
 			int availablePranks = 0;
 			for (auto p : pranks) {
 				availablePranks += p->isAvailable();
@@ -157,12 +158,20 @@ void Game::executeMouseEvents(sf::Event* ev){
 }
 
 void Game::drawStats(){
-    std::string str = "Time left " + Utils::stringifyf(totalTimeInSeconds - secondsPassed) + "s";
+    int messiness = 0;
+    for(const auto& it: items){
+        if(it.second->state == Item::BROKEN){
+            messiness+=2;
+        }
+    }
+    std::string str =   "Time left " + Utils::stringify((int)(totalTimeInSeconds - secondsPassed)) + "s\n\n"
+                        "Messiness: " + Utils::stringify(messiness)+"\n";
 
-    sf::Text textMum(str, font);
-    textMum.setColor(sf::Color::Red);
-    textMum.setCharacterSize(20);
-    window.draw(textMum);
+    sf::Text textStats(str, font);
+    textStats.setColor(sf::Color::Red);
+    textStats.move(Settings::room*Settings::windowSize.x, 0);
+    textStats.setCharacterSize(20);
+    window.draw(textStats);
 }
 
 void Game::shotWater(){
@@ -183,8 +192,9 @@ void Game::createObjects(){
     assets.sink.loadFromFile("files/graphics/sink.png");
     assets.pool.loadFromFile("files/graphics/pool0.png");
     assets.trash.loadFromFile("files/graphics/trash.png");
+    assets.gamepad.loadFromFile("files/graphics/gamepad.png");
 
-    anims["pot"] = new Anim(&assets.pot);
+    anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
     anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
@@ -194,6 +204,7 @@ void Game::createObjects(){
     anims["sink"] = new Anim(&assets.sink);
     anims["pool"] = new Anim(&assets.pool);
     anims["trash"] = new Anim(&assets.trash);
+    anims["gamepad"] = new Anim(&assets.gamepad);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
@@ -225,6 +236,11 @@ void Game::createObjects(){
     items["trash1"] = new ItemTrash(anims["trash"], 1.0f);
     items["trash1"]->move(300, 500);
 
+    items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad1"] -> move(350, 300);
+    items["gamepad2"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad2"] -> move(420, 300);
+
     pranks.push_back(new PrankBookThrow(this));
 
     roomSprite = sf::Sprite(assets.room2);
@@ -232,5 +248,5 @@ void Game::createObjects(){
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
-    cat.move(640, 400);
+    cat.move(640, Settings::floorLevel);
 }
