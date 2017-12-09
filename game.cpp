@@ -129,6 +129,14 @@ void Game::executeMouseEvents(sf::Event* ev){
                 }
             }
         }
+        else if (ev->mouseButton.button == sf::Mouse::Right){
+            for(const auto& p: items){
+                if(Utils::isMouseOnSprite(*p.second, &window)){
+                    if(p.second->clickable)
+                        p.second->onRightClick();
+                }
+            }
+        }
     }
     if (ev->type == sf::Event::MouseMoved){
         if(isMouseDown && draggedItem != nullptr){
@@ -236,7 +244,7 @@ void Game::createObjects(){
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
     items["sink"]->move(600+1280, 100);
 
-    items["trash1"] = new ItemTrash(anims["trash"], 1.0f);
+    items["trash1"] = new ItemTrash(anims["trash"]);
     items["trash1"]->move(300, 500);
 
     items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
