@@ -8,18 +8,31 @@
 
 #include "prank.hpp"
 #include "item.hpp"
+#include "texture_container.hpp"
+#include "cat.hpp"
+#include "Utils.hpp"
 
 class Game {
 public:
 	Game(int width, int height, std::string title);
+	~Game();
 	sf::RenderWindow window;
 	void run();
+	void executeMouseEvents(sf::Event* ev);
+	void createObjects();
 	void draw();
 
+	sf::Event event;
+    TextureContainer assets;
 
     std::vector<Prank*> pranks;
     std::map<std::string, Item*> items;
     std::map<std::string, Anim*> anims;
+
+    Cat cat;
+
+protected:
+    bool isMouseDown=false;
 };
 
 #endif // GAME_HPP

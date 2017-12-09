@@ -1,13 +1,29 @@
-#include "AnimatedSprite.hpp"
+#include "cat.hpp"
 
-class Cat : ARO::AnimSprite {
-	std::vector<ARO::Anim> animations;
-	///state
-	public void loadAnimations() {
+void Cat::update(sf::Time deltaTime, std::map<std::string, Anim*> anims) {
+	if (state == IDLE) {
 
 	}
-
-	public void update() {
+	else if (state == TRAVEL) {
 
 	}
+	else if (state == PRANK) {
+		if (prankProgress > activePrank->prankTime) {
+			state = IDLE;
+			prankProgress = 0;
+			setAnimation(anims["catIdle"]);
+		}
+	}
+	else if (state == RUN) {
+
+	}
+	AnimSprite::update(deltaTime.asMilliseconds());
+}
+
+void Cat::setNextPrank(Prank* prank) {
+	activePrank = prank;
+}
+
+bool Cat::isIdle() {
+	return state == IDLE;
 }
