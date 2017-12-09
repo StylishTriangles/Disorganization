@@ -11,7 +11,7 @@ void Cat::update(sf::Time deltaTime) {
 
 	}
 	else if (state == TRAVEL) {
-		if (travelDirection = RIGHT) {
+        if (travelDirection == RIGHT) {
 			move(5, 0);
 		}
 		else {
@@ -31,7 +31,7 @@ void Cat::update(sf::Time deltaTime) {
 		prankProgress += deltaTime.asMilliseconds();
 	}
 	else if (state == RUN) {
-		if (travelDirection = RIGHT) {
+        if (travelDirection == RIGHT) {
 			move(15, 0);
 		}
 		else {

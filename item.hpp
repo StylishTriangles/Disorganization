@@ -5,7 +5,7 @@
 
 class Item: public AnimSprite{
 public:
-    Item(Anim* a, float layer = 1.0f);
+    Item(Anim* a, float _layer = 1.0f);
 
     bool clickable;
     bool dragndrop;

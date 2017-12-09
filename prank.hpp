@@ -7,6 +7,7 @@
 class Prank{
 public:
     Prank(std::map<std::string, Item*>* its);
+    virtual ~Prank() = default;
 
     virtual void onFinish();
     virtual void onStart();

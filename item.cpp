@@ -2,8 +2,9 @@
 
 #include "Utils.hpp"
 
-Item::Item(Anim* a, float layer)
-:AnimSprite(a)
+Item::Item(Anim* a, float _layer)
+:AnimSprite(a),
+  layer(_layer)
 {
     Utils::setOriginInCenter(*this);
 }
