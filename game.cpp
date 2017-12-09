@@ -4,6 +4,7 @@
 
 #include "items/itemPot.hpp"
 #include "items/itemDoor.hpp"
+#include "items/itemClock.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
@@ -40,7 +41,7 @@ void Game::run() {
 }
 
 void Game::draw(sf::Time dT){
-    secondsUntilYourMumComes -= (dT.asSeconds()/1.0)*24.0;
+    secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
 
 	window.draw(roomSprite);
     drawStats();
@@ -49,6 +50,7 @@ void Game::draw(sf::Time dT){
     std::vector<Item*> vItems;
     vItems.reserve(items.size());
     for(const auto& p: items) {
+        p.second->update(dT);
         vItems.push_back(p.second);
     }
     std::sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
@@ -116,7 +118,7 @@ void Game::executeMouseEvents(sf::Event* ev){
 }
 
 void Game::drawStats(){
-    std::string str = "Time left " + Utils::stringify(secondsUntilYourMumComes) + "s";
+    std::string str = "Time left " + Utils::stringifyf(totalTimeInSeconds - secondsPassed) + "s";
 
     sf::Text textMum(str, font);
     textMum.setColor(sf::Color::Red);
@@ -127,28 +129,35 @@ void Game::drawStats(){
 void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/doniczka.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
+    assets.catMove.loadFromFile("files/graphics/catMove.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
     assets.room2.loadFromFile("files/graphics/pokoj2.png");
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
+    assets.clock.loadFromFile("files/graphics/clock.png");
+    assets.clockHand.loadFromFile("files/graphics/clockhand.png");
 
 
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
+    anims["catMove"] = new Anim(&assets.catMove, 676, sf::milliseconds(300));
     anims["doorRight"] = new Anim(&assets.doorRight);
+    anims["clock"] = new Anim(&assets.clock);
+    anims["clockHand"] = new Anim(&assets.clockHand);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
+    ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 1.0f);
+    items["clockHand"] = itemClockHand;
+    items["clock"] = new ItemClock(anims["clock"], itemClockHand, &secondsPassed, &totalTimeInSeconds, 1.0f);
+    items["clock"]->setPosition(200, 100);
+    items["clock"]->setScale(0.4, 0.4);
+
     ItemDoor* doorRight = new ItemDoor(anims["doorRight"], 1.0f);
     doorRight->setGame(this);
     items["doorRight"] = doorRight;
     items["doorRight"]->move(1150, 400);
-
-    items["pot2"] = new ItemPot(anims["pot"], -3.f);
-    items["pot2"]->move(100, 100);
-    items["pot3"] = new ItemPot(anims["pot"]);
-    items["pot3"]->move(200, 200);
 
     pranks.push_back(new PrankBookThrow(this));
 

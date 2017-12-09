@@ -11,13 +11,17 @@ Item::Item(Anim* a, ItemType i, float _layer)
 }
 
 void Item::onDrag(int dx, int dy){
-
+    move(dx, dy);
 }
 
 void Item::onDrop(){
 
 }
 
-void changeState(){
-    
+void Item::update(sf::Time dt){
+
+}
+
+void Item::changeState(){
+
 }
