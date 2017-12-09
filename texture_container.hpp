@@ -15,6 +15,7 @@ public:
     sf::Texture clockHand;
     sf::Texture sink;
     sf::Texture pool;
+    sf::Texture trash;
 };
 
 #endif // TEXTURE_CONTAINER_HPP

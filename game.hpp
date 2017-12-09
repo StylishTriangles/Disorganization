@@ -12,7 +12,7 @@
 #include "texture_container.hpp"
 #include "cat.hpp"
 #include "Utils.hpp"
-#include "Settings.hpp"
+#include "Collision.hpp"
 
 class Game {
 public:

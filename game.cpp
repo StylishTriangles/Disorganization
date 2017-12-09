@@ -7,6 +7,7 @@
 #include "items/itemClock.hpp"
 #include "items/itemSink.hpp"
 #include "items/itemPool.hpp"
+#include "items/itemTrash.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
@@ -134,10 +135,22 @@ void Game::executeMouseEvents(sf::Event* ev){
             lastMouseY = temp.y;
         }
     }
+
     if(ev->type == sf::Event::MouseButtonReleased){
         if (ev->mouseButton.button == sf::Mouse::Left && isMouseDown==true && draggedItem != nullptr){
+            bool dumped=false;
+            for(const auto& p: items){
+                if(draggedItem->type != Item::TRASH && p.second->type == Item::TRASH && Collision::PixelPerfectTest(*draggedItem, *p.second)){
+                    dumped = true;
+                    draggedItem->onTrash();
+                    std::cout << "on trash\n";
+                }
+
+            }
+            if(!dumped)
+                draggedItem->onDrop();
+
             isMouseDown=false;
-            draggedItem->onDrop();
             draggedItem=nullptr;
         }
     }
@@ -169,6 +182,7 @@ void Game::createObjects(){
     assets.clockHand.loadFromFile("files/graphics/clockhand.png");
     assets.sink.loadFromFile("files/graphics/sink.png");
     assets.pool.loadFromFile("files/graphics/pool0.png");
+    assets.trash.loadFromFile("files/graphics/trash.png");
 
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
@@ -179,6 +193,7 @@ void Game::createObjects(){
     anims["clockHand"] = new Anim(&assets.clockHand);
     anims["sink"] = new Anim(&assets.sink);
     anims["pool"] = new Anim(&assets.pool);
+    anims["trash"] = new Anim(&assets.trash);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
@@ -207,6 +222,9 @@ void Game::createObjects(){
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
     items["sink"]->move(600+1280, 100);
 
+    items["trash1"] = new ItemTrash(anims["trash"], 1.0f);
+    items["trash1"]->move(300, 500);
+
     pranks.push_back(new PrankBookThrow(this));
 
     roomSprite = sf::Sprite(assets.room2);
@@ -214,5 +232,5 @@ void Game::createObjects(){
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
-    cat.move(640, Settings::floorLevel);
+    cat.move(640, 400);
 }

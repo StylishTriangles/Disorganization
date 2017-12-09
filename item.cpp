@@ -25,3 +25,7 @@ void Item::update(sf::Time dt){
 void Item::changeState(){
 
 }
+
+void Item::onTrash(){
+
+}
