@@ -33,11 +33,15 @@ void Cat::update(sf::Time deltaTime) {
 		prankProgress += deltaTime.asMilliseconds();
 	}
 	else if (state == RUN) {
+		if (getPosition().x - runTo < 15) {
+			state = IDLE;
+			setAnimation(anims["catIdle"]);
+		}
         if (travelDirection == RIGHT) {
-			move(dT, 0);
+			move(dt * Utils::normalize(Vector2f(runTo, 0)));
 		}
 		else {
-			move(-dT, 0);
+			move(dt * Utils::normalize(Vector2f(runTo, 0)));
 		}
 	}
 	else if (state == CLOSETOPRANK) {
@@ -80,6 +84,15 @@ void Cat::setNextPrank(Prank* prank) {
 	}
 	state = TRAVEL;
 	setAnimation(anims["catMove"]);
+}
+
+void getRekt() {
+	do {
+		runTo = Utils::randInt(-1280, 2560);
+	}
+	while (abs(runTo - GetPosition().x) < 500);
+	state = RUN;
+	setAnimation("catMove");
 }
 
 bool Cat::isIdle() {
