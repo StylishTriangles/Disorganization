@@ -24,7 +24,7 @@ void Cat::update(sf::Time deltaTime) {
 	}
 	else if (state == PRANK) {
 		if (prankProgress > activePrank->prankTime) {
-			state = IDLE;
+			state = GOINGTOPATH;
 			prankProgress = 0;
 			setAnimation(anims["catIdle"]);
 			activePrank->onFinish();
@@ -48,6 +48,20 @@ void Cat::update(sf::Time deltaTime) {
 		}
 		else {
 			move(Utils::normalized(activePrank->activeItem->getPosition() - getPosition()) * (float)dT / 3.0f);
+		}
+	}
+	else if (state == GOINGTOPATH) {
+		if (abs(getPosition().y-pathCoordY) < 10) {
+			state = IDLE;
+			setAnimation(anims["catIdle"]);
+		}
+
+		else if (getPosition().y < pathCoordY) {
+			move(0, (float)dT / 3.0f);
+		}
+
+		else if (getPosition().y > pathCoordY) {
+			move(0, -(float)dT / 3.0f);
 		}
 	}
 	AnimSprite::update(deltaTime.asMilliseconds());
