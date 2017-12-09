@@ -40,6 +40,7 @@ void Game::run() {
 
 void Game::draw(sf::Time dT){
 	std::cout << dT.asMilliseconds() << std::endl;
+	window.draw(roomSprite);
     for(const auto& p: items){
         window.draw(*p.second);
         Utils::drawBoundingBox(*p.second, &window);
@@ -55,7 +56,6 @@ void Game::draw(sf::Time dT){
 			}
 			if (availablePranks == 0) {
 				///Winner winner chicken dinner
-				std::cout << "cookol";
 			}
 			int i;
 			do
@@ -104,13 +104,19 @@ void Game::executeMouseEvents(sf::Event* ev){
 void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/doniczka.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
+    assets.room1.loadFromFile("files/graphics/pokoj.png");
 
 
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
 
     items["pot"] = new ItemPot(anims["pot"]);
-    items["pot"]->move(100, 100);
+    items["pot"]->move(600, 100);
 
     pranks.push_back(new PrankBookThrow(&items));
+
+    roomSprite = sf::Sprite(assets.room1);
+    roomSprite.setScale(window.getSize().x / roomSprite.getGlobalBounds().width,
+                        window.getSize().y / roomSprite.getGlobalBounds().height);
+
 }
