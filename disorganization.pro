@@ -15,7 +15,9 @@ SOURCES += main.cpp \
     item.cpp \
     Prank.cpp \
     pranks/prankBookThrow.cpp \
-    items/itemDoor.cpp
+    items/itemDoor.cpp \
+    items/itemSink.cpp \
+    items/itemTrash.cpp
 
 INCLUDEPATH += C:/SFML/include
 INCLUDEPATH += ./include
@@ -46,7 +48,9 @@ HEADERS += \
     texture_container.hpp \
     items/itemPot.hpp \
     pranks/prankBookThrow.hpp \
-    items/itemDoor.hpp
+    items/itemDoor.hpp \
+    items/itemTrash.hpp \
+    items/itemSink.hpp
 
 DISTFILES += \
     imgui.ini

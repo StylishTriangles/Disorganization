@@ -36,6 +36,8 @@ build-*
 *.depend
 *.layout
 
+#pliki aaa+
+*.autosave
 
 *.ini
 

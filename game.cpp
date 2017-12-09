@@ -49,6 +49,14 @@ void Game::draw(sf::Time dT){
     drawStats();
     window.setView(view);
 
+    for (auto it = items.cbegin(); it != items.cend(); ){
+        if (it->second->state == Item::DELETED){
+            items.erase(it++);
+        }
+        else
+            ++it;
+    }
+
     std::vector<Item*> vItems;
     vItems.reserve(items.size());
     for(const auto& p: items) {
@@ -100,8 +108,10 @@ void Game::executeMouseEvents(sf::Event* ev){
                     if(Utils::isMouseOnSprite(*p.second, &window)){
                         shouldMakePool=false;
                         isMouseDown=true;
-                        p.second->onClick();
-                        draggedItem = p.second;
+                        if(p.second->clickable)
+                            p.second->onClick();
+                        if(p.second->draggable)
+                            draggedItem = p.second;
                     }
                 }
                 if(shouldMakePool && hasWaterGun){
@@ -204,5 +214,5 @@ void Game::createObjects(){
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
-    cat.move(640, 400);
+    cat.move(640, Settings::floorLevel);
 }
