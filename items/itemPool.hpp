@@ -9,7 +9,6 @@ public:
 
     void onClick() override;
     void onDrag(int dx, int dy) override;
-    void onDrop() override;
 
     float actLevel=0;
     float cleanLevel=500.0;

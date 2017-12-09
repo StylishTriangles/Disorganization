@@ -21,11 +21,3 @@ void ItemPool::onDrag(int dx, int dy){
         state = DELETED;
     }
 }
-
-void ItemPool::onDrop(){
-    sf::Color col = getColor();
-    col.a = 255;
-    setColor(col);
-    if(actLevel < 100)
-        actLevel=0;
-}
