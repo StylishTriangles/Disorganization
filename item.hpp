@@ -20,7 +20,8 @@ public:
 
 	enum ItemState {
 		BROKEN,
-		DEFAULT
+		DEFAULT,
+        DELETED
 	};
 
     Item(Anim* a, ItemType i, float _layer = 1.0f);

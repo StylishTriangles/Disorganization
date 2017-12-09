@@ -49,6 +49,14 @@ void Game::draw(sf::Time dT){
     drawStats();
     window.setView(view);
 
+    for (auto it = items.cbegin(); it != items.cend(); ){
+        if (it->second->state == Item::DELETED){
+            items.erase(it++);
+        }
+        else
+            ++it;
+    }
+
     std::vector<Item*> vItems;
     vItems.reserve(items.size());
     for(const auto& p: items) {
