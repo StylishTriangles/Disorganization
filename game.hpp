@@ -5,6 +5,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <string>
+#include <iostream>
 
 #include "prank.hpp"
 #include "item.hpp"
@@ -20,10 +21,11 @@ public:
 	void run();
 	void executeMouseEvents(sf::Event* ev);
 	void createObjects();
-	void draw();
+	void draw(sf::Time);
 
 	sf::Event event;
     TextureContainer assets;
+    sf::Clock deltaClock;
 
     std::vector<Prank*> pranks;
     std::map<std::string, Item*> items;

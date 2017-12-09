@@ -9,6 +9,7 @@ Game::Game(int width, int height, std::string title)
 {
 	window.setFramerateLimit(60);
     createObjects();
+    cat.create(anims);
 }
 
 Game::~Game(){
@@ -32,19 +33,21 @@ void Game::run() {
             executeMouseEvents(&event);
 		}
 		window.clear(sf::Color::Black);
-		draw();
+		draw(deltaClock.restart());
 		window.display();
 	}
 }
 
-void Game::draw(){
+void Game::draw(sf::Time dT){
+	std::cout << dT.asMilliseconds() << std::endl;
     for(const auto& p: items){
         window.draw(*p.second);
         Utils::drawBoundingBox(*p.second, &window);
     }
+    window.draw(cat);
     if (cat.isIdle())
 	{
-		if (Utils::chance(0.01))
+		if (Utils::chance(1))
 		{
 			int availablePranks = 0;
 			for (auto p : pranks) {
@@ -52,16 +55,19 @@ void Game::draw(){
 			}
 			if (availablePranks == 0) {
 				///Winner winner chicken dinner
+				std::cout << "cookol";
 			}
 			int i;
-			//do
-			//{
-			//	i = Utils::randInt(0, pranks.size());
-			//}
-			//while (pranks[i]->isAvailable());
-			//cat.setNextPrank(pranks[i]);
+			do
+			{
+				i = Utils::randInt(0, pranks.size());
+			}
+			while (!pranks[i]->isAvailable());
+
+			cat.setNextPrank(pranks[i]);
 		}
     }
+    cat.update(dT, anims);
 }
 
 void Game::executeMouseEvents(sf::Event* ev){
@@ -97,11 +103,14 @@ void Game::executeMouseEvents(sf::Event* ev){
 
 void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/doniczka.png");
+    assets.catIdle.loadFromFile("files/graphics/catIdle.png");
 
 
     anims["pot"] = new Anim(&assets.pot);
+    anims["catIdle"] = new Anim(&assets.catIdle);
+
     items["pot"] = new ItemPot(anims["pot"]);
     items["pot"]->move(100, 100);
 
-    pranks.push_back(new PrankBookThrow(&items, 0));
+    pranks.push_back(new PrankBookThrow(&items, 1000));
 }
