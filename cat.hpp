@@ -3,7 +3,9 @@
 
 #include "AnimatedSprite.hpp"
 #include "prank.hpp"
+#include "Utils.hpp"
 #include <string>
+#include <cmath>
 
 enum catState {
 	IDLE,
@@ -24,10 +26,11 @@ public:
 	direction travelDirection = NONE;
 	Prank* activePrank = nullptr;
 	int prankProgress;
+	std::map<std::string, Anim*> anims;
 
 
 	void create(std::map<std::string, Anim*>);
-	void update(sf::Time, std::map<std::string, Anim*>);
+	void update(sf::Time);
 	void setNextPrank(Prank*);
 	bool isIdle();
 	//void

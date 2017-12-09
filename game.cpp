@@ -66,7 +66,7 @@ void Game::draw(sf::Time dT){
 			cat.setNextPrank(pranks[i]);
 		}
     }
-    cat.update(dT, anims);
+    cat.update(dT);
 }
 
 void Game::executeMouseEvents(sf::Event* ev){

@@ -1,10 +1,11 @@
 #include "cat.hpp"
 
-void Cat::create(std::map<std::string, Anim*> anims) {
-	setAnimation(anims["catIdle"]);
+void Cat::create(std::map<std::string, Anim*> animations) {
+	anims = animations;
+	setAnimation(animations["catIdle"]);
 }
 
-void Cat::update(sf::Time deltaTime, std::map<std::string, Anim*> anims) {
+void Cat::update(sf::Time deltaTime) {
 	if (state == IDLE) {
 
 	}
@@ -14,6 +15,11 @@ void Cat::update(sf::Time deltaTime, std::map<std::string, Anim*> anims) {
 		}
 		else {
 			move(-5, 0);
+		}
+		if (abs(getPosition().x-activePrank->xCoord) < 15) {
+			state = PRANK;
+			setAnimation(activePrank->catAnim);
+
 		}
 	}
 	else if (state == PRANK) {
