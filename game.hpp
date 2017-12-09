@@ -18,6 +18,7 @@ public:
 	~Game();
 	sf::RenderWindow window;
 	void run();
+	void executeMouseEvents(sf::Event* ev);
 	void createObjects();
 	void draw();
 
@@ -29,6 +30,9 @@ public:
     std::map<std::string, Anim*> anims;
 
     Cat cat;
+
+protected:
+    bool isMouseDown=false;
 };
 
 #endif // GAME_HPP
