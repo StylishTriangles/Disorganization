@@ -8,11 +8,12 @@
 class Item: public AnimSprite{
 public:
 	enum ItemType {
-		BOOK,
-		GLASS,
-        DOOR,
+        BOOK,
         CLOCK,
         CLOCK_HAND,
+        DOOR,
+        GLASS,
+        POOL,
         SINK,
         TRASH,
 	};
@@ -25,8 +26,8 @@ public:
     Item(Anim* a, ItemType i, float _layer = 1.0f);
     virtual ~Item() = default;
 
-    bool clickable;
-    bool dragndrop;
+    bool clickable=true;
+    bool draggable=true;
     float layer;
     ItemType type;
     ItemState state = DEFAULT;

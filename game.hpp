@@ -37,6 +37,7 @@ public:
     sf::Sprite roomSprite;
     sf::View view;
     bool hasWaterGun=true;
+    int objectNamesCtr=0;
 
 protected:
     bool isMouseDown=false;
