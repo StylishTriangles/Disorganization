@@ -19,6 +19,10 @@ void Item::onDrop(){
 
 }
 
+void Item::onRightClick() {
+
+}
+
 void Item::update(sf::Time dt){
 
 }
