@@ -26,7 +26,7 @@ void Cat::update(sf::Time deltaTime) {
 		if (prankProgress > activePrank->prankTime) {
 			state = GOINGTOPATH;
 			prankProgress = 0;
-			setAnimation(anims["catIdle"]);
+			setAnimation(anims["catMove"]);
 			activePrank->onFinish();
 			activePrank->activeItem->changeState();
 		}
@@ -78,6 +78,7 @@ void Cat::setNextPrank(Prank* prank) {
 		setScale(-abs(getScale().x), getScale().y);
 	}
 	state = TRAVEL;
+	setAnimation(anims["catMove"]);
 }
 
 bool Cat::isIdle() {
