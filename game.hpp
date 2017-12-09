@@ -23,6 +23,7 @@ public:
 	void createObjects();
 	void draw(sf::Time);
     void drawStats();
+    void shotWater();
 
 	sf::Event event;
     TextureContainer assets;
@@ -45,6 +46,7 @@ protected:
     float secondsPassed=0;
     float totalTimeInSeconds=3600;
     float timeSpeed = 6;
+    bool hasWaterGun=true;
 };
 
 #endif // GAME_HPP

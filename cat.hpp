@@ -30,11 +30,13 @@ public:
 	int prankProgress;
 	std::map<std::string, Anim*> anims;
 	int pathCoordY = 400;
+	int runTo;
 
 
 	void create(std::map<std::string, Anim*>);
 	void update(sf::Time);
 	void setNextPrank(Prank*);
+	void getRekt();
 	bool isIdle();
 	//void
 };

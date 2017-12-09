@@ -33,15 +33,15 @@ void Cat::update(sf::Time deltaTime) {
 		prankProgress += deltaTime.asMilliseconds();
 	}
 	else if (state == RUN) {
-		if (getPosition().x - runTo < 15) {
+		if (abs(getPosition().x - runTo) < 15) {
 			state = IDLE;
 			setAnimation(anims["catIdle"]);
 		}
         if (travelDirection == RIGHT) {
-			move(dt * Utils::normalize(Vector2f(runTo, 0)));
+			move((float)dT * Utils::normalized(sf::Vector2f(runTo, pathCoordY)));
 		}
 		else {
-			move(dt * Utils::normalize(Vector2f(runTo, 0)));
+			move((float)dT * Utils::normalized(sf::Vector2f(runTo, pathCoordY)));
 		}
 	}
 	else if (state == CLOSETOPRANK) {
@@ -49,7 +49,6 @@ void Cat::update(sf::Time deltaTime) {
 			setAnimation(activePrank->catAnim);
 			activePrank->onStart();
 			state = PRANK;
-			std::cout << "closetoprank\n";
 		}
 		else {
 			move(Utils::normalized(activePrank->activeItem->getPosition() - getPosition()) * (float)dT / 3.0f);
@@ -86,13 +85,13 @@ void Cat::setNextPrank(Prank* prank) {
 	setAnimation(anims["catMove"]);
 }
 
-void getRekt() {
+void Cat::getRekt() {
 	do {
 		runTo = Utils::randInt(-1280, 2560);
 	}
-	while (abs(runTo - GetPosition().x) < 500);
+	while (abs(runTo - getPosition().x) < 500);
 	state = RUN;
-	setAnimation("catMove");
+	setAnimation(anims["catMove"]);
 }
 
 bool Cat::isIdle() {
