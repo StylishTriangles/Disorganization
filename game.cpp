@@ -8,6 +8,7 @@
 #include "items/itemSink.hpp"
 #include "items/itemPool.hpp"
 #include "items/itemTrash.hpp"
+#include "items/itemGamepad.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
@@ -38,18 +39,16 @@ void Game::run() {
             executeMouseEvents(&event);
 		}
 		window.clear(sf::Color::Black);
-		draw(deltaClock.restart());
+		sf::Time dt = deltaClock.restart();
+		gameLogic(dt);
+		draw(dt);
 		window.display();
 	}
 }
 
-void Game::draw(sf::Time dT){
+void Game::gameLogic(sf::Time dT){
     secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
-
-	window.draw(roomSprite);
-    drawStats();
     window.setView(view);
-
     for (auto it = items.cbegin(); it != items.cend(); ){
         if (it->second->state == Item::DELETED){
             items.erase(it++);
@@ -57,22 +56,8 @@ void Game::draw(sf::Time dT){
         else
             ++it;
     }
-
-    std::vector<Item*> vItems;
-    vItems.reserve(items.size());
-    for(const auto& p: items) {
-        p.second->update(dT);
-        vItems.push_back(p.second);
-    }
-    std::sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
-    for(Item *item: vItems) {
-        window.draw(*item);
-        Utils::drawBoundingBox(*item, &window);
-    }
-
-    window.draw(cat);
     if (cat.isIdle()) {
-		if (Utils::chance(1.0/(60.0*3))) {
+		if (Utils::chance(1.0/(60.0))) {
 			int availablePranks = 0;
 			for (auto p : pranks) {
 				availablePranks += p->isAvailable();
@@ -92,6 +77,25 @@ void Game::draw(sf::Time dT){
 		}
     }
     cat.update(dT);
+}
+
+void Game::draw(sf::Time dT){
+	window.draw(roomSprite);
+    drawStats();
+
+    std::vector<Item*> vItems;
+    vItems.reserve(items.size());
+    for(const auto& p: items) {
+        p.second->update(dT);
+        vItems.push_back(p.second);
+    }
+    std::sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
+    for(Item *item: vItems) {
+        window.draw(*item);
+        Utils::drawBoundingBox(*item, &window);
+    }
+
+    window.draw(cat);
 }
 
 void Game::executeMouseEvents(sf::Event* ev){
@@ -191,6 +195,7 @@ void Game::createObjects(){
     assets.sink.loadFromFile("files/graphics/sink.png");
     assets.pool.loadFromFile("files/graphics/pool0.png");
     assets.trash.loadFromFile("files/graphics/trash.png");
+    assets.gamepad.loadFromFile("files/graphics/gamepad.png");
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
@@ -202,6 +207,7 @@ void Game::createObjects(){
     anims["sink"] = new Anim(&assets.sink);
     anims["pool"] = new Anim(&assets.pool);
     anims["trash"] = new Anim(&assets.trash);
+    anims["gamepad"] = new Anim(&assets.gamepad);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
@@ -232,6 +238,11 @@ void Game::createObjects(){
 
     items["trash1"] = new ItemTrash(anims["trash"], 1.0f);
     items["trash1"]->move(300, 500);
+
+    items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad1"] -> move(350, 300);
+    items["gamepad2"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad2"] -> move(420, 300);
 
     pranks.push_back(new PrankBookThrow(this));
 
