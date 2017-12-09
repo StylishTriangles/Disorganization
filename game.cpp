@@ -8,6 +8,7 @@
 #include "items/itemSink.hpp"
 #include "items/itemPool.hpp"
 #include "items/itemTrash.hpp"
+#include "items/itemGamepad.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
@@ -191,6 +192,7 @@ void Game::createObjects(){
     assets.sink.loadFromFile("files/graphics/sink.png");
     assets.pool.loadFromFile("files/graphics/pool0.png");
     assets.trash.loadFromFile("files/graphics/trash.png");
+    assets.gamepad.loadFromFile("files/graphics/gamepad.png");
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
@@ -202,6 +204,7 @@ void Game::createObjects(){
     anims["sink"] = new Anim(&assets.sink);
     anims["pool"] = new Anim(&assets.pool);
     anims["trash"] = new Anim(&assets.trash);
+    anims["gamepad"] = new Anim(&assets.gamepad);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
@@ -232,6 +235,9 @@ void Game::createObjects(){
 
     items["trash1"] = new ItemTrash(anims["trash"], 1.0f);
     items["trash1"]->move(300, 500);
+
+    items["gamepad"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad"] -> move(350, 200);
 
     pranks.push_back(new PrankBookThrow(this));
 

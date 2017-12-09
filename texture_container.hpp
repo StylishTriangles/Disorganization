@@ -16,6 +16,7 @@ public:
     sf::Texture sink;
     sf::Texture pool;
     sf::Texture trash;
+    sf::Texture gamepad;
 };
 
 #endif // TEXTURE_CONTAINER_HPP
