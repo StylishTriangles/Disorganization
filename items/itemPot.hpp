@@ -16,10 +16,6 @@ public:
         std::cout << "pot clicked\n";
     }
 
-    void onDrag(int dx, int dy) override {
-        move(dx, dy);
-    }
-
     void onDrop() override {
         std::cout << "pot has been planted\n";
     }

@@ -11,6 +11,8 @@ public:
     sf::Texture dymek;
     sf::Texture catPrankBookThrow;
     sf::Texture doorRight;
+    sf::Texture clock;
+    sf::Texture clockHand;
 };
 
 #endif // TEXTURE_CONTAINER_HPP
