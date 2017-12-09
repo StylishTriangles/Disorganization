@@ -3,6 +3,7 @@
 #include "pranks/prankBookThrow.hpp"
 
 #include "items/itemPot.hpp"
+#include "items/itemDoor.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
@@ -121,10 +122,14 @@ void Game::createObjects(){
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
+    anims["doorRight"] = new Anim(&assets.doorRight);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
-    //items["doorRight"] = new 
+    ItemDoor* doorRight = new ItemDoor(anims["doorRight"], 1.0f);
+    doorRight->setGame(this);
+    items["doorRight"] = doorRight;
+    items["doorRight"]->move(1150, 400);
 
     //items["pot2"] = new ItemPot(anims["pot"], -3.f);
     //items["pot2"]->move(100, 100);
