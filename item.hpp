@@ -8,13 +8,14 @@
 class Item: public AnimSprite{
 public:
 	enum ItemType {
-		BOOK,
-		GLASS,
-        DOOR,
+        BOOK,
         CLOCK,
         CLOCK_HAND,
+        DOOR,
+        GLASS,
+        POOL,
         SINK,
-        POOL
+        TRASH,
 	};
 
 	enum ItemState {
