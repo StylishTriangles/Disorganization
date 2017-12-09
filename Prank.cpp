@@ -1,7 +1,8 @@
 #include "prank.hpp"
 
-Prank::Prank(std::map<std::string, Item*>* its)
-:items(its)
+#include "game.hpp"
+
+Prank::Prank(Game* g)
 {
 }
 

@@ -4,9 +4,11 @@
 #include "AnimatedSprite.hpp"
 #include "Item.hpp"
 
+class Game;
+
 class Prank{
 public:
-    Prank(std::map<std::string, Item*>* its);
+    Prank(Game* g);
     virtual ~Prank() = default;
 
     virtual void onFinish();
@@ -15,11 +17,8 @@ public:
     Anim* catAnim;
     int prankTime = 0; //in milliseconds
 
-
-    std::map<std::string, Item*>* items;
-
     Item* activeItem;
-
+    Game* game;
 };
 
 
