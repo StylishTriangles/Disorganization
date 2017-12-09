@@ -168,6 +168,7 @@ void Game::drawStats(){
 
     sf::Text textStats(str, font);
     textStats.setColor(sf::Color::Red);
+    textStats.move(Settings::room*Settings::windowSize.x, 0);
     textStats.setCharacterSize(20);
     window.draw(textStats);
 }
