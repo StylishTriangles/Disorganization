@@ -91,11 +91,12 @@ void Game::executeMouseEvents(sf::Event* ev){
 }
 
 void Game::createObjects(){
-    assets.cat.loadFromFile("files/graphics/tajny_wspolpracownik.png");
+    assets.pot.loadFromFile("files/graphics/doniczka.png");
 
 
-    anims["testCat"] = new Anim(&assets.cat);
-    items["test"] = new ItemPot(anims["testCat"]);
+    anims["pot"] = new Anim(&assets.pot);
+    items["pot"] = new ItemPot(anims["pot"]);
+    items["pot"]->move(100, 100);
 
-    pranks.push_back(new PrankBookThrow(&items));
+    pranks.push_back(new PrankBookThrow(&items, 0));
 }

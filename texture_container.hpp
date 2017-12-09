@@ -3,7 +3,7 @@
 
 class TextureContainer{
 public:
-    sf::Texture cat;
+    sf::Texture pot;
 };
 
 #endif // TEXTURE_CONTAINER_HPP
