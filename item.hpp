@@ -4,7 +4,6 @@
 #include "AnimatedSprite.hpp"
 
 
-
 class Item: public AnimSprite{
 public:
 	enum ItemType {
@@ -21,7 +20,8 @@ public:
 	enum ItemState {
 		BROKEN,
 		DEFAULT,
-        DELETED
+        DELETED,
+        TRASHED,
 	};
 
     Item(Anim* a, ItemType i, float _layer = 1.0f);
