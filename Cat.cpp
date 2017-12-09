@@ -12,7 +12,6 @@ void Cat::update(sf::Time deltaTime) {
 
 	}
 	else if (state == TRAVEL) {
-		std::cout << "Travelling";
 		if (travelDirection == RIGHT) {
 			move((float)dT/3.0f, 0);
 		}

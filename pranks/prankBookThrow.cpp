@@ -1,9 +1,12 @@
 #include "prankBookThrow.hpp"
 
-PrankBookThrow::PrankBookThrow(std::map<std::string, Item*>* its)
-:Prank(its)
+#include "../game.hpp"
+
+PrankBookThrow::PrankBookThrow(Game* g)
+:Prank(g)
 {
-	activeItem = (*its)["pot"];
+	activeItem = (g->items)["pot"];
+	catAnim = g->anims["catPrankBookThrow"];
 }
 
 bool PrankBookThrow::isAvailable(){
