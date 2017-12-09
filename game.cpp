@@ -42,6 +42,7 @@ void Game::draw(sf::Time dT){
 	std::cout << dT.asMilliseconds() << std::endl;
     for(const auto& p: items){
         window.draw(*p.second);
+        Utils::drawBoundingBox(*p.second, &window);
     }
     window.draw(cat);
     if (cat.isIdle())
@@ -53,7 +54,7 @@ void Game::draw(sf::Time dT){
 				availablePranks += p->isAvailable();
 			}
 			if (availablePranks == 0) {
-				///WYGRA£EŒ
+				///Winner winner chicken dinner
 				std::cout << "cookol";
 			}
 			int i;
@@ -73,6 +74,8 @@ void Game::executeMouseEvents(sf::Event* ev){
     if (ev->type == sf::Event::MouseButtonPressed){
         if (ev->mouseButton.button == sf::Mouse::Left){
             isMouseDown=true;
+            lastMouseX = ev->mouseButton.x;
+            lastMouseY = ev->mouseButton.y;
             for(const auto& p: items){
                 if(Utils::isMouseOnSprite(*p.second, &window)){
                     isMouseDown=true;
@@ -84,7 +87,9 @@ void Game::executeMouseEvents(sf::Event* ev){
     }
     if (ev->type == sf::Event::MouseMoved){
         if(isMouseDown && draggedItem != nullptr){
-            draggedItem->onDrag(ev->mouseMove.x, ev->mouseMove.y);
+            draggedItem->onDrag(ev->mouseMove.x-lastMouseX, ev->mouseMove.y-lastMouseY);
+            lastMouseX = ev->mouseMove.x;
+            lastMouseY = ev->mouseMove.y;
         }
     }
     if(ev->type == sf::Event::MouseButtonReleased){

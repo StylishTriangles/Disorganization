@@ -35,6 +35,7 @@ public:
 
 protected:
     bool isMouseDown=false;
+    int lastMouseX, lastMouseY;
     Item* draggedItem=nullptr;
 };
 
