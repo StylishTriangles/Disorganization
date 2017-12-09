@@ -12,7 +12,8 @@ public:
 		GLASS,
         DOOR,
         CLOCK,
-        CLOCK_HAND
+        CLOCK_HAND,
+        SINK
 	};
 
 	enum ItemState {

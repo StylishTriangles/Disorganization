@@ -36,6 +36,7 @@ public:
     Cat cat;
     sf::Sprite roomSprite;
     sf::View view;
+    bool hasWaterGun=true;
 
 protected:
     bool isMouseDown=false;
@@ -46,7 +47,7 @@ protected:
     float secondsPassed=0;
     float totalTimeInSeconds=3600;
     float timeSpeed = 6;
-    bool hasWaterGun=true;
+
 };
 
 #endif // GAME_HPP

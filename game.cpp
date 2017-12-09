@@ -5,6 +5,7 @@
 #include "items/itemPot.hpp"
 #include "items/itemDoor.hpp"
 #include "items/itemClock.hpp"
+#include "items/itemSink.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
@@ -145,6 +146,7 @@ void Game::createObjects(){
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
     assets.clock.loadFromFile("files/graphics/clock.png");
     assets.clockHand.loadFromFile("files/graphics/clockhand.png");
+    assets.sink.loadFromFile("files/graphics/sink.png");
 
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
@@ -153,6 +155,7 @@ void Game::createObjects(){
     anims["door"] = new Anim(&assets.doorRight);
     anims["clock"] = new Anim(&assets.clock);
     anims["clockHand"] = new Anim(&assets.clockHand);
+    anims["sink"] = new Anim(&assets.sink);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
@@ -177,6 +180,9 @@ void Game::createObjects(){
     doorLeftSecondRoom->setGame(this);
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;
     items["doorLeftSecondRoom"]->move(130+1280, 400);
+
+    items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
+    items["sink"]->move(600+1280, 100);
 
     pranks.push_back(new PrankBookThrow(this));
 
