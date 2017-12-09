@@ -157,12 +157,19 @@ void Game::executeMouseEvents(sf::Event* ev){
 }
 
 void Game::drawStats(){
-    std::string str = "Time left " + Utils::stringifyf(totalTimeInSeconds - secondsPassed) + "s";
+    int messiness = 0;
+    for(const auto& it: items){
+        if(it.second->state == Item::BROKEN){
+            messiness+=2;
+        }
+    }
+    std::string str =   "Time left " + Utils::stringify((int)(totalTimeInSeconds - secondsPassed)) + "s\n\n"
+                        "Messiness: " + Utils::stringify(messiness)+"\n";
 
-    sf::Text textMum(str, font);
-    textMum.setColor(sf::Color::Red);
-    textMum.setCharacterSize(20);
-    window.draw(textMum);
+    sf::Text textStats(str, font);
+    textStats.setColor(sf::Color::Red);
+    textStats.setCharacterSize(20);
+    window.draw(textStats);
 }
 
 void Game::shotWater(){
