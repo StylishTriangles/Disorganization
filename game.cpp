@@ -106,7 +106,7 @@ void Game::draw(sf::Time dT){
     window.draw(momCloud);
     window.draw(momText);
     window.draw(mom);
-    if(introClockStarted){
+    if(introClockStarted && !introDone){
         if(introClock.getElapsedTime().asSeconds() < 4.0)
             countText.setString("Go Clean!\n");
         if(introClock.getElapsedTime().asSeconds() < 3.0)
