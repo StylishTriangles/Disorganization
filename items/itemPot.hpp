@@ -23,7 +23,7 @@ public:
     void changeState() override {
 		if (state == DEFAULT)
 			state = BROKEN;
-		if (state == BROKEN)
+		else if (state == BROKEN)
 			state = DEFAULT;
     }
 };
