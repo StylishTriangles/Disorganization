@@ -1,4 +1,5 @@
 #include "itemPool.hpp"
+#include <cmath>
 
 ItemPool::ItemPool(Anim* a, float layer)
 :Item(a, POOL, layer)
