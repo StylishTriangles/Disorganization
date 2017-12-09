@@ -9,7 +9,8 @@ class Item: public AnimSprite{
 public:
 	enum ItemType {
 		BOOK,
-		GLASS
+		GLASS,
+        DOOR
 	};
 
 	enum ItemState {
