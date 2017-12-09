@@ -2,6 +2,8 @@
 #define ITEM_HPP
 
 #include "AnimatedSprite.hpp"
+#include "soundBuffer_container.hpp"
+#include "soundHandler.hpp"
 
 
 class Item: public AnimSprite{

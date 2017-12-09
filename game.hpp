@@ -10,6 +10,8 @@
 #include "prank.hpp"
 #include "item.hpp"
 #include "texture_container.hpp"
+#include "soundBuffer_container.hpp"
+#include "soundHandler.hpp"
 #include "cat.hpp"
 #include "Utils.hpp"
 #include "Collision.hpp"
@@ -30,6 +32,7 @@ public:
 
 	sf::Event event;
     TextureContainer assets;
+    SoundBufferContainer soundBuffers;
     sf::Clock deltaClock;
 
     std::vector<Prank*> pranks;
