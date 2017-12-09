@@ -60,21 +60,19 @@ void Game::draw(sf::Time dT){
     }
 
     window.draw(cat);
-    if (cat.isIdle())
-	{
-		if (Utils::chance(1))
-		{
+    if (cat.isIdle()) {
+		if (Utils::chance(1)) {
 			int availablePranks = 0;
 			for (auto p : pranks) {
 				availablePranks += p->isAvailable();
 			}
 			if (availablePranks != 0) {
                 int i;
-                do
-                {
+                do{
                     i = Utils::randInt(0, pranks.size());
                 }
                 while (!pranks[i]->isAvailable());
+
                 cat.setNextPrank(pranks[i]);
 			}
             else{
