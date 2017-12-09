@@ -26,6 +26,6 @@ void Item::changeState(){
 
 }
 
-void Item::onTrash(){
+void Item::onTrash(Item* trash){
 
 }

@@ -142,7 +142,7 @@ void Game::executeMouseEvents(sf::Event* ev){
             for(const auto& p: items){
                 if(draggedItem->type != Item::TRASH && p.second->type == Item::TRASH && Collision::PixelPerfectTest(*draggedItem, *p.second)){
                     dumped = true;
-                    draggedItem->onTrash();
+                    draggedItem->onTrash(p.second);
                     std::cout << "on trash\n";
                 }
 

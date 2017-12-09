@@ -39,7 +39,7 @@ public:
     virtual void onClick() = 0;
     virtual void onDrag(int dx, int dy);
     virtual void onDrop();
-    virtual void onTrash();
+    virtual void onTrash(Item* trash);
     virtual void changeState();
 
     static bool cmpLayer(Item* lhs, Item* rhs) {
