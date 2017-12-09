@@ -2,6 +2,8 @@
 #define PRANK_BOOK_THROW_HPP
 
 #include "../Prank.hpp"
+#include "../item.hpp"
+#include "../items/itemPot.hpp"
 
 class PrankBookThrow: public Prank{
 public:

@@ -28,6 +28,7 @@ void Cat::update(sf::Time deltaTime) {
 			prankProgress = 0;
 			setAnimation(anims["catIdle"]);
 			activePrank->onFinish();
+			activePrank->activeItem->changeState();
 		}
 		prankProgress += deltaTime.asMilliseconds();
 	}

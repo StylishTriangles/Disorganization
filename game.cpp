@@ -40,8 +40,11 @@ void Game::run() {
 }
 
 void Game::draw(sf::Time dT){
+    secondsUntilYourMumComes -= (dT.asSeconds()/1.0)*24.0;
+
+	window.draw(roomSprite);
+    drawStats();
     window.setView(view);
-    window.draw(roomSprite);
 
     std::vector<Item*> vItems;
     vItems.reserve(items.size());
@@ -110,6 +113,15 @@ void Game::executeMouseEvents(sf::Event* ev){
     }
 }
 
+void Game::drawStats(){
+    std::string str = "Time left " + Utils::stringify(secondsUntilYourMumComes) + "s";
+
+    sf::Text textMum(str, font);
+    textMum.setColor(sf::Color::Red);
+    textMum.setCharacterSize(20);
+    window.draw(textMum);
+}
+
 void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/doniczka.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
@@ -131,15 +143,15 @@ void Game::createObjects(){
     items["doorRight"] = doorRight;
     items["doorRight"]->move(1150, 400);
 
-    //items["pot2"] = new ItemPot(anims["pot"], -3.f);
-    //items["pot2"]->move(100, 100);
-    //items["pot3"] = new ItemPot(anims["pot"]);
-    //items["pot3"]->move(200, 200);
+    items["pot2"] = new ItemPot(anims["pot"], -3.f);
+    items["pot2"]->move(100, 100);
+    items["pot3"] = new ItemPot(anims["pot"]);
+    items["pot3"]->move(200, 200);
 
     pranks.push_back(new PrankBookThrow(this));
 
     roomSprite = sf::Sprite(assets.room2);
     roomSprite.setScale(window.getSize().x * 2.0f / roomSprite.getGlobalBounds().width,
                         window.getSize().y / roomSprite.getGlobalBounds().height);
-
+    font.loadFromFile("files/fonts/Digital_7.ttf");
 }
