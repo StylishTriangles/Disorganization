@@ -11,7 +11,7 @@
 #include "items/itemGamepad.hpp"
 
 Game::Game(int width, int height, std::string title)
-    : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
+    : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
 {
 	window.setFramerateLimit(60);
     createObjects();
@@ -36,19 +36,37 @@ void Game::run() {
             else if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape){
                 window.close();
             }
-            executeMouseEvents(&event);
+            if(introDone)
+                executeMouseEvents(&event);
 		}
 		window.clear(sf::Color::Black);
 		sf::Time dt = deltaClock.restart();
-		gameLogic(dt);
+		if(!introDone)
+            introLogic(dt);
+		else{
+            gameLogic(dt);
+		}
 		draw(dt);
 		window.display();
 	}
 }
 
+void Game::introLogic(sf::Time dT){
+    mom.move(100*dT.asSeconds(), 0);
+    momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
+    momText.setPosition(momCloud.getPosition());
+    if(mom.getPosition().x >= Settings::windowSize.x*2+100){
+        if(!introClockStarted){
+            introClock.restart();
+            introClockStarted=true;
+        }
+        if(introClock.getElapsedTime().asSeconds() >= 4.0){
+            introDone = true;
+        }
+    }
+}
+
 void Game::gameLogic(sf::Time dT){
-    secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
-    window.setView(view);
     for (auto it = items.cbegin(); it != items.cend(); ){
         if (it->second->state == Item::DELETED){
             items.erase(it++);
@@ -78,11 +96,30 @@ void Game::gameLogic(sf::Time dT){
     }
     cat.update(dT);
     SoundHandler::update();
+    secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
 }
 
 void Game::draw(sf::Time dT){
+    window.setView(view);
 	window.draw(roomSprite);
     drawStats();
+    window.draw(momCloud);
+    window.draw(momText);
+    window.draw(mom);
+    if(introClockStarted && !introDone){
+        if(introClock.getElapsedTime().asSeconds() < 4.0)
+            countText.setString("Go Clean!\n");
+        if(introClock.getElapsedTime().asSeconds() < 3.0)
+            countText.setString("1...\n");
+        if(introClock.getElapsedTime().asSeconds() < 2.0)
+            countText.setString("2...\n");
+        if(introClock.getElapsedTime().asSeconds() < 1.0)
+            countText.setString("3...\n");
+        countText.setPosition(Settings::windowSize.x*1.5 - countText.getGlobalBounds().width/2.f,
+                          Settings::windowSize.y/2.0 - countText.getCharacterSize()/2.f);
+        window.draw(countText);
+    }
+
 
     std::vector<Item*> vItems;
     vItems.reserve(items.size());
@@ -127,6 +164,14 @@ void Game::executeMouseEvents(sf::Event* ev){
                     items["pool"+Utils::stringify(objectNamesCtr)] = pool;
                     objectNamesCtr++;
                     hasWaterGun=false;
+                }
+            }
+        }
+        else if (ev->mouseButton.button == sf::Mouse::Right){
+            for(const auto& p: items){
+                if(Utils::isMouseOnSprite(*p.second, &window)){
+                    if(p.second->clickable)
+                        p.second->onRightClick();
                 }
             }
         }
@@ -197,6 +242,8 @@ void Game::createObjects(){
     assets.pool.loadFromFile("files/graphics/pool0.png");
     assets.trash.loadFromFile("files/graphics/trash.png");
     assets.gamepad.loadFromFile("files/graphics/gamepad.png");
+    assets.mom.loadFromFile("files/graphics/mom1.png");
+    assets.cloud.loadFromFile("files/graphics/cloud.png");
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
@@ -209,6 +256,8 @@ void Game::createObjects(){
     anims["pool"] = new Anim(&assets.pool);
     anims["trash"] = new Anim(&assets.trash);
     anims["gamepad"] = new Anim(&assets.gamepad);
+    anims["mom"] = new Anim(&assets.mom);
+    anims["cloud"] = new Anim(&assets.cloud);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
@@ -223,21 +272,32 @@ void Game::createObjects(){
     items["clock"]->setPosition(200, 100);
     items["clock"]->setScale(0.4, 0.4);
 
-    ItemDoor* doorRight = new ItemDoor(anims["door"], false, 1.0f);
-    doorRight->setGame(this);
-    items["doorRight"] = doorRight;
-    items["doorRight"]->move(1150, 400);
+    ItemDoor* doorRightFirstRoom = new ItemDoor(anims["door"], false, 1.0f);
+    doorRightFirstRoom->setGame(this);
+    items["doorRightFirstRoom"] = doorRightFirstRoom;
+    items["doorRightFirstRoom"]->move(1150, 400);
 
-    ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 1.0f);
+    ItemDoor *doorRightSecondRoom = new ItemDoor(anims["door"], false, 10.0f);
+    doorRightSecondRoom->setGame(this);
+    items["doorRightSecondRoom"] = doorRightSecondRoom;
+    items["doorRightSecondRoom"]->move(1150 + 1280, 400);
+
+    ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 10.0f);
     doorLeftSecondRoom->setScale(-1, 1);
     doorLeftSecondRoom->setGame(this);
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;
     items["doorLeftSecondRoom"]->move(130+1280, 400);
 
+    ItemDoor *doorLeftThirdRoom = new ItemDoor(anims["door"], true, 10.0f);
+    doorLeftThirdRoom->setScale(-1, 1);
+    doorLeftThirdRoom->setGame(this);
+    items["doorLeftThirdRoom"] = doorLeftThirdRoom;
+    items["doorLeftThirdRoom"]->move(130 + 2560, 400);
+
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
     items["sink"]->move(600+1280, 100);
 
-    items["trash1"] = new ItemTrash(anims["trash"], 1.0f);
+    items["trash1"] = new ItemTrash(anims["trash"], 5.f);
     items["trash1"]->move(300, 500);
 
     items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
@@ -273,4 +333,22 @@ void Game::createObjects(){
 
 
     cat.move(640, Settings::floorLevel);
+    mom = AnimSprite(anims["mom"]);
+    Utils::setOriginInCenter(mom);
+    mom.setPosition(2*Settings::windowSize.x-700, Settings::floorLevel);
+    mom.setScale(-1, 1);
+
+    momCloud = AnimSprite(anims["cloud"]);
+    Utils::setOriginInCenter(momCloud);
+
+    momText = sf::Text("git good!\n", font);
+    momText.setColor(sf::Color::Black);
+    momText.setOrigin(momText.getGlobalBounds().width/2.0f, momText.getGlobalBounds().height/2.f+momText.getCharacterSize()/2.f);
+
+    countText = sf::Text("", font);
+    countText.setCharacterSize(50);
+    countText.setColor(sf::Color::Red);
+
+    momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
+    momText.setPosition(momCloud.getPosition());
 }

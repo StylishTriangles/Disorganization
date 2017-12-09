@@ -18,7 +18,7 @@ void ItemTrash::onRightClick() {
     Item* top = myItems.top();
 
     sf::Vector2f mypos = this->getPosition();
-    mypos.x += randInt(-75,75);
+    mypos.x += randInt(-120,120);
     top->setPosition(mypos);
     top->state = DEFAULT;
 

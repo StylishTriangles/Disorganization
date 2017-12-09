@@ -6,7 +6,7 @@
 
 class ItemTrash : public Item {
 public:
-    ItemTrash(Anim *a, float _layer = 1.0f);
+    ItemTrash(Anim *a, float _layer = 3.0f);
 
     void onClick() override;
     void onRightClick() override;

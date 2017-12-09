@@ -25,6 +25,7 @@ public:
 	void run();
 	void executeMouseEvents(sf::Event* ev);
 	void createObjects();
+	void introLogic(sf::Time);
 	void gameLogic(sf::Time);
 	void draw(sf::Time);
     void drawStats();
@@ -46,6 +47,8 @@ public:
     int objectNamesCtr=0;
 
 protected:
+    bool introDone=false;
+    bool introClockStarted=false;
     bool isMouseDown=false;
     int lastMouseX, lastMouseY;
     Item* draggedItem=nullptr;
@@ -54,6 +57,11 @@ protected:
     float secondsPassed=0;
     float totalTimeInSeconds=3600;
     float timeSpeed = 6;
+    AnimSprite mom;
+    AnimSprite momCloud;
+    sf::Text momText;
+    sf::Text countText;
+    sf::Clock introClock;
 
 };
 
