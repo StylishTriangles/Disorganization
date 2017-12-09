@@ -110,11 +110,11 @@ void Game::draw(sf::Time dT){
         if(introClock.getElapsedTime().asSeconds() < 4.0)
             countText.setString("Go Clean!\n");
         if(introClock.getElapsedTime().asSeconds() < 3.0)
-            countText.setString("3...\n");
+            countText.setString("1...\n");
         if(introClock.getElapsedTime().asSeconds() < 2.0)
             countText.setString("2...\n");
         if(introClock.getElapsedTime().asSeconds() < 1.0)
-            countText.setString("1...\n");
+            countText.setString("3...\n");
         countText.setPosition(Settings::windowSize.x*1.5 - countText.getGlobalBounds().width/2.f,
                           Settings::windowSize.y/2.0 - countText.getCharacterSize()/2.f);
         window.draw(countText);
@@ -327,5 +327,5 @@ void Game::createObjects(){
 
     countText = sf::Text("", font);
     countText.setCharacterSize(50);
-    countText.setColor(sf::Color::Green);
+    countText.setColor(sf::Color::Red);
 }
