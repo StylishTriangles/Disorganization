@@ -1,7 +1,7 @@
 #include "prankBookThrow.hpp"
 
-PrankBookThrow::PrankBookThrow(std::map<std::string, Item*>* its, int xPosition)
-:Prank(its, xPosition)
+PrankBookThrow::PrankBookThrow(std::map<std::string, Item*>* its)
+:Prank(its)
 {
 
 }

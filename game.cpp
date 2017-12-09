@@ -112,5 +112,5 @@ void Game::createObjects(){
     items["pot"] = new ItemPot(anims["pot"]);
     items["pot"]->move(100, 100);
 
-    pranks.push_back(new PrankBookThrow(&items, 1000));
+    pranks.push_back(new PrankBookThrow(&items));
 }

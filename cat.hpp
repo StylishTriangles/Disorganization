@@ -11,7 +11,8 @@ enum catState {
 	IDLE,
 	TRAVEL,
 	PRANK,
-	RUN
+	RUN,
+	CLOSETOPRANK
 };
 
 enum direction {

@@ -5,7 +5,7 @@
 
 class PrankBookThrow: public Prank{
 public:
-    PrankBookThrow(std::map<std::string, Item*>* its, int xPosition);
+    PrankBookThrow(std::map<std::string, Item*>* its);
     bool isAvailable() override;
 };
 

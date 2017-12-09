@@ -1,9 +1,12 @@
 #include "prank.hpp"
 
-Prank::Prank(std::map<std::string, Item*>* its, int xPosition)
+Prank::Prank(std::map<std::string, Item*>* its)
 :items(its)
 {
-	xCoord = xPosition;
+}
+
+void Prank::onStart() {
+
 }
 
 void Prank::onFinish() {
