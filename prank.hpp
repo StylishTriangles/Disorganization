@@ -16,6 +16,7 @@ public:
     virtual bool isAvailable()=0;
     Anim* catAnim;
     int prankTime = 0; //in milliseconds
+    bool available = true;
 
     Item* activeItem;
     Game* game;

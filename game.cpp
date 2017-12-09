@@ -138,10 +138,10 @@ void Game::createObjects(){
     items["pot"]->move(600, 100);
     //items["doorRight"] = new
 
-    //items["pot2"] = new ItemPot(anims["pot"], -3.f);
-    //items["pot2"]->move(100, 100);
-    //items["pot3"] = new ItemPot(anims["pot"]);
-    //items["pot3"]->move(200, 200);
+    items["pot2"] = new ItemPot(anims["pot"], -3.f);
+    items["pot2"]->move(100, 100);
+    items["pot3"] = new ItemPot(anims["pot"]);
+    items["pot3"]->move(200, 200);
 
     pranks.push_back(new PrankBookThrow(this));
 
