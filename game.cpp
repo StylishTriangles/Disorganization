@@ -40,6 +40,8 @@ void Game::run() {
 
 void Game::draw(sf::Time dT){
 	window.draw(roomSprite);
+	secondsUntilYourMumComes -= (dT.asSeconds()/1.0)*24.0;
+    drawStats();
 
     std::vector<Item*> vItems;
     vItems.reserve(items.size());
@@ -108,6 +110,15 @@ void Game::executeMouseEvents(sf::Event* ev){
     }
 }
 
+void Game::drawStats(){
+    std::string str = "Time left " + Utils::stringify(secondsUntilYourMumComes) + "s";
+
+    sf::Text textMum(str, font);
+    textMum.setColor(sf::Color::Red);
+    textMum.setCharacterSize(20);
+    window.draw(textMum);
+}
+
 void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/doniczka.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
@@ -132,5 +143,5 @@ void Game::createObjects(){
     roomSprite = sf::Sprite(assets.room1);
     roomSprite.setScale(window.getSize().x / roomSprite.getGlobalBounds().width,
                         window.getSize().y / roomSprite.getGlobalBounds().height);
-
+    font.loadFromFile("files/fonts/Digital_7.ttf");
 }

@@ -22,6 +22,7 @@ public:
 	void executeMouseEvents(sf::Event* ev);
 	void createObjects();
 	void draw(sf::Time);
+    void drawStats();
 
 	sf::Event event;
     TextureContainer assets;
@@ -38,6 +39,10 @@ protected:
     bool isMouseDown=false;
     int lastMouseX, lastMouseY;
     Item* draggedItem=nullptr;
+
+    sf::Font font;
+    int secondsUntilYourMumComes=3600*2;
+    float totalTimeInSeconds=3600*2;
 };
 
 #endif // GAME_HPP
