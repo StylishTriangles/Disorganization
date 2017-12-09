@@ -32,6 +32,7 @@ public:
     std::map<std::string, Anim*> anims;
 
     Cat cat;
+    sf::Sprite roomSprite;
 
 protected:
     bool isMouseDown=false;

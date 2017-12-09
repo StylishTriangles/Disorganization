@@ -40,6 +40,7 @@ void Game::run() {
 
 void Game::draw(sf::Time dT){
 	std::cout << dT.asMilliseconds() << std::endl;
+	window.draw(roomSprite);
     for(const auto& p: items){
         window.draw(*p.second);
         Utils::drawBoundingBox(*p.second, &window);
@@ -104,6 +105,7 @@ void Game::executeMouseEvents(sf::Event* ev){
 void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/doniczka.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
+    assets.room1.loadFromFile("files/graphics/pokoj.png");
 
 
     anims["pot"] = new Anim(&assets.pot);
@@ -113,4 +115,9 @@ void Game::createObjects(){
     items["pot"]->move(100, 100);
 
     pranks.push_back(new PrankBookThrow(&items, 1000));
+
+    roomSprite = sf::Sprite(assets.room1);
+    roomSprite.setScale(window.getSize().x / roomSprite.getGlobalBounds().width,
+                        window.getSize().y / roomSprite.getGlobalBounds().height);
+
 }
