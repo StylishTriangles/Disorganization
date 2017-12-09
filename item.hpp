@@ -4,6 +4,7 @@
 #include "AnimatedSprite.hpp"
 
 class Item: public AnimSprite{
+public:
 
 };
 
