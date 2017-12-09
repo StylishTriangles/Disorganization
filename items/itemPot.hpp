@@ -7,8 +7,8 @@
 
 class ItemPot: public Item{
 public:
-    ItemPot(Anim* a, bool looped=true)
-    :Item(a, looped)
+    ItemPot(Anim* a, float layer=0.0)
+    :Item(a, layer)
     {
     }
 
@@ -18,7 +18,7 @@ public:
 
     void onDrag(int dx, int dy) override {
         move(dx, dy);
-    };
+    }
 
     void onDrop() override {
         std::cout << "pot has been planted\n";
