@@ -68,17 +68,18 @@ void Game::draw(sf::Time dT){
 			for (auto p : pranks) {
 				availablePranks += p->isAvailable();
 			}
-			if (availablePranks == 0) {
-				///Winner winner chicken dinner
+			if (availablePranks != 0) {
+                int i;
+                do
+                {
+                    i = Utils::randInt(0, pranks.size());
+                }
+                while (!pranks[i]->isAvailable());
+                cat.setNextPrank(pranks[i]);
 			}
-			int i;
-			do
-			{
-				i = Utils::randInt(0, pranks.size());
-			}
-			while (!pranks[i]->isAvailable());
+            else{
 
-			cat.setNextPrank(pranks[i]);
+            }
 		}
     }
     cat.update(dT);
@@ -136,7 +137,6 @@ void Game::createObjects(){
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
     assets.clock.loadFromFile("files/graphics/clock.png");
     assets.clockHand.loadFromFile("files/graphics/clockhand.png");
-
 
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
