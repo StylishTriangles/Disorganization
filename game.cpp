@@ -5,7 +5,7 @@
 #include "items/itemPot.hpp"
 
 Game::Game(int width, int height, std::string title)
-:window(sf::VideoMode(width, height), title)
+    : window(sf::VideoMode(width, height), title), view(sf::FloatRect(0, 0, width, height))
 {
 	window.setFramerateLimit(60);
     createObjects();
@@ -39,9 +39,11 @@ void Game::run() {
 }
 
 void Game::draw(sf::Time dT){
+    secondsUntilYourMumComes -= (dT.asSeconds()/1.0)*24.0;
+
 	window.draw(roomSprite);
-	secondsUntilYourMumComes -= (dT.asSeconds()/1.0)*24.0;
     drawStats();
+    window.setView(view);
 
     std::vector<Item*> vItems;
     vItems.reserve(items.size());
@@ -123,7 +125,9 @@ void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/doniczka.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
+    assets.room2.loadFromFile("files/graphics/pokoj2.png");
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
+    assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
 
 
     anims["pot"] = new Anim(&assets.pot);
@@ -132,6 +136,7 @@ void Game::createObjects(){
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
+    //items["doorRight"] = new
 
     //items["pot2"] = new ItemPot(anims["pot"], -3.f);
     //items["pot2"]->move(100, 100);
@@ -140,8 +145,8 @@ void Game::createObjects(){
 
     pranks.push_back(new PrankBookThrow(this));
 
-    roomSprite = sf::Sprite(assets.room1);
-    roomSprite.setScale(window.getSize().x / roomSprite.getGlobalBounds().width,
+    roomSprite = sf::Sprite(assets.room2);
+    roomSprite.setScale(window.getSize().x * 2.0f / roomSprite.getGlobalBounds().width,
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 }
