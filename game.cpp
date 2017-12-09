@@ -117,7 +117,7 @@ void Game::executeMouseEvents(sf::Event* ev){
                 if(shouldMakePool && hasWaterGun){
                     ItemPool* pool = new ItemPool(anims["pool"]);
                     pool->setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window)).x,
-                                      window.mapPixelToCoords(sf::Mouse::getPosition(window)).y);
+                                      std::max((int)window.mapPixelToCoords(sf::Mouse::getPosition(window)).y, Settings::floorLevel));
                     items["pool"+Utils::stringify(objectNamesCtr)] = pool;
                     objectNamesCtr++;
                     hasWaterGun=false;
@@ -126,6 +126,7 @@ void Game::executeMouseEvents(sf::Event* ev){
         }
     }
     if (ev->type == sf::Event::MouseMoved){
+			std::cout << sf::Mouse::getPosition(window).y << std::endl;
         if(isMouseDown && draggedItem != nullptr){
             sf::Vector2f temp = window.mapPixelToCoords(sf::Mouse::getPosition(window));
             draggedItem->onDrag(temp.x - lastMouseX,
@@ -158,7 +159,8 @@ void Game::shotWater(){
 }
 
 void Game::createObjects(){
-    assets.pot.loadFromFile("files/graphics/doniczka.png");
+    assets.potDefault.loadFromFile("files/graphics/potDefault.png");
+    assets.potBroken.loadFromFile("files/graphics/potBroken.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
     assets.catMove.loadFromFile("files/graphics/catMove.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
@@ -180,31 +182,31 @@ void Game::createObjects(){
     anims["sink"] = new Anim(&assets.sink);
     anims["pool"] = new Anim(&assets.pool);
 
-    items["pot"] = new ItemPot(anims["pot"], 1.0f);
+    items["pot"] = new ItemPot(*anims, anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
-    items["pot2"] = new ItemPot(anims["pot"], 1.0f);
+    items["pot2"] = new ItemPot(*anims, anims["pot"], 1.0f);
     items["pot2"]->move(200, 400);
-    items["pot3"] = new ItemPot(anims["pot"], 1.0f);
+    items["pot3"] = new ItemPot(*anims, anims["pot"], 1.0f);
     items["pot3"]->move(400, 200);
 
-    ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 1.0f);
+    ItemClockHand* itemClockHand = new ItemClockHand(*anims, anims["clockHand"], 1.0f);
     items["clockHand"] = itemClockHand;
-    items["clock"] = new ItemClock(anims["clock"], itemClockHand, &secondsPassed, &totalTimeInSeconds, 1.0f);
+    items["clock"] = new ItemClock(*anims, anims["clock"], itemClockHand, &secondsPassed, &totalTimeInSeconds, 1.0f);
     items["clock"]->setPosition(200, 100);
     items["clock"]->setScale(0.4, 0.4);
 
-    ItemDoor* doorRight = new ItemDoor(anims["door"], false, 1.0f);
+    ItemDoor* doorRight = new ItemDoor(*anims, anims["door"], false, 1.0f);
     doorRight->setGame(this);
     items["doorRight"] = doorRight;
     items["doorRight"]->move(1150, 400);
 
-    ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 1.0f);
+    ItemDoor* doorLeftSecondRoom = new ItemDoor(*anims, anims["door"], true, 1.0f);
     doorLeftSecondRoom->setScale(-1, 1);
     doorLeftSecondRoom->setGame(this);
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;
     items["doorLeftSecondRoom"]->move(130+1280, 400);
 
-    items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
+    items["sink"] = new ItemSink(*anims, anims["sink"], this, 1.0f);
     items["sink"]->move(600+1280, 100);
 
     pranks.push_back(new PrankBookThrow(this));
