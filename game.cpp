@@ -100,8 +100,10 @@ void Game::executeMouseEvents(sf::Event* ev){
                     if(Utils::isMouseOnSprite(*p.second, &window)){
                         shouldMakePool=false;
                         isMouseDown=true;
-                        p.second->onClick();
-                        draggedItem = p.second;
+                        if(p.second->clickable)
+                            p.second->onClick();
+                        if(p.second->draggable)
+                            draggedItem = p.second;
                     }
                 }
                 if(shouldMakePool && hasWaterGun){
