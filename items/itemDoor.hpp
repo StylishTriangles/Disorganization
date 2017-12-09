@@ -16,8 +16,11 @@ public:
 
     void onDrop() override;
 
+    void changeState() override;
+
     void setGame(Game *gam);
-private:
+
+  private:
     Game* g;
 };
 

@@ -3,7 +3,7 @@
 #include "../game.hpp"
 
 ItemDoor::ItemDoor(Anim *a, float layer = 0.0)
-    : Item(a, layer)
+    : Item(a, Item::DOOR, layer)
 {
 }
 
@@ -20,6 +20,10 @@ void ItemDoor::onDrag(int dx, int dy)
 void ItemDoor::onDrop()
 {
     //std::cout << "pot has been planted\n";
+}
+
+void ItemDoor::changeState() {
+    
 }
 
 void ItemDoor::setGame(Game *gam) {

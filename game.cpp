@@ -86,8 +86,8 @@ void Game::executeMouseEvents(sf::Event* ev){
     if (ev->type == sf::Event::MouseButtonPressed){
         if (ev->mouseButton.button == sf::Mouse::Left){
             isMouseDown=true;
-            lastMouseX = ev->mouseButton.x;
-            lastMouseY = ev->mouseButton.y;
+            lastMouseX = window.mapPixelToCoords(sf::Mouse::getPosition(window)).x;
+            lastMouseY = window.mapPixelToCoords(sf::Mouse::getPosition(window)).y;
             for(const auto& p: items){
                 if(Utils::isMouseOnSprite(*p.second, &window)){
                     isMouseDown=true;

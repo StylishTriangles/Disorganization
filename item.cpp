@@ -17,3 +17,7 @@ void Item::onDrag(int dx, int dy){
 void Item::onDrop(){
 
 }
+
+void changeState(){
+    
+}
