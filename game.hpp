@@ -8,16 +8,19 @@
 
 #include "prank.hpp"
 #include "item.hpp"
+#include "texture_container.hpp"
 
 class Game {
 public:
 	Game(int width, int height, std::string title);
+	~Game();
 	sf::RenderWindow window;
 	void run();
+	void createObjects();
 	void draw();
 
 	sf::Event event;
-
+    TextureContainer assets;
 
     std::vector<Prank*> pranks;
     std::map<std::string, Item*> items;

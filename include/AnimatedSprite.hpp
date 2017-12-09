@@ -15,6 +15,13 @@ public:
         height = spriteSheet->getSize().y;
         frameDurations.resize(frames, dur);
     }
+    Anim (sf::Texture* SpriteSheet) {
+        spriteSheet = SpriteSheet;
+        width = SpriteSheet->getSize().x;
+        frames = 1;
+        height = spriteSheet->getSize().y;
+        frameDurations.resize(frames, sf::seconds(3600.0*24));
+    }
     Anim (sf::Texture* SpriteSheet, int frameWidth, std::vector <sf::Time> framesDur) {
         spriteSheet = SpriteSheet;
         width = frameWidth;

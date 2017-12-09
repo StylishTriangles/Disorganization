@@ -1,7 +1,11 @@
 #include "prankBookThrow.hpp"
 
-bool PrankBookThrow::isAvailable(){
-    for(auto x: items){
+PrankBookThrow::PrankBookThrow(std::map<std::string, Item*>* its)
+:Prank(its)
+{
 
-    }
+}
+
+bool PrankBookThrow::isAvailable(){
+
 }

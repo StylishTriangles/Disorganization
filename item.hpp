@@ -5,7 +5,7 @@
 
 class Item: public AnimSprite{
 public:
-
+    Item(Anim* a, bool looped=true);
 };
 
 #endif // ITEM_HPP
