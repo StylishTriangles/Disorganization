@@ -8,10 +8,22 @@ void Cat::create(std::map<std::string, Anim*> animations) {
 
 void Cat::update(sf::Time deltaTime) {
 	int dT = deltaTime.asMilliseconds();
+	if (activePrank != nullptr && activePrank->activeItem != nullptr && activePrank->activeItem->state == Item::TRASHED) {
+		state = GOINGTOPATH;
+		setAnimation(anims["catMove"]);
+	}
 	if (state == IDLE) {
 
 	}
 	else if (state == TRAVEL) {
+		if (getPosition().x > activePrank->activeItem->getPosition().x) {
+			travelDirection = LEFT;
+			setScale(-abs(getScale().x), getScale().y);
+		}
+		else {
+			travelDirection = RIGHT;
+			setScale(abs(getScale().x), getScale().y);
+		}
 		if (travelDirection == RIGHT) {
 			move((float)dT/3.0f, 0);
 		}
