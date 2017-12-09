@@ -13,6 +13,7 @@ public:
     sf::Texture doorRight;
     sf::Texture clock;
     sf::Texture clockHand;
+    sf::Texture sink;
 };
 
 #endif // TEXTURE_CONTAINER_HPP
