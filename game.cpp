@@ -125,6 +125,7 @@ void Game::drawStats(){
 void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/doniczka.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
+    assets.catMove.loadFromFile("files/graphics/catMove.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
     assets.room2.loadFromFile("files/graphics/pokoj2.png");
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
@@ -134,6 +135,7 @@ void Game::createObjects(){
     anims["pot"] = new Anim(&assets.pot);
     anims["catIdle"] = new Anim(&assets.catIdle);
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
+    anims["catMove"] = new Anim(&assets.catMove, 676, sf::milliseconds(300));
     anims["doorRight"] = new Anim(&assets.doorRight);
 
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
@@ -143,10 +145,10 @@ void Game::createObjects(){
     items["doorRight"] = doorRight;
     items["doorRight"]->move(1150, 400);
 
-    items["pot2"] = new ItemPot(anims["pot"], -3.f);
-    items["pot2"]->move(100, 100);
-    items["pot3"] = new ItemPot(anims["pot"]);
-    items["pot3"]->move(200, 200);
+    //items["pot2"] = new ItemPot(anims["pot"], -3.f);
+    //items["pot2"]->move(100, 100);
+    //items["pot3"] = new ItemPot(anims["pot"]);
+    //items["pot3"]->move(200, 200);
 
     pranks.push_back(new PrankBookThrow(this));
 
