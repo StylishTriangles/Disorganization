@@ -23,6 +23,7 @@ public:
 	void run();
 	void executeMouseEvents(sf::Event* ev);
 	void createObjects();
+	void gameLogic(sf::Time);
 	void draw(sf::Time);
     void drawStats();
     void shotWater();

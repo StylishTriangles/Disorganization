@@ -39,18 +39,16 @@ void Game::run() {
             executeMouseEvents(&event);
 		}
 		window.clear(sf::Color::Black);
-		draw(deltaClock.restart());
+		sf::Time dt = deltaClock.restart();
+		gameLogic(dt);
+		draw(dt);
 		window.display();
 	}
 }
 
-void Game::draw(sf::Time dT){
+void Game::gameLogic(sf::Time dT){
     secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
-
-	window.draw(roomSprite);
-    drawStats();
     window.setView(view);
-
     for (auto it = items.cbegin(); it != items.cend(); ){
         if (it->second->state == Item::DELETED){
             items.erase(it++);
@@ -58,22 +56,8 @@ void Game::draw(sf::Time dT){
         else
             ++it;
     }
-
-    std::vector<Item*> vItems;
-    vItems.reserve(items.size());
-    for(const auto& p: items) {
-        p.second->update(dT);
-        vItems.push_back(p.second);
-    }
-    std::sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
-    for(Item *item: vItems) {
-        window.draw(*item);
-        Utils::drawBoundingBox(*item, &window);
-    }
-
-    window.draw(cat);
     if (cat.isIdle()) {
-		if (Utils::chance(1.0/(60.0*3))) {
+		if (Utils::chance(1.0/(60.0))) {
 			int availablePranks = 0;
 			for (auto p : pranks) {
 				availablePranks += p->isAvailable();
@@ -93,6 +77,25 @@ void Game::draw(sf::Time dT){
 		}
     }
     cat.update(dT);
+}
+
+void Game::draw(sf::Time dT){
+	window.draw(roomSprite);
+    drawStats();
+
+    std::vector<Item*> vItems;
+    vItems.reserve(items.size());
+    for(const auto& p: items) {
+        p.second->update(dT);
+        vItems.push_back(p.second);
+    }
+    std::sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
+    for(Item *item: vItems) {
+        window.draw(*item);
+        Utils::drawBoundingBox(*item, &window);
+    }
+
+    window.draw(cat);
 }
 
 void Game::executeMouseEvents(sf::Event* ev){
