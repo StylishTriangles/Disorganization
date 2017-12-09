@@ -4,6 +4,7 @@
 #include "AnimatedSprite.hpp"
 #include "prank.hpp"
 #include "Utils.hpp"
+#include "Settings.hpp"
 #include <string>
 #include <cmath>
 
@@ -29,7 +30,6 @@ public:
 	Prank* activePrank = nullptr;
 	int prankProgress;
 	std::map<std::string, Anim*> anims;
-	int pathCoordY = 400;
 	int runTo;
 
 

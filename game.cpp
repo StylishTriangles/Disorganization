@@ -184,7 +184,7 @@ void Game::createObjects(){
     assets.pool.loadFromFile("files/graphics/pool0.png");
     assets.trash.loadFromFile("files/graphics/trash.png");
 
-    anims["pot"] = new Anim(&assets.pot);
+    anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
     anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
