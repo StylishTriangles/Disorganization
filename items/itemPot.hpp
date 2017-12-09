@@ -21,10 +21,14 @@ public:
     }
 
     void changeState() override {
-		if (state == DEFAULT)
+		if (state == DEFAULT){
 			state = BROKEN;
-		else if (state == BROKEN)
-			state = DEFAULT;
+            setColor(sf::Color::Red);
+		}
+		else if (state == BROKEN){
+            state = DEFAULT;
+            setColor(sf::Color::White);
+		}
     }
 };
 

@@ -140,7 +140,7 @@ void Game::createObjects(){
     anims["catIdle"] = new Anim(&assets.catIdle);
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
     anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
-    anims["doorRight"] = new Anim(&assets.doorRight);
+    anims["door"] = new Anim(&assets.doorRight);
     anims["clock"] = new Anim(&assets.clock);
     anims["clockHand"] = new Anim(&assets.clockHand);
 
@@ -157,12 +157,12 @@ void Game::createObjects(){
     items["clock"]->setPosition(200, 100);
     items["clock"]->setScale(0.4, 0.4);
 
-    ItemDoor* doorRight = new ItemDoor(anims["doorRight"], false, 1.0f);
+    ItemDoor* doorRight = new ItemDoor(anims["door"], false, 1.0f);
     doorRight->setGame(this);
     items["doorRight"] = doorRight;
     items["doorRight"]->move(1150, 400);
 
-    ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["doorRight"], true, 1.0f);
+    ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 1.0f);
     doorLeftSecondRoom->setScale(-1, 1);
     doorLeftSecondRoom->setGame(this);
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;

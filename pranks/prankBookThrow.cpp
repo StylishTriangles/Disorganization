@@ -37,5 +37,8 @@ void PrankBookThrow::onFinish() {
 			books.push_back(item.second);
 		}
 	}
-	activeItem = books[Utils::randInt(0, books.size())];
+	if(books.empty())
+        activeItem=nullptr;
+    else
+        activeItem = books[Utils::randInt(0, books.size())];
 }
