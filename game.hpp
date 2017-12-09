@@ -16,6 +16,8 @@ public:
 	void run();
 	void draw();
 
+	sf::Event event;
+
 
     std::vector<Prank*> pranks;
     std::map<std::string, Item*> items;

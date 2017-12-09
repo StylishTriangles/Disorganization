@@ -1,13 +1,9 @@
-#include "AnimatedSprite.hpp"
+#include "cat.hpp"
 
-class Cat : ARO::AnimSprite {
-	std::vector<ARO::Anim> animations;
-	///state
-	public void loadAnimations() {
+void Cat::update() {
 
-	}
+}
 
-	public void update() {
+void Cat::setNextPrank(Prank* prank) {
 
-	}
 }
