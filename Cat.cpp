@@ -42,7 +42,7 @@ void Cat::update(sf::Time deltaTime) {
 			move((float)dT * Utils::normalized(sf::Vector2f(runTo, pathCoordY-getPosition().y)));
 		}
 		else {
-			move((float)dT * Utils::normalized(sf::Vector2f(runTo, pathCoordY-getPosition().y)));
+			move(-(float)dT * Utils::normalized(sf::Vector2f(runTo, -pathCoordY+getPosition().y)));
 		}
 	}
 	else if (state == CLOSETOPRANK) {
@@ -92,6 +92,10 @@ void Cat::getRekt() {
 	}
 	while (abs(runTo - getPosition().x) < 500);
 	state = RUN;
+	if (runTo > getPosition().x)
+		travelDirection = RIGHT;
+	else
+		travelDirection = LEFT;
 	prankProgress = 0;
 	setAnimation(anims["catMove"]);
 	setScale(abs(getScale().x) * Utils::sgn(runTo - getPosition().x), getScale().y);
