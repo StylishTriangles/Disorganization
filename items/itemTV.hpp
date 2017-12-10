@@ -41,21 +41,19 @@ public:
 
     void changeState() override {
         enabled = ! enabled;
-        if(enabled)
+        if(enabled) {
             state = BROKEN;
-        else
-            state = DEFAULT;
-    }
-
-    void onClick() override {
-        enabled = !enabled;
-        if(enabled){
             SoundHandler::playSound(Sounds::tv_on, 100, true);
         }
         else {
+            state = DEFAULT;
             SoundHandler::stop(Sounds::tv_on);
             SoundHandler::playSound(Sounds::tv_off);
         }
+    }
+
+    void onClick() override {
+        changeState();
     }
 
     void update(sf::Time dt){
