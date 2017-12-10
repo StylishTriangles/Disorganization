@@ -23,11 +23,15 @@ public:
     sf::Texture cloud;
     sf::Texture radio;
     sf::Texture onoff;
+    sf::Texture tvonoff;
     sf::Texture glass;
     sf::Texture table;
     sf::Texture cd1;
     sf::Texture cd2;
     sf::Texture tree;
+    sf::Texture pointer;
+    sf::Texture pointerWaterGun;
+    sf::Texture pointerWaterGunEmpty;
 
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;

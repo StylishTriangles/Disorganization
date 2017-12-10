@@ -25,3 +25,5 @@ sf::SoundBuffer Sounds::sss = sf::SoundBuffer();
 sf::SoundBuffer Sounds::tik_tok = sf::SoundBuffer();
 sf::SoundBuffer Sounds::tsh = sf::SoundBuffer();
 sf::SoundBuffer Sounds::wosh = sf::SoundBuffer();
+sf::SoundBuffer Sounds::tv_on = sf::SoundBuffer();
+sf::SoundBuffer Sounds::tv_off = sf::SoundBuffer();

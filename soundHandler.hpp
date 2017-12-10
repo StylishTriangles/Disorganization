@@ -16,6 +16,14 @@ public:
 		}
     }
 
+    static void stop(sf::SoundBuffer& buffer) {
+		for (int i = playedSounds.size()-1; i >=0; i--) {
+			if (playedSounds[i]->getBuffer() == &buffer) {
+				playedSounds[i]->stop();
+			}
+		}
+    }
+
     static void playSound(sf::SoundBuffer& buffer, float volume = 100, bool looped = false) {
 		sf::Sound* sound = new sf::Sound(buffer);
 		sound->setLoop(looped);
