@@ -144,14 +144,14 @@ void Game::executeMouseEvents(sf::Event* ev){
                 lastMouseX = window.mapPixelToCoords(sf::Mouse::getPosition(window)).x;
                 lastMouseY = window.mapPixelToCoords(sf::Mouse::getPosition(window)).y;
                 bool shouldMakePool=true;
-                for(const auto& p: items){
-                    if(Utils::isMouseOnSprite(*p.second, &window)){
+                for(Item* item: vItems){
+                    if(Utils::isMouseOnSprite(*item, &window)){
                         shouldMakePool=false;
                         isMouseDown=true;
-                        if(p.second->clickable)
-                            p.second->onClick();
-                        if(p.second->draggable)
-                            draggedItem = p.second;
+                        if(item->clickable)
+                            item->onClick();
+                        if(item->draggable)
+                            draggedItem = item;
                     }
                 }
                 if(shouldMakePool && hasWaterGun){
