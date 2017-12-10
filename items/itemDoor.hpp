@@ -26,4 +26,4 @@ protected:
     Game* g;
 };
 
-#endif // ITEM_POT_HPP
+#endif // ITEM_DOOR_HPP
