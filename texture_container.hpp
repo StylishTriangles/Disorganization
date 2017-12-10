@@ -24,13 +24,18 @@ public:
     sf::Texture cloud;
     sf::Texture radio;
     sf::Texture onoff;
+    sf::Texture glass;
+    sf::Texture table;
     sf::Texture cd1;
     sf::Texture cd2;
+    sf::Texture tree;
+
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;
-    sf::Texture tree;
+
     sf::Texture tv;
     sf::Texture tvScreen;
+    sf::Texture catPrankGlass;
     static sf::Texture spsSmoke;
 };
 
