@@ -40,6 +40,9 @@ Game::~Game(){
 
 void Game::run() {
 	while (window.isOpen()) {
+        if(secondsPassed > totalTimeInSeconds){
+            gameState = OUTRO;
+        }
 		while (window.pollEvent(event)) {
             if(event.type == sf::Event::Closed){
                 window.close();
@@ -47,7 +50,7 @@ void Game::run() {
             else if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape){
                 window.close();
             }
-            if(introDone)
+            if(gameState == GAME)
                 executeMouseEvents(&event);
 		}
 		window.clear(sf::Color::Black);
@@ -63,10 +66,13 @@ void Game::run() {
             }
         }
         sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
-		if(!introDone)
+		if(gameState == INTRO)
             introLogic(dt);
-		else{
+		else if(gameState == GAME){
             gameLogic(dt);
+		}
+		else if(gameState == OUTRO){
+
 		}
 		draw(dt);
 		window.display();
@@ -82,8 +88,8 @@ void Game::introLogic(sf::Time dT){
             introClock.restart();
             introClockStarted=true;
         }
-        if(!introDone && introClock.getElapsedTime().asSeconds() >= 4.0){
-            introDone = true;
+        if(gameState == INTRO && introClock.getElapsedTime().asSeconds() >= 4.0){
+            gameState = GAME;
             //SoundHandler::playSound(Sounds::disorganization2, 50, true);
             music.play();
         }
@@ -117,13 +123,14 @@ void Game::gameLogic(sf::Time dT){
     secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
 }
 
+void Game::outroLogic(sf::Time dT){
+    std::cout << "outro logic!\n";
+}
+
 void Game::draw(sf::Time dT){
     window.setView(view);
 	window.draw(roomSprite);
     drawStats();
-    window.draw(momCloud);
-    window.draw(momText);
-    window.draw(mom);
 
     for(Item *item: vItems) {
         item->update(dT);
@@ -141,6 +148,9 @@ void Game::draw(sf::Time dT){
             }
         }
     }
+    window.draw(momCloud);
+    window.draw(momText);
+    window.draw(mom);
     if (!onSpr or Utils::isMouseOnSprite(cat, &window)) {
         if (hasWaterGun)
             pointer.setTexture(assets.pointerWaterGun);
@@ -157,7 +167,7 @@ void Game::draw(sf::Time dT){
     window.draw(pointer);
     EffectHandler::draw(&window);
 
-    if(introClockStarted && !introDone){
+    if(introClockStarted && gameState == INTRO){
         if(introClock.getElapsedTime().asSeconds() < 4.0)
             countText.setString("Go Clean!\n");
         if(introClock.getElapsedTime().asSeconds() < 3.0)
