@@ -78,6 +78,7 @@ void Game::run() {
 }
 
 void Game::introLogic(sf::Time dT){
+    mom.update(dT.asMilliseconds());
     mom.move(100*dT.asSeconds(), 0);
     momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
     momText.setPosition(momCloud.getPosition());
@@ -144,7 +145,7 @@ void Game::draw(sf::Time dT){
     for(Item *item: vItems) {
         item->update(dT);
         window.draw(*item);
-        Utils::drawBoundingBox(*item, &window);
+        //Utils::drawBoundingBox(*item, &window);
     }
     window.draw(cat);
     //sf::CircleShape c(5);
@@ -354,7 +355,7 @@ void Game::createObjects(){
     anims["radio"] = new Anim(&assets.radio);
     anims["onoff"] = new Anim(&assets.onoff);
     anims["bed"] = new Anim(&assets.bed, 254, sf::seconds(3600 * 24));
-    anims["mom"] = new Anim(&assets.mom);
+    anims["mom"] = new Anim(&assets.mom, 311, sf::milliseconds(500));
     anims["cloud"] = new Anim(&assets.cloud);
     anims["onoff_button"] = new Anim(&assets.onoff);
     anims["onoff_buttonTV"] = new Anim(&assets.tvonoff);
