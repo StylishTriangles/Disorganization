@@ -224,6 +224,11 @@ void Game::drawStats(){
                 messiness--;
             }
         }
+        if(it.second->state & Item::DEFAULT){
+            if(it.second->state & Item::TRASHED){
+                messiness++;
+            }
+        }
     }
     std::string str =   "Time left " + Utils::stringify((int)(totalTimeInSeconds - secondsPassed)) + "s\n\n"
                         "Messiness: " + Utils::stringify(messiness)+"\n";
