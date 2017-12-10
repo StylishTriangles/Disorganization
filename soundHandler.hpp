@@ -7,8 +7,6 @@
 class SoundHandler{
 public:
 
-    static std::vector<sf::Sound*> playedSounds;
-
     static void update() {
 		for (int i = playedSounds.size()-1; i >=0; i--) {
 			if (playedSounds[i]->getStatus() == sf::Sound::Stopped) {
@@ -18,12 +16,18 @@ public:
 		}
     }
 
-    static void playSound(sf::SoundBuffer& buffer, bool looped = false) {
+    static void playSound(sf::SoundBuffer& buffer, float volume = 100, bool looped = false) {
 		sf::Sound* sound = new sf::Sound(buffer);
 		sound->setLoop(looped);
 		sound->play();
+		sound->setVolume(volume);
 		playedSounds.push_back(sound);
     }
+
+protected:
+
+    static std::vector<sf::Sound*> playedSounds;
+
 };
 
 #endif // SOUNDHANDLER_HPP

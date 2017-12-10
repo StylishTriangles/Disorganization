@@ -62,8 +62,9 @@ void Game::introLogic(sf::Time dT){
             introClock.restart();
             introClockStarted=true;
         }
-        if(introClock.getElapsedTime().asSeconds() >= 4.0){
+        if(!introDone && introClock.getElapsedTime().asSeconds() >= 4.0){
             introDone = true;
+            SoundHandler::playSound(Sounds::disorganization2, 50, true);
         }
     }
 }
@@ -241,7 +242,7 @@ void Game::createObjects(){
     assets.pool.loadFromFile("files/graphics/pool0.png");
     assets.trash.loadFromFile("files/graphics/trash.png");
     assets.gamepad.loadFromFile("files/graphics/gamepad.png");
-    assets.bed.loadFromFile("files/graphics/lozko.png");
+    assets.bed.loadFromFile("files/graphics/bed.png");
     assets.mom.loadFromFile("files/graphics/mom1.png");
     assets.cloud.loadFromFile("files/graphics/cloud.png");
     assets.radio.loadFromFile("files/graphics/radio.png");
@@ -258,9 +259,9 @@ void Game::createObjects(){
     anims["pool"] = new Anim(&assets.pool);
     anims["trash"] = new Anim(&assets.trash);
     anims["gamepad"] = new Anim(&assets.gamepad);
-    anims["bed"] = new Anim(&assets.bed);
     anims["radio"] = new Anim(&assets.radio);
     anims["onoff"] = new Anim(&assets.onoff);
+    anims["bed"] = new Anim(&assets.bed, 254, sf::seconds(3600 * 24));
     anims["mom"] = new Anim(&assets.mom);
     anims["cloud"] = new Anim(&assets.cloud);
     anims["onoff_button"] = new Anim(&assets.onoff);
@@ -326,14 +327,28 @@ void Game::createObjects(){
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
+
+
+    Sounds::glass_crash_realistic.loadFromFile("files/tunes/glass_crash_realistic.ogg");
+    Sounds::door_close.loadFromFile("files/tunes/door_close.ogg");
+    Sounds::door_open.loadFromFile("files/tunes/door_open.ogg");
+    Sounds::scratch_fast.loadFromFile("files/tunes/scratch_fast.ogg");
+    Sounds::scratch_slow.loadFromFile("files/tunes/scratch_slow.ogg");
+    Sounds::cat_meow1.loadFromFile("files/tunes/cat_meow1.ogg");
+    Sounds::cat_meow2.loadFromFile("files/tunes/cat_meow2.ogg");
+    Sounds::cat_meow3.loadFromFile("files/tunes/cat_meow3.ogg");
+    Sounds::cat_meow4.loadFromFile("files/tunes/cat_meow4.ogg");
+    Sounds::disorganization.loadFromFile("files/tunes/disorganization.ogg");
+    Sounds::disorganization2.loadFromFile("files/tunes/disorganization2.ogg");
+    Sounds::plum.loadFromFile("files/tunes/plum.ogg");
+
+
+
     std::vector<std::string> trashableItems = {
         "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2", "pot3"
     };
     for(const auto& t: trashableItems)
         items[t]->isTrashable=true;
-
-
-    SoundBufferContainer::glass_crash_realistic.loadFromFile("files/tunes/glass_crash_realistic.ogg");
 
 
     cat.move(640, Settings::floorLevel);
