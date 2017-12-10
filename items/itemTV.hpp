@@ -3,6 +3,21 @@
 
 #include "../item.hpp"
 
+class ItemTVOnOffButton: public Item{
+public:
+    ItemTVOnOffButton(Anim* a, float layer=-5.0)
+    :Item(a, TV_ON_OFF, layer)
+    {
+        draggable=false;
+    }
+
+    void onClick() override {
+        shouldBeChanged=true;
+    }
+
+    bool shouldBeChanged = false;
+};
+
 class ItemTVScreen: public Item{
 public:
     ItemTVScreen(Anim* a, float layer=-1.0)
@@ -12,25 +27,41 @@ public:
     }
 
     void onClick() override {
-        std::cout << "tv clicked\n";
+
     }
 };
 
 class ItemTV: public Item{
 public:
-    ItemTV(Anim* a, ItemTVScreen* screen, float layer=-1.0)
-    :Item(a, TV, layer), itemScreen(screen)
+    ItemTV(Anim* a, ItemTVScreen* screen, ItemTVOnOffButton* onoff, float layer=-1.0)
+    :Item(a, TV, layer), itemScreen(screen), itemOnOff(onoff)
     {
 
     }
 
+    void changeState() override {
+        enabled = ! enabled;
+        if(enabled)
+            state = BROKEN;
+        else
+            state = DEFAULT;
+    }
+
     void onClick() override {
+<<<<<<< HEAD
         enabled = !enabled;
         if(!enabled)
             SoundHandler::playSound(Sounds::tv_off);
+=======
+
+>>>>>>> d1a208921be80e9147e351754627cef16d6237df
     }
 
     void update(sf::Time dt){
+        if(itemOnOff->shouldBeChanged){
+            itemOnOff->shouldBeChanged=false;
+            changeState();
+        }
         if(enabled){
             itemScreen->setColor(Utils::randColor());
         }
@@ -40,6 +71,7 @@ public:
     }
 
     ItemTVScreen* itemScreen;
+    ItemTVOnOffButton* itemOnOff;
     bool enabled=false;
 };
 
