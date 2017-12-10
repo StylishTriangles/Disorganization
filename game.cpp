@@ -351,13 +351,16 @@ void Game::createObjects(){
     items["cd2"] = new ItemCD(anims["cd2"], false, itemRadio);
     items["cd2"]->setPosition(800, 620);
 
-    items["tv"] = new ItemTV(anims["tv"]);
-    items["tv"]->layer= -10.0f;
-    items["tv"]->setPosition(920, 450);
-
-    items["tvScreen"] = new ItemTV(anims["tvScreen"]);
-    items["tvScreen"]->layer= -15.0f;
+    ItemTVScreen* itemScreen = new ItemTVScreen(anims["tvScreen"]);
+    items["tvScreen"] = itemScreen;
+    items["tvScreen"]->layer = -5.0f;
+    items["tvScreen"]->draggable = false;
     items["tvScreen"]->setPosition(920, 450);
+
+    items["tv"] = new ItemTV(anims["tv"], itemScreen);
+    items["tv"]->layer= -10.0f;
+    items["tv"]->draggable= false;
+    items["tv"]->setPosition(920, 450);
 
     pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
@@ -368,7 +371,7 @@ void Game::createObjects(){
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
-    ItemTree* iTree = new ItemTree(anims["tree"], 6.0f);
+    ItemTree* iTree = new ItemTree(anims["tree"], 2.9f);
     items["tree"] = iTree;
     items["tree"]->setPosition(389, 358);
 
