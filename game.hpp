@@ -63,6 +63,7 @@ protected:
     sf::Text momText;
     sf::Text countText;
     sf::Clock introClock;
+    sf::Sprite pointer;
 
 };
 
