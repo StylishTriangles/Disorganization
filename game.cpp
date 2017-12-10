@@ -138,6 +138,9 @@ void Game::draw(sf::Time dT){
         Utils::drawBoundingBox(*item, &window);
     }
     window.draw(cat);
+    sf::CircleShape c(5);
+    c.setPosition(cat.getPosition());
+    window.draw(c);
     bool onSpr = false;
     bool washyWashy = false;
     for (Item* item: vItems) {
