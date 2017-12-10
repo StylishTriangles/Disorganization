@@ -9,7 +9,6 @@ public:
     sf::Texture room1;
     sf::Texture room2;
     sf::Texture dymek;
-    sf::Texture catPrankBookThrow;
     sf::Texture doorRight;
     sf::Texture clock;
     sf::Texture clockHand;
@@ -20,6 +19,9 @@ public:
     sf::Texture bed;
     sf::Texture mom;
     sf::Texture cloud;
+
+    sf::Texture catPrankBookThrow;
+    sf::Texture catPrankBed;
 };
 
 #endif // TEXTURE_CONTAINER_HPP

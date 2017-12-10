@@ -17,7 +17,8 @@ public:
         POOL,
         SINK,
         TRASH,
-        GAMEPAD
+        GAMEPAD,
+        BED
 	};
 
 	enum ItemState {
