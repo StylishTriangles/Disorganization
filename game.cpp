@@ -328,6 +328,8 @@ void Game::createObjects(){
     items["table"]->setPosition(986, 478);
     items["glass"] = new ItemGlass(anims["glass"], 0.5f);
     items["glass"]->setPosition(893, 430);
+    items["glass2"] = new ItemGlass(anims["glass"], 0.5f);
+    items["glass2"]->setPosition(2891, 300);
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
     items["bed"]->setPosition(151, 583);
@@ -335,6 +337,8 @@ void Game::createObjects(){
     items["pot"]->move(700, 420);
     items["pot2"] = new ItemPot(anims["pot"], 1.0f);
     items["pot2"]->move(300, 500);
+    items["pot3"] = new ItemPot(anims["pot"], 1.0f);
+    items["pot3"]->move(3635, 480);
 
     ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 0.999999f);
     items["clockHand"] = itemClockHand;
@@ -365,7 +369,7 @@ void Game::createObjects(){
     items["doorLeftThirdRoom"]->move(70 + 2560, 470);
 
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
-    items["sink"]->move(800+1280, Settings::floorLevel - 100);
+    items["sink"]->move(3021, 404);
 
     items["trash1"] = new ItemTrash(anims["trash"], 1.f);
     items["trash1"]->move(1580, Settings::floorLevel-70);
