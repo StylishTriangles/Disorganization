@@ -14,7 +14,8 @@ void ItemCD::onClick(){
 
 void ItemCD::onDrop(){
     if(Collision::PixelPerfectTest(*itemRadio, *this)){
-        itemRadio->changeState();
+        if(isFirstAlbum != itemRadio->track1)
+            itemRadio->changeState();
     }
 }
 
