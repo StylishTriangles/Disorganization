@@ -23,6 +23,7 @@ public:
     sf::Texture cloud;
     sf::Texture radio;
     sf::Texture onoff;
+    sf::Texture tvonoff;
     sf::Texture glass;
     sf::Texture table;
     sf::Texture cd1;
