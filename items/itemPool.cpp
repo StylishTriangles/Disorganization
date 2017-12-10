@@ -16,7 +16,7 @@ void ItemPool::onDrag(int dx, int dy){
     if(actLevel >= cleanLevel)
         actLevel = cleanLevel;
     sf::Color col = getColor();
-    col.a = ((cleanLevel-actLevel)/cleanLevel)*255.0f;
+    col.a = ((cleanLevel-actLevel+220)/(cleanLevel+220))*255.0f; // +220, zeby bylo widac
     setColor(col);
     if(actLevel >= cleanLevel){
         state = DELETED;

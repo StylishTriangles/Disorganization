@@ -1,6 +1,7 @@
 #include "game.hpp"
 
 #include "pranks/prankBookThrow.hpp"
+#include "pranks/prankBed.hpp"
 
 #include "items/itemPot.hpp"
 #include "items/itemDoor.hpp"
@@ -64,7 +65,8 @@ void Game::introLogic(sf::Time dT){
         }
         if(!introDone && introClock.getElapsedTime().asSeconds() >= 4.0){
             introDone = true;
-            SoundHandler::playSound(Sounds::disorganization2, 50, true);
+            //SoundHandler::playSound(Sounds::disorganization2, 50, true);
+            music.play();
         }
     }
 }
@@ -234,7 +236,6 @@ void Game::createObjects(){
     assets.catMove.loadFromFile("files/graphics/catMove.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
     assets.room2.loadFromFile("files/graphics/pokoj3.png");
-    assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
     assets.clock.loadFromFile("files/graphics/clock.png");
     assets.clockHand.loadFromFile("files/graphics/clockhand.png");
@@ -248,9 +249,13 @@ void Game::createObjects(){
     assets.radio.loadFromFile("files/graphics/radio.png");
     assets.onoff.loadFromFile("files/graphics/onoff.png");
 
+    assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
+    assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
+
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
+    anims["catPrankBed"] = new Anim(&assets.catPrankBed);
     anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
     anims["door"] = new Anim(&assets.doorRight);
     anims["clock"] = new Anim(&assets.clock);
@@ -321,6 +326,7 @@ void Game::createObjects(){
     items["radio"]->move(800, 500);
 
     pranks.push_back(new PrankBookThrow(this));
+    pranks.push_back(new PrankBed(this));
 
     roomSprite = sf::Sprite(assets.room2);
     roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,
@@ -338,11 +344,21 @@ void Game::createObjects(){
     Sounds::cat_meow2.loadFromFile("files/tunes/cat_meow2.ogg");
     Sounds::cat_meow3.loadFromFile("files/tunes/cat_meow3.ogg");
     Sounds::cat_meow4.loadFromFile("files/tunes/cat_meow4.ogg");
-    Sounds::disorganization.loadFromFile("files/tunes/disorganization.ogg");
-    Sounds::disorganization2.loadFromFile("files/tunes/disorganization2.ogg");
+    //Sounds::disorganization.loadFromFile("files/tunes/disorganization.ogg");
+    //Sounds::disorganization2.loadFromFile("files/tunes/disorganization2.ogg");
     Sounds::plum.loadFromFile("files/tunes/plum.ogg");
-
-
+    Sounds::steppy.loadFromFile("files/tunes/steppy.ogg");
+    Sounds::bec.loadFromFile("files/tunes/bec.ogg");
+    Sounds::bupu_bupu.loadFromFile("files/tunes/bupu_bupu.ogg");
+    Sounds::screach1.loadFromFile("files/tunes/screach1.ogg");
+    Sounds::pef.loadFromFile("files/tunes/pef.ogg");
+    Sounds::pif.loadFromFile("files/tunes/pif.ogg");
+    Sounds::shash.loadFromFile("files/tunes/shash.ogg");
+    Sounds::sink.loadFromFile("files/tunes/sink.ogg");
+    Sounds::sss.loadFromFile("files/tunes/sss.ogg");
+    Sounds::tik_tok.loadFromFile("files/tunes/tik_tok.ogg");
+    Sounds::tsh.loadFromFile("files/tunes/tsh.ogg");
+    Sounds::wosh.loadFromFile("files/tunes/wosh.ogg");
 
     std::vector<std::string> trashableItems = {
         "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2", "pot3"
