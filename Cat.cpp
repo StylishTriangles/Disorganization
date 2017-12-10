@@ -34,6 +34,26 @@ void Cat::update(sf::Time deltaTime) {
 			state = CLOSETOPRANK;
 		}
 	}
+	else if (state == TRAVELTOCENTER) {
+		if (getPosition().x > Settings::roomCenter) {
+			travelDirection = LEFT;
+			setScale(-abs(getScale().x), getScale().y);
+		}
+		else {
+			travelDirection = RIGHT;
+			setScale(abs(getScale().x), getScale().y);
+		}
+		if (travelDirection == RIGHT) {
+			move((float)dT/6.0f, 0);
+		}
+		else {
+			move(-(float)dT/6.0f, 0);
+		}
+		if (abs(getPosition().x-Settings::roomCenter) < 15) {
+			state = IDLE;
+			setAnimation(anims["catIdle"]);
+		}
+	}
 	else if (state == PRANK) {
 		if (prankProgress > activePrank->prankTime) {
 			state = GOINGTOPATH;
@@ -69,8 +89,8 @@ void Cat::update(sf::Time deltaTime) {
 	}
 	else if (state == GOINGTOPATH) {
 		if (abs(getPosition().y-Settings::floorLevel) < 10) {
-			state = IDLE;
-			setAnimation(anims["catIdle"]);
+			state = TRAVELTOCENTER;
+			setAnimation(anims["catMove"]);
 		}
 
 		else if (getPosition().y < Settings::floorLevel) {
@@ -97,7 +117,7 @@ void Cat::update(sf::Time deltaTime) {
 			setScale(abs(getScale().x) * Utils::sgn(runTo - getPosition().x), getScale().y);
 		}
 	}
-	AnimSprite::update(deltaTime.asMilliseconds());
+	AnimSprite::update((state == TRAVELTOCENTER ? 0.5f : 1) * deltaTime.asMilliseconds());
 }
 
 void Cat::setNextPrank(Prank* prank) {
@@ -115,11 +135,11 @@ void Cat::setNextPrank(Prank* prank) {
 }
 
 void Cat::getRekt() {
+	SoundHandler::playSound(Sounds::cat_screach1);
 	state = HISSING;
 	setAnimation(anims["catHiss"]);
-	SoundHandler::playSound(Sounds::cat_screach1);
 }
 
 bool Cat::isIdle() {
-	return state == IDLE;
+	return state == IDLE || state == TRAVELTOCENTER;
 }

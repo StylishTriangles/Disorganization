@@ -262,7 +262,7 @@ void Game::createObjects(){
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
     anims["catPrankBed"] = new Anim(&assets.catPrankBed);
     anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
-    anims["catHiss"] = new Anim(&assets.catHiss, 179, sf::milliseconds(100));
+    anims["catHiss"] = new Anim(&assets.catHiss, 178, sf::milliseconds(100));
     anims["door"] = new Anim(&assets.doorRight);
     anims["clock"] = new Anim(&assets.clock);
     anims["clockHand"] = new Anim(&assets.clockHand);
@@ -356,7 +356,7 @@ void Game::createObjects(){
     Sounds::steppy.loadFromFile("files/tunes/steppy.ogg");
     Sounds::bec.loadFromFile("files/tunes/bec.ogg");
     Sounds::bupu_bupu.loadFromFile("files/tunes/bupu_bupu.ogg");
-    Sounds::screach1.loadFromFile("files/tunes/screach1.ogg");
+    Sounds::cat_screach1.loadFromFile("files/tunes/cat_screach1.ogg");
     Sounds::pef.loadFromFile("files/tunes/pef.ogg");
     Sounds::pif.loadFromFile("files/tunes/pif.ogg");
     Sounds::shash.loadFromFile("files/tunes/shash.ogg");

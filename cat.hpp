@@ -11,6 +11,7 @@
 enum catState {
 	IDLE,
 	TRAVEL,
+	TRAVELTOCENTER,
 	PRANK,
 	RUN,
 	CLOSETOPRANK,

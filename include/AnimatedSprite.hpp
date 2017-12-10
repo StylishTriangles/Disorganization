@@ -101,6 +101,7 @@ public:
         }
     }
     void setAnimation(Anim* a) {
+    	loops = 0;
         animation = a;
         currentFrame = 0;
         runTime = 0;
