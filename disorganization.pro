@@ -22,7 +22,12 @@ SOURCES += main.cpp \
     Settings.cpp \
     soundBuffer_container.cpp \
     soundHandler.cpp \
-    items/itemRadio.cpp
+    items/itemRadio.cpp \
+    effectHandler.cpp \
+    pranks/prankBed.cpp \
+    texture_container.cpp \
+    items/itemTree.cpp \
+    pranks/prankThrowToTrash.cpp
 
 INCLUDEPATH += C:/SFML/include
 INCLUDEPATH += ./include
@@ -61,7 +66,11 @@ HEADERS += \
     Settings.hpp \
     soundBuffer_container.hpp \
     soundHandler.hpp \
-    items/itemRadio.hpp
+    items/itemRadio.hpp \
+    effectHandler.hpp \
+    pranks/prankBed.hpp \
+    items/itemTree.hpp \
+    pranks/prankThrowToTrash.hpp
 
 DISTFILES += \
     imgui.ini

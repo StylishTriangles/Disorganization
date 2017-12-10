@@ -8,6 +8,7 @@ public:
     sf::Texture pot;
     sf::Texture catIdle;
     sf::Texture catMove;
+    sf::Texture catHiss;
     sf::Texture room1;
     sf::Texture room2;
     sf::Texture dymek;
@@ -25,6 +26,9 @@ public:
     sf::Texture onoff;
     sf::Texture glass;
     sf::Texture table;
+    sf::Texture cd1;
+    sf::Texture cd2;
+    sf::Texture tree;
 
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;

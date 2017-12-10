@@ -14,3 +14,7 @@ void Prank::onStart() {
 void Prank::onFinish() {
 
 }
+
+void Prank::onPranking(sf::Time dt) {
+
+}
