@@ -41,6 +41,10 @@ public:
 
     void changeState() override {
         enabled = ! enabled;
+        if(enabled)
+            state = BROKEN;
+        else
+            state = DEFAULT;
     }
 
     void onClick() override {
