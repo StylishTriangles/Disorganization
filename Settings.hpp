@@ -9,6 +9,7 @@ public :
 	static sf::Vector2f windowSize;
 	static int floorLevel;
 	static int room;
+	static int roomCenter;
 };
 
 #endif //SETTINGS_HPP
