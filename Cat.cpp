@@ -8,7 +8,7 @@ void Cat::create(std::map<std::string, Anim*> animations) {
 
 void Cat::update(sf::Time deltaTime) {
 	int dT = deltaTime.asMilliseconds();
-	if (activePrank != nullptr && activePrank->activeItem != nullptr && activePrank->activeItem->state == Item::TRASHED) {
+	if (activePrank != nullptr && activePrank->activeItem != nullptr && (activePrank->activeItem->state & Item::TRASHED)) {
 		state = GOINGTOPATH;
 		setAnimation(anims["catMove"]);
 	}
