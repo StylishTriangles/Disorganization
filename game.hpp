@@ -19,6 +19,12 @@
 
 class Game {
 public:
+    enum GameState{
+        INTRO,
+        GAME,
+        OUTRO
+    };
+
 	Game(int width, int height, std::string title);
 	~Game();
 	sf::RenderWindow window;
@@ -27,6 +33,7 @@ public:
 	void createObjects();
 	void introLogic(sf::Time);
 	void gameLogic(sf::Time);
+	void outroLogic(sf::Time);
 	void draw(sf::Time);
     void drawStats();
     void shotWater();
@@ -48,7 +55,7 @@ public:
     sf::Music music;
 
 protected:
-    bool introDone=true;
+    unsigned int gameState = GAME;
     bool introClockStarted=false;
     bool isMouseDown=false;
     int lastMouseX, lastMouseY;
