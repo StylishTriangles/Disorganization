@@ -24,6 +24,7 @@ public:
         BED,
         RADIO,
         ONOFF_BUTTON,
+        TV,
         TABLE,
         CD
 	};
