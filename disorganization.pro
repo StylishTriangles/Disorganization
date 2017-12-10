@@ -29,7 +29,8 @@ SOURCES += main.cpp \
     items/itemTree.cpp \
     pranks/prankThrowToTrash.cpp \
     pranks/prankGlass.cpp \
-    pranks/prankTVOn.cpp
+    pranks/prankTVOn.cpp \
+    items/itemGamepad.cpp
 
 INCLUDEPATH += C:/SFML/include
 INCLUDEPATH += ./include
@@ -74,7 +75,8 @@ HEADERS += \
     items/itemTree.hpp \
     pranks/prankThrowToTrash.hpp \
     pranks/prankGlass.hpp \
-    pranks/prankTVOn.hpp
+    pranks/prankTVOn.hpp \
+    items/itemGamepad.hpp
 
 DISTFILES += \
     imgui.ini

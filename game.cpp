@@ -140,9 +140,6 @@ void Game::draw(sf::Time dT){
     window.setView(view);
 	window.draw(roomSprite);
     drawStats();
-    window.draw(momCloud);
-    window.draw(momText);
-    window.draw(mom);
 
     for(Item *item: vItems) {
         item->update(dT);
@@ -150,16 +147,22 @@ void Game::draw(sf::Time dT){
         Utils::drawBoundingBox(*item, &window);
     }
     window.draw(cat);
+    //sf::CircleShape c(5);
+    //c.setPosition(cat.getPosition());
+    //window.draw(c);
     bool onSpr = false;
     bool washyWashy = false;
     for (Item* item: vItems) {
         if (Utils::isMouseOnSprite(*item, &window)) {
             onSpr = true;
-            if (item->type == Item::POOL) {
+            if (item->type == Item::POOL || (item->type == Item::BED && (item->state == Item::BROKEN))) {
                 washyWashy = true;
             }
         }
     }
+    window.draw(momCloud);
+    window.draw(momText);
+    window.draw(mom);
     if (!onSpr or Utils::isMouseOnSprite(cat, &window)) {
         if (hasWaterGun)
             pointer.setTexture(assets.pointerWaterGun);
@@ -334,7 +337,7 @@ void Game::createObjects(){
     TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
 
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow, 253, sf::milliseconds(50));
-    anims["catPrankBed"] = new Anim(&assets.catPrankBed, 253, sf::milliseconds(50));
+    anims["catPrankBed"] = new Anim(&assets.catPrankBed, 168, sf::milliseconds(300));
     anims["catPrankGlass"] = new Anim(&assets.catPrankGlass, 253, sf::milliseconds(50));
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
@@ -411,11 +414,11 @@ void Game::createObjects(){
     items["sink"]->move(3021, 404);
 
     items["trash1"] = new ItemTrash(anims["trash"], 1.f);
-    items["trash1"]->move(380, Settings::floorLevel-40);
+    items["trash1"]->move(1000, Settings::floorLevel+100);
 
-    items["gamepad1"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
+    items["gamepad1"] = new ItemGamepad(anims["gamepad"], this, -1.0f);
     items["gamepad1"] -> move(600, Settings::floorLevel + 20);
-    items["gamepad2"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
+    items["gamepad2"] = new ItemGamepad(anims["gamepad"], this, -1.0f);
     items["gamepad2"] -> move(480, Settings::floorLevel + 25);
 
     ItemOnOffButton* onOffButton = new ItemOnOffButton(anims["onoff_button"]);
@@ -491,7 +494,7 @@ void Game::createObjects(){
     Sounds::tv_off.loadFromFile("files/tunes/tv_off.ogg");
 
     std::vector<std::string> trashableItems = {
-        "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2"
+        "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2", "pot3"
     };
     for(const auto& t: trashableItems)
         items[t]->isTrashable=true;
