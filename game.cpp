@@ -131,9 +131,6 @@ void Game::draw(sf::Time dT){
     window.setView(view);
 	window.draw(roomSprite);
     drawStats();
-    window.draw(momCloud);
-    window.draw(momText);
-    window.draw(mom);
 
     for(Item *item: vItems) {
         item->update(dT);
@@ -151,6 +148,9 @@ void Game::draw(sf::Time dT){
             }
         }
     }
+    window.draw(momCloud);
+    window.draw(momText);
+    window.draw(mom);
     if (!onSpr or Utils::isMouseOnSprite(cat, &window)) {
         if (hasWaterGun)
             pointer.setTexture(assets.pointerWaterGun);
@@ -399,9 +399,9 @@ void Game::createObjects(){
     items["trash1"] = new ItemTrash(anims["trash"], 1.f);
     items["trash1"]->move(1000, Settings::floorLevel+100);
 
-    items["gamepad1"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
+    items["gamepad1"] = new ItemGamepad(anims["gamepad"], this, -1.0f);
     items["gamepad1"] -> move(600, Settings::floorLevel + 20);
-    items["gamepad2"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
+    items["gamepad2"] = new ItemGamepad(anims["gamepad"], this, -1.0f);
     items["gamepad2"] -> move(480, Settings::floorLevel + 25);
 
     ItemOnOffButton* onOffButton = new ItemOnOffButton(anims["onoff_button"]);
