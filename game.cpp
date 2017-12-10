@@ -402,6 +402,7 @@ void Game::createObjects(){
 
     pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
+
     pranks.push_back(new PrankGlass(this));
     pranks.push_back(new PrankThrowToTrash(this));
     pranks.push_back(new PrankTVOn(this));
