@@ -19,6 +19,8 @@ public:
     sf::Texture bed;
     sf::Texture mom;
     sf::Texture cloud;
+    sf::Texture radio;
+    sf::Texture onoff;
 
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;
