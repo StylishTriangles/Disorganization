@@ -224,6 +224,11 @@ void Game::drawStats(){
                 messiness--;
             }
         }
+        if(it.second->state & Item::DEFAULT){
+            if(it.second->state & Item::TRASHED){
+                messiness++;
+            }
+        }
     }
     std::string str =   "Time left " + Utils::stringify((int)(totalTimeInSeconds - secondsPassed)) + "s\n\n"
                         "Messiness: " + Utils::stringify(messiness)+"\n";
@@ -257,6 +262,7 @@ void Game::createObjects(){
     assets.cloud.loadFromFile("files/graphics/cloud.png");
     assets.radio.loadFromFile("files/graphics/radio.png");
     assets.onoff.loadFromFile("files/graphics/onoff.png");
+    assets.tvonoff.loadFromFile("files/graphics/onoff.png");
     assets.table.loadFromFile("files/graphics/table.png");
     assets.glass.loadFromFile("files/graphics/glass.png");
     assets.cd1.loadFromFile("files/graphics/cd1.png");
@@ -292,6 +298,7 @@ void Game::createObjects(){
     anims["mom"] = new Anim(&assets.mom);
     anims["cloud"] = new Anim(&assets.cloud);
     anims["onoff_button"] = new Anim(&assets.onoff);
+    anims["onoff_buttonTV"] = new Anim(&assets.tvonoff);
     anims["table"] = new Anim(&assets.table);
     anims["glass"] = new Anim(&assets.glass, 35, sf::seconds(3600 * 24));
     anims["cd1"] = new Anim(&assets.cd1);
@@ -368,10 +375,13 @@ void Game::createObjects(){
     items["tvScreen"]->draggable = false;
     items["tvScreen"]->setPosition(620, 450);
 
-    items["tv"] = new ItemTV(anims["tv"], itemScreen);
-    items["tv"]->layer= 1.0f;
+    ItemTVOnOffButton* tvOnOffButton = new ItemTVOnOffButton(anims["onoff_buttonTV"], -10.f);
+    tvOnOffButton->setPosition(455, 450);
+    tvOnOffButton->setColor(sf::Color::Red);
+    items["tv"] = new ItemTV(anims["tv"], itemScreen, tvOnOffButton, 1.0f);
     items["tv"]->draggable= false;
     items["tv"]->setPosition(620, 450);
+    items["TVonoff_button"] = tvOnOffButton;
 
     pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
