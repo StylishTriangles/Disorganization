@@ -480,7 +480,7 @@ void Game::createObjects(){
     Sounds::tv_off.loadFromFile("files/tunes/tv_off.ogg");
 
     std::vector<std::string> trashableItems = {
-        "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2"
+        "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2", "pot3"
     };
     for(const auto& t: trashableItems)
         items[t]->isTrashable=true;
