@@ -371,8 +371,4 @@ void Game::createObjects(){
 
     momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
     momText.setPosition(momCloud.getPosition());
-
-    music.openFromFile("files/tunes/disorganization.ogg");
-    music.setLoop(true);
-    music.play();
 }

@@ -21,9 +21,11 @@ public:
 
     void onClick() override ;
     void update(sf::Time dt) override ;
+    void changeTrack();
 
     Game* game;
     ItemOnOffButton* onoff;
+    bool track1=false;
 };
 
 #endif // ITEM_RADIO_HPP

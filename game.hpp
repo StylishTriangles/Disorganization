@@ -48,7 +48,7 @@ public:
     sf::Music music;
 
 protected:
-    bool introDone=false;
+    bool introDone=true;
     bool introClockStarted=false;
     bool isMouseDown=false;
     int lastMouseX, lastMouseY;
