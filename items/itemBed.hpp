@@ -5,9 +5,8 @@
 
 #include <iostream>
 
-class ItemBed : public Item
-{
-  public:
+class ItemBed : public Item {
+public:
     ItemBed(Anim *a, float layer = 0.0)
         : Item(a, BED, layer)
     {
@@ -18,11 +17,20 @@ class ItemBed : public Item
     }
 
     void onDrag(int dx, int dy) override {
-
+        if(state == BROKEN){
+            repair++;
+            if(repair==1)
+                SoundHandler::playSound(Sounds::scratch_fast);
+            if(repair>100){
+                std::cout << "asdasd\n";
+                changeState();
+                repair=0;
+            }
+        }
     }
 
     void onDrop() override {
-        
+
     }
 
     void changeState() override
@@ -36,8 +44,11 @@ class ItemBed : public Item
         {
             state = DEFAULT;
             setColor(sf::Color::White);
+            nextFrame();
         }
     }
+
+    int repair=0;
 };
 
 #endif // ITEM_BED_HPP

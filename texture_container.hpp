@@ -24,6 +24,8 @@ public:
     sf::Texture cloud;
     sf::Texture radio;
     sf::Texture onoff;
+    sf::Texture cd1;
+    sf::Texture cd2;
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;
     static sf::Texture spsSmoke;
