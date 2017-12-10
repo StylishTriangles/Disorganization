@@ -417,6 +417,8 @@ void Game::createObjects(){
     Sounds::tik_tok.loadFromFile("files/tunes/tik_tok.ogg");
     Sounds::tsh.loadFromFile("files/tunes/tsh.ogg");
     Sounds::wosh.loadFromFile("files/tunes/wosh.ogg");
+    Sounds::tv_on.loadFromFile("files/tunes/tv_on.ogg");
+    Sounds::tv_off.loadFromFile("files/tunes/tv_off.ogg");
 
     std::vector<std::string> trashableItems = {
         "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2", "pot3"

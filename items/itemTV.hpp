@@ -25,7 +25,9 @@ public:
     }
 
     void onClick() override {
-       enabled = !enabled;
+        enabled = !enabled;
+        if(!enabled)
+            SoundHandler::playSound(Sounds::tv_off);
     }
 
     void update(sf::Time dt){
