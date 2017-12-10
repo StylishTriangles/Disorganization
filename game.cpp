@@ -294,9 +294,9 @@ void Game::createObjects(){
 
     TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
 
-    anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
-    anims["catPrankBed"] = new Anim(&assets.catPrankBed);
-    anims["catPrankGlass"] = new Anim(&assets.catPrankGlass);
+    anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow, 253, sf::milliseconds(50));
+    anims["catPrankBed"] = new Anim(&assets.catPrankBed, 253, sf::milliseconds(50));
+    anims["catPrankGlass"] = new Anim(&assets.catPrankGlass, 253, sf::milliseconds(50));
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle, 110, sf::milliseconds(500));
