@@ -21,7 +21,7 @@
 #include "items/itemTV.hpp"
 
 Game::Game(int width, int height, std::string title)
-    : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
+    : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width*2, 0, width, height))
 {
 	window.setFramerateLimit(60);
     window.setMouseCursorVisible(false);
@@ -52,6 +52,17 @@ void Game::run() {
 		}
 		window.clear(sf::Color::Black);
 		sf::Time dt = deltaClock.restart();
+		vItems.clear();
+        for (auto it = items.cbegin(); it != items.cend(); ){
+            if (it->second->state == Item::DELETED){
+                items.erase(it++);
+            }
+            else {
+                vItems.push_back(it->second);
+                ++it;
+            }
+        }
+        sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
 		if(!introDone)
             introLogic(dt);
 		else{
@@ -66,7 +77,7 @@ void Game::introLogic(sf::Time dT){
     mom.move(100*dT.asSeconds(), 0);
     momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
     momText.setPosition(momCloud.getPosition());
-    if(mom.getPosition().x >= Settings::windowSize.x*2+100){
+    if(mom.getPosition().x >= Settings::windowSize.x*3+100){
         if(!introClockStarted){
             introClock.restart();
             introClockStarted=true;
@@ -80,17 +91,6 @@ void Game::introLogic(sf::Time dT){
 }
 
 void Game::gameLogic(sf::Time dT){
-    vItems.clear();
-    for (auto it = items.cbegin(); it != items.cend(); ){
-        if (it->second->state == Item::DELETED){
-            items.erase(it++);
-        }
-        else {
-            vItems.push_back(it->second);
-            ++it;
-        }
-    }
-    sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
     if (cat.isIdle()) {
 		if (Utils::chance(1.0/(60.0))) {
 			int availablePranks = 0;
@@ -124,6 +124,39 @@ void Game::draw(sf::Time dT){
     window.draw(momCloud);
     window.draw(momText);
     window.draw(mom);
+
+    for(Item *item: vItems) {
+        item->update(dT);
+        window.draw(*item);
+        Utils::drawBoundingBox(*item, &window);
+    }
+    window.draw(cat);
+    bool onSpr = false;
+    bool washyWashy = false;
+    for (Item* item: vItems) {
+        if (Utils::isMouseOnSprite(*item, &window)) {
+            onSpr = true;
+            if (item->type == Item::POOL) {
+                washyWashy = true;
+            }
+        }
+    }
+    if (!onSpr or Utils::isMouseOnSprite(cat, &window)) {
+        if (hasWaterGun)
+            pointer.setTexture(assets.pointerWaterGun);
+        else
+            pointer.setTexture(assets.pointerWaterGunEmpty);
+    }
+    else {
+        if (washyWashy)
+            pointer.setTexture(assets.pointerCloth);
+        else
+            pointer.setTexture(assets.pointer);
+    }
+    pointer.setPosition(sf::Mouse::getPosition(window).x + Settings::room*Settings::windowSize.x, sf::Mouse::getPosition(window).y);
+    window.draw(pointer);
+    EffectHandler::draw(&window);
+
     if(introClockStarted && !introDone){
         if(introClock.getElapsedTime().asSeconds() < 4.0)
             countText.setString("Go Clean!\n");
@@ -133,29 +166,10 @@ void Game::draw(sf::Time dT){
             countText.setString("2...\n");
         if(introClock.getElapsedTime().asSeconds() < 1.0)
             countText.setString("3...\n");
-        countText.setPosition(Settings::windowSize.x*1.5 - countText.getGlobalBounds().width/2.f,
+        countText.setPosition(Settings::windowSize.x*2.5 - countText.getGlobalBounds().width/2.f,
                           Settings::windowSize.y/2.0 - countText.getCharacterSize()/2.f);
         window.draw(countText);
     }
-
-    for(Item *item: vItems) {
-        item->update(dT);
-        window.draw(*item);
-        Utils::drawBoundingBox(*item, &window);
-    }
-    window.draw(cat);
-    if (Utils::isMouseOnSprite(cat, &window)) {
-        if (hasWaterGun)
-            pointer.setTexture(assets.pointerWaterGun);
-        else
-            pointer.setTexture(assets.pointerWaterGunEmpty);
-    }
-    else {
-        pointer.setTexture(assets.pointer);
-    }
-    pointer.setPosition(sf::Mouse::getPosition(window).x + Settings::room*Settings::windowSize.x, sf::Mouse::getPosition(window).y);
-    window.draw(pointer);
-    EffectHandler::draw(&window);
 }
 
 void Game::executeMouseEvents(sf::Event* ev){
@@ -283,6 +297,7 @@ void Game::createObjects(){
     assets.tv.loadFromFile("files/graphics/tv.png");
     assets.tvScreen.loadFromFile("files/graphics/defaultscreen.png");
     assets.pointer.loadFromFile("files/graphics/pointer.png");
+    assets.pointerCloth.loadFromFile("files/graphics/pointerCloth.png");
     assets.pointerWaterGun.loadFromFile("files/graphics/watergun.png");
     assets.pointerWaterGunEmpty.loadFromFile("files/graphics/watergunempty.png");
     pointer.setTexture(assets.pointer);
@@ -294,9 +309,9 @@ void Game::createObjects(){
 
     TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
 
-    anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
-    anims["catPrankBed"] = new Anim(&assets.catPrankBed);
-    anims["catPrankGlass"] = new Anim(&assets.catPrankGlass);
+    anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow, 253, sf::milliseconds(50));
+    anims["catPrankBed"] = new Anim(&assets.catPrankBed, 253, sf::milliseconds(50));
+    anims["catPrankGlass"] = new Anim(&assets.catPrankGlass, 253, sf::milliseconds(50));
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle, 110, sf::milliseconds(500));
@@ -354,29 +369,29 @@ void Game::createObjects(){
     ItemDoor *doorRightSecondRoom = new ItemDoor(anims["door"], false, 10.0f);
     doorRightSecondRoom->setGame(this);
     items["doorRightSecondRoom"] = doorRightSecondRoom;
-    items["doorRightSecondRoom"]->move(1210 + 1280, 470);
+    items["doorRightSecondRoom"]->move(1210 + Settings::windowSize.x, 470);
 
     ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 10.0f);
     doorLeftSecondRoom->setScale(-1, 1);
     doorLeftSecondRoom->setGame(this);
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;
-    items["doorLeftSecondRoom"]->move(70+1280, 470);
+    items["doorLeftSecondRoom"]->move(70+Settings::windowSize.x, 470);
 
     ItemDoor *doorLeftThirdRoom = new ItemDoor(anims["door"], true, 10.0f);
     doorLeftThirdRoom->setScale(-1, 1);
     doorLeftThirdRoom->setGame(this);
     items["doorLeftThirdRoom"] = doorLeftThirdRoom;
-    items["doorLeftThirdRoom"]->move(70 + 2560, 470);
+    items["doorLeftThirdRoom"]->move(70 + Settings::windowSize.x*2, 470);
 
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
     items["sink"]->move(3021, 404);
 
     items["trash1"] = new ItemTrash(anims["trash"], 1.f);
-    items["trash1"]->move(1580, Settings::floorLevel-70);
+    items["trash1"]->move(380, Settings::floorLevel-40);
 
-    items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad1"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
     items["gamepad1"] -> move(600, Settings::floorLevel + 20);
-    items["gamepad2"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad2"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
     items["gamepad2"] -> move(480, Settings::floorLevel + 25);
 
     ItemOnOffButton* onOffButton = new ItemOnOffButton(anims["onoff_button"]);
@@ -461,7 +476,7 @@ void Game::createObjects(){
     cat.move(640, Settings::floorLevel);
     mom = AnimSprite(anims["mom"]);
     Utils::setOriginInCenter(mom);
-    mom.setPosition(2*Settings::windowSize.x-700, Settings::floorLevel);
+    mom.setPosition(3*Settings::windowSize.x-500, Settings::floorLevel);
     mom.setScale(-1, 1);
 
     momCloud = AnimSprite(anims["cloud"]);
