@@ -52,9 +52,9 @@ void PrankThrowToTrash::onPranking(sf::Time dT){
     }
 
     game->cat.move(Utils::normalized(trash->getPosition() - game->cat.getPosition()) * (float)dT.asMilliseconds() / 3.0f);
-    sf::Vector2f addToHead = sf::Vector2f(-70, -30);
+    sf::Vector2f addToHead = sf::Vector2f(-5, -30);
     if(game->cat.travelDirection == direction::RIGHT){
-        addToHead = sf::Vector2f(game->cat.getGlobalBounds().width-90,-30);
+        addToHead = sf::Vector2f(game->cat.getGlobalBounds().width-160,-30);
     }
     activeItem->setPosition(game->cat.getPosition()+addToHead);
 

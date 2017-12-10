@@ -5,7 +5,7 @@
 
 class ItemClockHand: public Item{
 public:
-    ItemClockHand(Anim* a, float layer=0.0)
+    ItemClockHand(Anim* a, float layer=-1.0)
     :Item(a, CLOCK_HAND, layer)
     {
         setScale(0.5, 0.5);
