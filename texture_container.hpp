@@ -30,6 +30,7 @@ public:
     sf::Texture cd2;
     sf::Texture tree;
     sf::Texture pointer;
+    sf::Texture pointerCloth;
     sf::Texture pointerWaterGun;
     sf::Texture pointerWaterGunEmpty;
 
