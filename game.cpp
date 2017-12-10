@@ -1,6 +1,7 @@
 #include "game.hpp"
 
 #include "pranks/prankBookThrow.hpp"
+#include "pranks/prankBed.hpp"
 
 #include "items/itemPot.hpp"
 #include "items/itemDoor.hpp"
@@ -104,6 +105,7 @@ void Game::gameLogic(sf::Time dT){
     }
     cat.update(dT);
     SoundHandler::update();
+    EffectHandler::update(dT.asMilliseconds());
     secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
 }
 
@@ -135,6 +137,7 @@ void Game::draw(sf::Time dT){
     }
 
     window.draw(cat);
+    EffectHandler::draw(&window);
 }
 
 void Game::executeMouseEvents(sf::Event* ev){
@@ -235,7 +238,6 @@ void Game::createObjects(){
     assets.catMove.loadFromFile("files/graphics/catMove.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
     assets.room2.loadFromFile("files/graphics/pokoj3.png");
-    assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
     assets.clock.loadFromFile("files/graphics/clock.png");
     assets.clockHand.loadFromFile("files/graphics/clockhand.png");
@@ -251,9 +253,15 @@ void Game::createObjects(){
     assets.cd1.loadFromFile("files/graphics/cd1.png");
     assets.cd2.loadFromFile("files/graphics/cd2.png");
 
+    assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
+    assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
+
+    TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
+
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
+    anims["catPrankBed"] = new Anim(&assets.catPrankBed);
     anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
     anims["door"] = new Anim(&assets.doorRight);
     anims["clock"] = new Anim(&assets.clock);
@@ -310,7 +318,7 @@ void Game::createObjects(){
     items["doorLeftThirdRoom"]->move(130 + 2560, 400);
 
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
-    items["sink"]->move(600+1280, 100);
+    items["sink"]->move(600+1280, Settings::floorLevel);
 
     items["trash1"] = new ItemTrash(anims["trash"], 5.f);
     items["trash1"]->move(300, 500);
@@ -332,6 +340,7 @@ void Game::createObjects(){
     items["cd2"]->setPosition(800, 620);
 
     pranks.push_back(new PrankBookThrow(this));
+    pranks.push_back(new PrankBed(this));
 
     roomSprite = sf::Sprite(assets.room2);
     roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,
@@ -345,15 +354,28 @@ void Game::createObjects(){
     Sounds::door_open.loadFromFile("files/tunes/door_open.ogg");
     Sounds::scratch_fast.loadFromFile("files/tunes/scratch_fast.ogg");
     Sounds::scratch_slow.loadFromFile("files/tunes/scratch_slow.ogg");
+    Sounds::scratch_paw.loadFromFile("files/tunes/scratch_paw.ogg");
     Sounds::cat_meow1.loadFromFile("files/tunes/cat_meow1.ogg");
     Sounds::cat_meow2.loadFromFile("files/tunes/cat_meow2.ogg");
     Sounds::cat_meow3.loadFromFile("files/tunes/cat_meow3.ogg");
     Sounds::cat_meow4.loadFromFile("files/tunes/cat_meow4.ogg");
+    Sounds::cat_purr1.loadFromFile("files/tunes/cat_purr1.ogg");
+    Sounds::cat_purr2.loadFromFile("files/tunes/cat_purr2.ogg");
+    Sounds::cat_screach1.loadFromFile("files/tunes/cat_screach1.ogg");
     //Sounds::disorganization.loadFromFile("files/tunes/disorganization.ogg");
     //Sounds::disorganization2.loadFromFile("files/tunes/disorganization2.ogg");
     Sounds::plum.loadFromFile("files/tunes/plum.ogg");
-
-
+    Sounds::steppy.loadFromFile("files/tunes/steppy.ogg");
+    Sounds::bec.loadFromFile("files/tunes/bec.ogg");
+    Sounds::bupu_bupu.loadFromFile("files/tunes/bupu_bupu.ogg");
+    Sounds::pef.loadFromFile("files/tunes/pef.ogg");
+    Sounds::pif.loadFromFile("files/tunes/pif.ogg");
+    Sounds::shash.loadFromFile("files/tunes/shash.ogg");
+    Sounds::sink.loadFromFile("files/tunes/sink.ogg");
+    Sounds::sss.loadFromFile("files/tunes/sss.ogg");
+    Sounds::tik_tok.loadFromFile("files/tunes/tik_tok.ogg");
+    Sounds::tsh.loadFromFile("files/tunes/tsh.ogg");
+    Sounds::wosh.loadFromFile("files/tunes/wosh.ogg");
 
     std::vector<std::string> trashableItems = {
         "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2", "pot3"

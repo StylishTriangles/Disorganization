@@ -9,7 +9,7 @@ class ItemBed : public Item
 {
   public:
     ItemBed(Anim *a, float layer = 0.0)
-        : Item(a, BOOK, layer)
+        : Item(a, BED, layer)
     {
     }
 
