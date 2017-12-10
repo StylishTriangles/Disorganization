@@ -244,8 +244,7 @@ void Game::createObjects(){
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
     assets.catMove.loadFromFile("files/graphics/catMove.png");
     assets.catHiss.loadFromFile("files/graphics/catHiss.png");
-    assets.room1.loadFromFile("files/graphics/pokoj.png");
-    assets.room2.loadFromFile("files/graphics/pokoj3.png");
+    assets.rooms.loadFromFile("files/graphics/rooms.png");
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
     assets.clock.loadFromFile("files/graphics/clock.png");
     assets.clockHand.loadFromFile("files/graphics/clockhand.png");
@@ -277,7 +276,7 @@ void Game::createObjects(){
     anims["catPrankGlass"] = new Anim(&assets.catPrankGlass);
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
-    anims["catIdle"] = new Anim(&assets.catIdle);
+    anims["catIdle"] = new Anim(&assets.catIdle, 110, sf::milliseconds(500));
     anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
     anims["catHiss"] = new Anim(&assets.catHiss, 178, sf::milliseconds(100));
     anims["door"] = new Anim(&assets.doorRight);
@@ -381,7 +380,7 @@ void Game::createObjects(){
     pranks.push_back(new PrankGlass(this));
     pranks.push_back(new PrankThrowToTrash(this));
 
-    roomSprite = sf::Sprite(assets.room2);
+    roomSprite = sf::Sprite(assets.rooms);
     roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");

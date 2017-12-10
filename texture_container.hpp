@@ -9,8 +9,7 @@ public:
     sf::Texture catIdle;
     sf::Texture catMove;
     sf::Texture catHiss;
-    sf::Texture room1;
-    sf::Texture room2;
+    sf::Texture rooms;
     sf::Texture dymek;
     sf::Texture doorRight;
     sf::Texture clock;
