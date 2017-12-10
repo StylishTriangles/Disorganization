@@ -121,9 +121,6 @@ void Game::draw(sf::Time dT){
     window.setView(view);
 	window.draw(roomSprite);
     drawStats();
-    window.draw(momCloud);
-    window.draw(momText);
-    window.draw(mom);
 
     for(Item *item: vItems) {
         item->update(dT);
@@ -141,6 +138,9 @@ void Game::draw(sf::Time dT){
             }
         }
     }
+    window.draw(momCloud);
+    window.draw(momText);
+    window.draw(mom);
     if (!onSpr or Utils::isMouseOnSprite(cat, &window)) {
         if (hasWaterGun)
             pointer.setTexture(assets.pointerWaterGun);
