@@ -370,7 +370,7 @@ void Game::createObjects(){
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
-    ItemTree* iTree = new ItemTree(anims["tree"], 2.9f);
+    ItemTree* iTree = new ItemTree(anims["tree"], 6.0f);
     items["tree"] = iTree;
     items["tree"]->setPosition(389, 358);
 
