@@ -95,6 +95,7 @@ void Game::gameLogic(sf::Time dT){
 		}
     }
     cat.update(dT);
+    SoundHandler::update();
     secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
 }
 
@@ -311,6 +312,26 @@ void Game::createObjects(){
     roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
+
+
+    SoundBufferContainer::glass_crash_realistic.loadFromFile("files/tunes/glass_crash_realistic.ogg");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     cat.move(640, Settings::floorLevel);
     mom = AnimSprite(anims["mom"]);

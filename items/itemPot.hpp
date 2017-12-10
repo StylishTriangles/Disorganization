@@ -24,6 +24,7 @@ public:
 		if (state == DEFAULT){
 			state = BROKEN;
             nextFrame();
+            SoundHandler::playSound(SoundBufferContainer::glass_crash_realistic);
 		}
 		else if (state == BROKEN){
             state = DEFAULT;
