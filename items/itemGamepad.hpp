@@ -3,17 +3,15 @@
 
 #include "../item.hpp"
 
+class Game;
+
 class ItemGamepad: public Item{
 public:
-    ItemGamepad(Anim *a, float layer)
-    :Item(a, GAMEPAD, layer)
-    {
-        setScale(0.25, 0.25);
-    }
+    ItemGamepad(Anim *a, Game* g, float layer);
+    void onClick() override ;
+    void update(sf::Time dt) override ;
 
-    void onClick() override {
-
-    }
+    Game* game;
 };
 
 #endif // ITEM_GAMEPAD_HPP

@@ -28,7 +28,8 @@ SOURCES += main.cpp \
     texture_container.cpp \
     items/itemTree.cpp \
     pranks/prankThrowToTrash.cpp \
-    pranks/prankGlass.cpp
+    pranks/prankGlass.cpp \
+    pranks/prankTVOn.cpp
 
 INCLUDEPATH += C:/SFML/include
 INCLUDEPATH += ./include
@@ -72,7 +73,8 @@ HEADERS += \
     pranks/prankBed.hpp \
     items/itemTree.hpp \
     pranks/prankThrowToTrash.hpp \
-    pranks/prankGlass.hpp
+    pranks/prankGlass.hpp \
+    pranks/prankTVOn.hpp
 
 DISTFILES += \
     imgui.ini

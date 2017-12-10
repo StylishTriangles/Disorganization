@@ -5,7 +5,7 @@
 PrankThrowToTrash::PrankThrowToTrash(Game* g)
 :Prank(g)
 {
-    catAnim = g->anims["catPrankBookThrow"];
+    catAnim = g->anims["catMove"];
 }
 
 bool PrankThrowToTrash::isAvailable(){

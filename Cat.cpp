@@ -82,7 +82,9 @@ void Cat::update(sf::Time deltaTime) {
 		}
 	}
 	else if (state == CLOSETOPRANK) {
-		if (Utils::getMagnitude(getPosition(), activePrank->activeItem->getPosition()) < 10) {
+		if (Utils::getMagnitude(getPosition(), activePrank->activeItem->getPosition()) < 100) {
+			setScale(-abs(getScale().x) * Utils::sgn(activePrank->activeItem->getPosition().x - getPosition().x), getScale().y);
+			//flip();
 			setAnimation(activePrank->catAnim);
 			activePrank->onStart();
 			state = PRANK;
