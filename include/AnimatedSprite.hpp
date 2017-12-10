@@ -109,7 +109,7 @@ public:
         runTime = 0;
         setTexture(*(animation->spriteSheet));
         setTextureRect(sf::IntRect(0, 0, animation->width, animation->height));
-        centerOrigin();
+        //centerOrigin();
     }
     void setLooped (bool t) {
         m_looped = t;
