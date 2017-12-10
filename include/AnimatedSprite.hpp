@@ -109,6 +109,7 @@ public:
         runTime = 0;
         setTexture(*(animation->spriteSheet));
         setTextureRect(sf::IntRect(0, 0, animation->width, animation->height));
+        centerOrigin();
     }
     void setLooped (bool t) {
         m_looped = t;
@@ -156,6 +157,7 @@ public:
         setTextureRect(sf::IntRect(currentFrame*animation->width, 0, animation->width, animation->height));
     }
     void flip() {
+    	sf::Vector2f pos = getPosition();
 		setScale(-getScale().x, getScale().y);
 		move(Utils::sgn(getScale().x)*getGlobalBounds().width/2, 0);
     }

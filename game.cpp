@@ -138,6 +138,9 @@ void Game::draw(sf::Time dT){
         Utils::drawBoundingBox(*item, &window);
     }
     window.draw(cat);
+    //sf::CircleShape c(5);
+    //c.setPosition(cat.getPosition());
+    //window.draw(c);
     bool onSpr = false;
     bool washyWashy = false;
     for (Item* item: vItems) {
@@ -477,7 +480,7 @@ void Game::createObjects(){
     Sounds::tv_off.loadFromFile("files/tunes/tv_off.ogg");
 
     std::vector<std::string> trashableItems = {
-        "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2"
+        "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2", "pot3"
     };
     for(const auto& t: trashableItems)
         items[t]->isTrashable=true;
