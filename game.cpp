@@ -2,6 +2,7 @@
 
 #include "pranks/prankBookThrow.hpp"
 #include "pranks/prankBed.hpp"
+#include "pranks/prankThrowToTrash.hpp"
 
 #include "items/itemPot.hpp"
 #include "items/itemDoor.hpp"
@@ -213,10 +214,11 @@ void Game::executeMouseEvents(sf::Event* ev){
 void Game::drawStats(){
     int messiness = 0;
     for(const auto& it: items){
-        if(it.second->state == Item::BROKEN){
+        if(it.second->state & Item::BROKEN){
             messiness+=2;
-            if(it.second->state & Item::TRASHED)
+            if(it.second->state & Item::TRASHED){
                 messiness--;
+            }
         }
     }
     std::string str =   "Time left " + Utils::stringify((int)(totalTimeInSeconds - secondsPassed)) + "s\n\n"
@@ -346,6 +348,7 @@ void Game::createObjects(){
 
     pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
+    pranks.push_back(new PrankThrowToTrash(this));
 
     roomSprite = sf::Sprite(assets.room2);
     roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,

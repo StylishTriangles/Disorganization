@@ -52,6 +52,7 @@ void Cat::update(sf::Time deltaTime) {
 		if (abs(getPosition().x-Settings::roomCenter) < 15) {
 			state = IDLE;
 			setAnimation(anims["catIdle"]);
+			travelDirection = NONE;
 		}
 	}
 	else if (state == PRANK) {
@@ -62,13 +63,16 @@ void Cat::update(sf::Time deltaTime) {
 			activePrank->activeItem->changeState();
 			activePrank->onFinish();
 		}
+		else{
+            activePrank->onPranking(deltaTime);
+		}
 		prankProgress += deltaTime.asMilliseconds();
 	}
 	else if (state == RUN) {
 		AnimSprite::update(2*deltaTime.asMilliseconds());
 		if (abs(getPosition().x - runTo) < 15) {
-			state = IDLE;
-			setAnimation(anims["catIdle"]);
+			state = TRAVELTOCENTER;
+			setAnimation(anims["catMove"]);
 		}
         if (travelDirection == RIGHT) {
 			move((float)dT * Utils::normalized(sf::Vector2f(runTo, Settings::floorLevel-getPosition().y)));
@@ -82,6 +86,7 @@ void Cat::update(sf::Time deltaTime) {
 			setAnimation(activePrank->catAnim);
 			activePrank->onStart();
 			state = PRANK;
+			travelDirection = NONE;
 		}
 		else {
 			move(Utils::normalized(activePrank->activeItem->getPosition() - getPosition()) * (float)dT / 3.0f);
