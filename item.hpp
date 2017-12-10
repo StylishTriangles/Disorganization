@@ -26,7 +26,8 @@ public:
         ONOFF_BUTTON,
         TV,
         TABLE,
-        CD
+        CD,
+        TV_ON_OFF
 	};
 
 	enum ItemState {
