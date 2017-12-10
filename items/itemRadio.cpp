@@ -57,10 +57,10 @@ void ItemRadio::update(sf::Time dt){
     if(getPosition().x > Settings::windowSize.x*2)
         targetRoom=2;
     if(Settings::room == targetRoom){
-        game->music.setVolume(30);
+        game->music.setVolume(20);
     }
     else{
-        game->music.setVolume(8);
+        game->music.setVolume(5);
     }
 }
 
