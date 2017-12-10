@@ -31,6 +31,9 @@ public:
 
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;
+
+    sf::Texture tv;
+    sf::Texture tvScreen;
     sf::Texture catPrankGlass;
     static sf::Texture spsSmoke;
 };

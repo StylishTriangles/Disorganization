@@ -17,6 +17,7 @@
 #include "items/itemTable.hpp"
 #include "items/itemGlass.hpp"
 #include "items/itemTree.hpp"
+#include "items/itemTV.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
@@ -261,6 +262,8 @@ void Game::createObjects(){
     assets.cd1.loadFromFile("files/graphics/cd1.png");
     assets.cd2.loadFromFile("files/graphics/cd2.png");
     assets.tree.loadFromFile("files/graphics/tree.png");
+    assets.tv.loadFromFile("files/graphics/tv.png");
+    assets.tvScreen.loadFromFile("files/graphics/defaultscreen.png");
 
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
@@ -294,6 +297,8 @@ void Game::createObjects(){
     anims["cd1"] = new Anim(&assets.cd1);
     anims["cd2"] = new Anim(&assets.cd2);
     anims["tree"] = new Anim(&assets.tree);
+    anims["tv"] = new Anim(&assets.tv);
+    anims["tvScreen"] = new Anim(&assets.tvScreen);
 
     items["table"] = new ItemTable(anims["table"], 1.0f);
     items["table"]->setPosition(986, 478);
@@ -302,12 +307,10 @@ void Game::createObjects(){
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
     items["bed"]->setPosition(151, 583);
-    items["pot"] = new ItemPot(anims["pot"], 1.0f);
-    items["pot"]->move(600, 100);
+    items["pot"] = new ItemPot(anims["pot"], -20.0f);
+    items["pot"]->move(700, 420);
     items["pot2"] = new ItemPot(anims["pot"], 1.0f);
-    items["pot2"]->move(200, 400);
-    items["pot3"] = new ItemPot(anims["pot"], 1.0f);
-    items["pot3"]->move(400, 200);
+    items["pot2"]->move(300, 500);
 
     ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 0.999999f);
     items["clockHand"] = itemClockHand;
@@ -318,46 +321,57 @@ void Game::createObjects(){
     ItemDoor* doorRightFirstRoom = new ItemDoor(anims["door"], false, 1.0f);
     doorRightFirstRoom->setGame(this);
     items["doorRightFirstRoom"] = doorRightFirstRoom;
-    items["doorRightFirstRoom"]->move(1200, 400);
+    items["doorRightFirstRoom"]->move(1210, 470);
 
     ItemDoor *doorRightSecondRoom = new ItemDoor(anims["door"], false, 10.0f);
     doorRightSecondRoom->setGame(this);
     items["doorRightSecondRoom"] = doorRightSecondRoom;
-    items["doorRightSecondRoom"]->move(1150 + 1280, 400);
+    items["doorRightSecondRoom"]->move(1210 + 1280, 470);
 
     ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 10.0f);
     doorLeftSecondRoom->setScale(-1, 1);
     doorLeftSecondRoom->setGame(this);
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;
-    items["doorLeftSecondRoom"]->move(130+1280, 400);
+    items["doorLeftSecondRoom"]->move(70+1280, 470);
 
     ItemDoor *doorLeftThirdRoom = new ItemDoor(anims["door"], true, 10.0f);
     doorLeftThirdRoom->setScale(-1, 1);
     doorLeftThirdRoom->setGame(this);
     items["doorLeftThirdRoom"] = doorLeftThirdRoom;
-    items["doorLeftThirdRoom"]->move(130 + 2560, 400);
+    items["doorLeftThirdRoom"]->move(70 + 2560, 470);
 
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
-    items["sink"]->move(600+1280, Settings::floorLevel);
+    items["sink"]->move(800+1280, Settings::floorLevel - 100);
 
-    items["trash1"] = new ItemTrash(anims["trash"], 5.f);
-    items["trash1"]->move(300, 500);
+    items["trash1"] = new ItemTrash(anims["trash"], 1.f);
+    items["trash1"]->move(1580, Settings::floorLevel-70);
 
     items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
-    items["gamepad1"] -> move(350, 300);
+    items["gamepad1"] -> move(600, Settings::floorLevel + 20);
     items["gamepad2"] = new ItemGamepad(anims["gamepad"], 1.0f);
-    items["gamepad2"] -> move(420, 300);
+    items["gamepad2"] -> move(480, Settings::floorLevel + 25);
 
     ItemOnOffButton* onOffButton = new ItemOnOffButton(anims["onoff_button"]);
     items["radioOnOff"] = onOffButton;
     ItemRadio* itemRadio = new ItemRadio(anims["radio"], onOffButton, this);
     items["radio"] = itemRadio;
-    items["radio"]->move(800, 500);
+    items["radio"]->setPosition(1030, 350);
 
     items["cd1"] = new ItemCD(anims["cd1"], true, itemRadio);
-    items["cd1"]->setPosition(850, 620);
+    items["cd1"]->setPosition(980, 520);
     items["cd2"] = new ItemCD(anims["cd2"], false, itemRadio);
-    items["cd2"]->setPosition(800, 620);
+    items["cd2"]->setPosition(1040, 530);
+
+    ItemTVScreen* itemScreen = new ItemTVScreen(anims["tvScreen"]);
+    items["tvScreen"] = itemScreen;
+    items["tvScreen"]->layer = 2.0f;
+    items["tvScreen"]->draggable = false;
+    items["tvScreen"]->setPosition(620, 450);
+
+    items["tv"] = new ItemTV(anims["tv"], itemScreen);
+    items["tv"]->layer= 1.0f;
+    items["tv"]->draggable= false;
+    items["tv"]->setPosition(620, 450);
 
     pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
@@ -369,7 +383,7 @@ void Game::createObjects(){
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
-    ItemTree* iTree = new ItemTree(anims["tree"], 6.0f);
+    ItemTree* iTree = new ItemTree(anims["tree"], 2.9f);
     items["tree"] = iTree;
     items["tree"]->setPosition(389, 358);
 
@@ -403,7 +417,7 @@ void Game::createObjects(){
     Sounds::wosh.loadFromFile("files/tunes/wosh.ogg");
 
     std::vector<std::string> trashableItems = {
-        "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2", "pot3"
+        "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2"
     };
     for(const auto& t: trashableItems)
         items[t]->isTrashable=true;
