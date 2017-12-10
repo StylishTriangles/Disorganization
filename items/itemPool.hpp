@@ -5,7 +5,7 @@
 
 class ItemPool: public Item{
 public:
-    ItemPool(Anim* a, float layer=0.0);
+    ItemPool(Anim* a, float layer=2.0f);
 
     void onClick() override;
     void onDrag(int dx, int dy) override;

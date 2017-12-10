@@ -9,8 +9,7 @@ public:
     sf::Texture catIdle;
     sf::Texture catMove;
     sf::Texture catHiss;
-    sf::Texture room1;
-    sf::Texture room2;
+    sf::Texture rooms;
     sf::Texture dymek;
     sf::Texture doorRight;
     sf::Texture clock;
@@ -24,11 +23,15 @@ public:
     sf::Texture cloud;
     sf::Texture radio;
     sf::Texture onoff;
+    sf::Texture glass;
+    sf::Texture table;
     sf::Texture cd1;
     sf::Texture cd2;
+    sf::Texture tree;
+
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;
-    sf::Texture tree;
+    sf::Texture catPrankGlass;
     static sf::Texture spsSmoke;
 };
 

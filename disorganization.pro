@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     effectHandler.cpp \
     pranks/prankBed.cpp \
     texture_container.cpp \
-    items/itemTree.cpp
+    items/itemTree.cpp \
+    pranks/prankThrowToTrash.cpp
 
 INCLUDEPATH += C:/SFML/include
 INCLUDEPATH += ./include
@@ -68,7 +69,8 @@ HEADERS += \
     items/itemRadio.hpp \
     effectHandler.hpp \
     pranks/prankBed.hpp \
-    items/itemTree.hpp
+    items/itemTree.hpp \
+    pranks/prankThrowToTrash.hpp
 
 DISTFILES += \
     imgui.ini

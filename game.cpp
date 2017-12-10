@@ -2,6 +2,8 @@
 
 #include "pranks/prankBookThrow.hpp"
 #include "pranks/prankBed.hpp"
+#include "pranks/prankGlass.hpp"
+#include "pranks/prankThrowToTrash.hpp"
 
 #include "items/itemPot.hpp"
 #include "items/itemDoor.hpp"
@@ -12,6 +14,8 @@
 #include "items/itemGamepad.hpp"
 #include "items/itemBed.hpp"
 #include "items/itemRadio.hpp"
+#include "items/itemTable.hpp"
+#include "items/itemGlass.hpp"
 #include "items/itemTree.hpp"
 
 Game::Game(int width, int height, std::string title)
@@ -213,10 +217,11 @@ void Game::executeMouseEvents(sf::Event* ev){
 void Game::drawStats(){
     int messiness = 0;
     for(const auto& it: items){
-        if(it.second->state == Item::BROKEN){
+        if(it.second->state & Item::BROKEN){
             messiness+=2;
-            if(it.second->state & Item::TRASHED)
+            if(it.second->state & Item::TRASHED){
                 messiness--;
+            }
         }
     }
     std::string str =   "Time left " + Utils::stringify((int)(totalTimeInSeconds - secondsPassed)) + "s\n\n"
@@ -238,8 +243,7 @@ void Game::createObjects(){
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
     assets.catMove.loadFromFile("files/graphics/catMove.png");
     assets.catHiss.loadFromFile("files/graphics/catHiss.png");
-    assets.room1.loadFromFile("files/graphics/pokoj.png");
-    assets.room2.loadFromFile("files/graphics/pokoj3.png");
+    assets.rooms.loadFromFile("files/graphics/rooms.png");
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
     assets.clock.loadFromFile("files/graphics/clock.png");
     assets.clockHand.loadFromFile("files/graphics/clockhand.png");
@@ -252,19 +256,24 @@ void Game::createObjects(){
     assets.cloud.loadFromFile("files/graphics/cloud.png");
     assets.radio.loadFromFile("files/graphics/radio.png");
     assets.onoff.loadFromFile("files/graphics/onoff.png");
+    assets.table.loadFromFile("files/graphics/table.png");
+    assets.glass.loadFromFile("files/graphics/glass.png");
     assets.cd1.loadFromFile("files/graphics/cd1.png");
     assets.cd2.loadFromFile("files/graphics/cd2.png");
     assets.tree.loadFromFile("files/graphics/tree.png");
 
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
+    assets.catPrankGlass.loadFromFile("files/graphics/catPrankGlass.png");
 
     TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
 
-    anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
-    anims["catIdle"] = new Anim(&assets.catIdle, 110, sf::milliseconds(500));
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
     anims["catPrankBed"] = new Anim(&assets.catPrankBed);
+    anims["catPrankGlass"] = new Anim(&assets.catPrankGlass);
+
+    anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
+    anims["catIdle"] = new Anim(&assets.catIdle, 110, sf::milliseconds(500));
     anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
     anims["catHiss"] = new Anim(&assets.catHiss, 178, sf::milliseconds(100));
     anims["door"] = new Anim(&assets.doorRight);
@@ -280,10 +289,16 @@ void Game::createObjects(){
     anims["mom"] = new Anim(&assets.mom);
     anims["cloud"] = new Anim(&assets.cloud);
     anims["onoff_button"] = new Anim(&assets.onoff);
+    anims["table"] = new Anim(&assets.table);
+    anims["glass"] = new Anim(&assets.glass, 35, sf::seconds(3600 * 24));
     anims["cd1"] = new Anim(&assets.cd1);
     anims["cd2"] = new Anim(&assets.cd2);
     anims["tree"] = new Anim(&assets.tree);
 
+    items["table"] = new ItemTable(anims["table"], 1.0f);
+    items["table"]->setPosition(986, 478);
+    items["glass"] = new ItemGlass(anims["glass"], 0.5f);
+    items["glass"]->setPosition(893, 430);
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
     items["bed"]->setPosition(151, 583);
@@ -294,7 +309,7 @@ void Game::createObjects(){
     items["pot3"] = new ItemPot(anims["pot"], 1.0f);
     items["pot3"]->move(400, 200);
 
-    ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 1.0f);
+    ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 0.999999f);
     items["clockHand"] = itemClockHand;
     items["clock"] = new ItemClock(anims["clock"], itemClockHand, &secondsPassed, &totalTimeInSeconds, 1.0f);
     items["clock"]->setPosition(200, 100);
@@ -303,7 +318,7 @@ void Game::createObjects(){
     ItemDoor* doorRightFirstRoom = new ItemDoor(anims["door"], false, 1.0f);
     doorRightFirstRoom->setGame(this);
     items["doorRightFirstRoom"] = doorRightFirstRoom;
-    items["doorRightFirstRoom"]->move(1150, 400);
+    items["doorRightFirstRoom"]->move(1200, 400);
 
     ItemDoor *doorRightSecondRoom = new ItemDoor(anims["door"], false, 10.0f);
     doorRightSecondRoom->setGame(this);
@@ -346,13 +361,15 @@ void Game::createObjects(){
 
     pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
+    pranks.push_back(new PrankGlass(this));
+    pranks.push_back(new PrankThrowToTrash(this));
 
-    roomSprite = sf::Sprite(assets.room2);
+    roomSprite = sf::Sprite(assets.rooms);
     roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
-    ItemTree* iTree = new ItemTree(anims["tree"], 2.9f);
+    ItemTree* iTree = new ItemTree(anims["tree"], 6.0f);
     items["tree"] = iTree;
     items["tree"]->setPosition(389, 358);
 

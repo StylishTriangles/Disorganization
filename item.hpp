@@ -24,7 +24,8 @@ public:
         BED,
         RADIO,
         ONOFF_BUTTON,
-        CD,
+        TABLE,
+        CD
 	};
 
 	enum ItemState {

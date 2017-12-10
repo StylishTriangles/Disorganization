@@ -3,7 +3,7 @@
 #include "../Game.hpp"
 
 ItemCD::ItemCD(Anim* a, bool isFirst, ItemRadio* ir, float layer)
-:Item(a, CD, layer), itemRadio(ir), isFirstAlbum(isFirst)
+:Item(a, CD, layer), isFirstAlbum(isFirst), itemRadio(ir)
 {
 
 }
