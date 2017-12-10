@@ -67,13 +67,17 @@ void Game::introLogic(sf::Time dT){
 }
 
 void Game::gameLogic(sf::Time dT){
+    vItems.clear();
     for (auto it = items.cbegin(); it != items.cend(); ){
         if (it->second->state == Item::DELETED){
             items.erase(it++);
         }
-        else
+        else {
+            vItems.push_back(it->second);
             ++it;
+        }
     }
+    sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
     if (cat.isIdle()) {
 		if (Utils::chance(1.0/(60.0))) {
 			int availablePranks = 0;
@@ -119,15 +123,8 @@ void Game::draw(sf::Time dT){
         window.draw(countText);
     }
 
-
-    std::vector<Item*> vItems;
-    vItems.reserve(items.size());
-    for(const auto& p: items) {
-        p.second->update(dT);
-        vItems.push_back(p.second);
-    }
-    std::sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
     for(Item *item: vItems) {
+        item->update(dT);
         window.draw(*item);
         Utils::drawBoundingBox(*item, &window);
     }

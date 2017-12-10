@@ -36,6 +36,7 @@ public:
     std::vector<Prank*> pranks;
     std::map<std::string, Item*> items;
     std::map<std::string, Anim*> anims;
+    std::vector<Item*> vItems; // items sorted by layer
 
     Cat cat;
     sf::Sprite roomSprite;
