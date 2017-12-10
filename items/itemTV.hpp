@@ -49,8 +49,13 @@ public:
 
     void onClick() override {
         enabled = !enabled;
-        if(!enabled)
+        if(enabled){
+            SoundHandler::playSound(Sounds::tv_on, 100, true);
+        }
+        else {
+            SoundHandler::stop(Sounds::tv_on);
             SoundHandler::playSound(Sounds::tv_off);
+        }
     }
 
     void update(sf::Time dt){
