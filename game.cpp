@@ -356,9 +356,9 @@ void Game::createObjects(){
     items["trash1"] = new ItemTrash(anims["trash"], 5.f);
     items["trash1"]->move(300, 500);
 
-    items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad1"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
     items["gamepad1"] -> move(350, 300);
-    items["gamepad2"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad2"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
     items["gamepad2"] -> move(420, 300);
 
     ItemOnOffButton* onOffButton = new ItemOnOffButton(anims["onoff_button"]);
