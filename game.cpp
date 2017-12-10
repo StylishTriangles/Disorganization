@@ -2,6 +2,7 @@
 
 #include "pranks/prankBookThrow.hpp"
 #include "pranks/prankBed.hpp"
+#include "pranks/prankThrowToTrash.hpp"
 
 #include "items/itemPot.hpp"
 #include "items/itemDoor.hpp"
@@ -342,6 +343,7 @@ void Game::createObjects(){
 
     pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
+    pranks.push_back(new PrankThrowToTrash(this));
 
     roomSprite = sf::Sprite(assets.room2);
     roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,

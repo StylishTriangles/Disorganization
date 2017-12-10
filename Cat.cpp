@@ -42,6 +42,9 @@ void Cat::update(sf::Time deltaTime) {
 			activePrank->activeItem->changeState();
 			activePrank->onFinish();
 		}
+		else{
+            activePrank->onPranking(deltaTime);
+		}
 		prankProgress += deltaTime.asMilliseconds();
 	}
 	else if (state == RUN) {
