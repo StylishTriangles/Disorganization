@@ -47,8 +47,8 @@ void Cat::update(sf::Time deltaTime) {
 	else if (state == RUN) {
 		AnimSprite::update(2*deltaTime.asMilliseconds());
 		if (abs(getPosition().x - runTo) < 15) {
-			state = GOINGTOPATH;
-			setAnimation(anims["catMove"]);
+			state = IDLE;
+			setAnimation(anims["catIdle"]);
 		}
         if (travelDirection == RIGHT) {
 			move((float)dT * Utils::normalized(sf::Vector2f(runTo, Settings::floorLevel-getPosition().y)));
@@ -81,6 +81,22 @@ void Cat::update(sf::Time deltaTime) {
 			move(0, -(float)dT / 3.0f);
 		}
 	}
+	else if (state == HISSING) {
+		if (getLoops() > 5) {
+			do {
+				runTo = Utils::randInt(0, 2560);
+			}
+			while (abs(runTo - getPosition().x) < 500);
+			state = RUN;
+			if (runTo > getPosition().x)
+				travelDirection = RIGHT;
+			else
+				travelDirection = LEFT;
+			prankProgress = 0;
+			setAnimation(anims["catMove"]);
+			setScale(abs(getScale().x) * Utils::sgn(runTo - getPosition().x), getScale().y);
+		}
+	}
 	AnimSprite::update(deltaTime.asMilliseconds());
 }
 
@@ -99,18 +115,9 @@ void Cat::setNextPrank(Prank* prank) {
 }
 
 void Cat::getRekt() {
-	do {
-		runTo = Utils::randInt(0, 2560);
-	}
-	while (abs(runTo - getPosition().x) < 500);
-	state = RUN;
-	if (runTo > getPosition().x)
-		travelDirection = RIGHT;
-	else
-		travelDirection = LEFT;
-	prankProgress = 0;
-	setAnimation(anims["catMove"]);
-	setScale(abs(getScale().x) * Utils::sgn(runTo - getPosition().x), getScale().y);
+	state = HISSING;
+	setAnimation(anims["catHiss"]);
+	SoundHandler::playSound(Sounds::cat_screach1);
 }
 
 bool Cat::isIdle() {

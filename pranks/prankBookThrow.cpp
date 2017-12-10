@@ -26,7 +26,7 @@ bool PrankBookThrow::isAvailable(){
 }
 
 void PrankBookThrow::onStart() {
-	EffectHandler::addEffect(TextureContainer::spsSmoke, activeItem->getPosition(), 134, sf::milliseconds(100));
+	EffectHandler::addEffect(TextureContainer::spsSmoke, activeItem->getPosition(), 134, sf::milliseconds(100), 2);
 }
 
 void PrankBookThrow::onFinish() {

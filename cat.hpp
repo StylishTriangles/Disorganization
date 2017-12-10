@@ -14,7 +14,8 @@ enum catState {
 	PRANK,
 	RUN,
 	CLOSETOPRANK,
-	GOINGTOPATH
+	GOINGTOPATH,
+	HISSING
 };
 
 enum direction {

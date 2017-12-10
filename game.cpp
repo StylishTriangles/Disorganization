@@ -236,6 +236,7 @@ void Game::createObjects(){
     assets.pot.loadFromFile("files/graphics/pot.png");
     assets.catIdle.loadFromFile("files/graphics/catIdle.png");
     assets.catMove.loadFromFile("files/graphics/catMove.png");
+    assets.catHiss.loadFromFile("files/graphics/catHiss.png");
     assets.room1.loadFromFile("files/graphics/pokoj.png");
     assets.room2.loadFromFile("files/graphics/pokoj3.png");
     assets.doorRight.loadFromFile("files/graphics/drzwi_prawe.png");
@@ -261,6 +262,7 @@ void Game::createObjects(){
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
     anims["catPrankBed"] = new Anim(&assets.catPrankBed);
     anims["catMove"] = new Anim(&assets.catMove, 170, sf::milliseconds(300));
+    anims["catHiss"] = new Anim(&assets.catHiss, 179, sf::milliseconds(100));
     anims["door"] = new Anim(&assets.doorRight);
     anims["clock"] = new Anim(&assets.clock);
     anims["clockHand"] = new Anim(&assets.clockHand);

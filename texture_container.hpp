@@ -8,6 +8,7 @@ public:
     sf::Texture pot;
     sf::Texture catIdle;
     sf::Texture catMove;
+    sf::Texture catHiss;
     sf::Texture room1;
     sf::Texture room2;
     sf::Texture dymek;

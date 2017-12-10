@@ -17,11 +17,12 @@ public:
 		}
     }
 
-    static void addEffect(sf::Texture& sps, sf::Vector2f position, int frameWidth, sf::Time dur) {
+    static void addEffect(sf::Texture& sps, sf::Vector2f position, int frameWidth, sf::Time dur, float scale = 1.0f) {
     	Anim* a = new Anim(&sps, frameWidth, dur);
     	AnimSprite* aS = new AnimSprite(a, false);
     	aS->centerOrigin();
     	aS->setPosition(position);
+    	aS->setScale(scale, scale);
     	effects.push_back(aS);
     	anims.push_back(a);
     }
