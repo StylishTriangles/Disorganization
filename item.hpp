@@ -18,6 +18,7 @@ public:
         SINK,
         TRASH,
         GAMEPAD,
+        BED
         RADIO,
         ONOFF_BUTTON
 	};
