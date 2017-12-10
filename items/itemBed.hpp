@@ -22,7 +22,6 @@ public:
             if(repair==1)
                 SoundHandler::playSound(Sounds::scratch_fast);
             if(repair>100){
-                std::cout << "asdasd\n";
                 changeState();
                 repair=0;
             }

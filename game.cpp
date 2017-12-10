@@ -40,6 +40,9 @@ Game::~Game(){
 
 void Game::run() {
 	while (window.isOpen()) {
+        if(secondsPassed > totalTimeInSeconds){
+            gameState = OUTRO;
+        }
 		while (window.pollEvent(event)) {
             if(event.type == sf::Event::Closed){
                 window.close();
@@ -47,7 +50,7 @@ void Game::run() {
             else if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape){
                 window.close();
             }
-            if(introDone)
+            if(gameState == GAME)
                 executeMouseEvents(&event);
 		}
 		window.clear(sf::Color::Black);
@@ -63,10 +66,13 @@ void Game::run() {
             }
         }
         sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
-		if(!introDone)
+		if(gameState == INTRO)
             introLogic(dt);
-		else{
+		else if(gameState == GAME){
             gameLogic(dt);
+		}
+		else if(gameState == OUTRO){
+
 		}
 		draw(dt);
 		window.display();
@@ -82,8 +88,8 @@ void Game::introLogic(sf::Time dT){
             introClock.restart();
             introClockStarted=true;
         }
-        if(!introDone && introClock.getElapsedTime().asSeconds() >= 4.0){
-            introDone = true;
+        if(gameState == INTRO && introClock.getElapsedTime().asSeconds() >= 4.0){
+            gameState = GAME;
             //SoundHandler::playSound(Sounds::disorganization2, 50, true);
             music.play();
         }
@@ -115,6 +121,10 @@ void Game::gameLogic(sf::Time dT){
     SoundHandler::update();
     EffectHandler::update(dT.asMilliseconds());
     secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
+}
+
+void Game::outroLogic(sf::Time dT){
+    std::cout << "outro logic!\n";
 }
 
 void Game::draw(sf::Time dT){
@@ -157,7 +167,7 @@ void Game::draw(sf::Time dT){
     window.draw(pointer);
     EffectHandler::draw(&window);
 
-    if(introClockStarted && !introDone){
+    if(introClockStarted && gameState == INTRO){
         if(introClock.getElapsedTime().asSeconds() < 4.0)
             countText.setString("Go Clean!\n");
         if(introClock.getElapsedTime().asSeconds() < 3.0)
@@ -343,6 +353,8 @@ void Game::createObjects(){
     items["table"]->setPosition(986, 478);
     items["glass"] = new ItemGlass(anims["glass"], 0.5f);
     items["glass"]->setPosition(893, 430);
+    items["glass2"] = new ItemGlass(anims["glass"], 0.5f);
+    items["glass2"]->setPosition(2891, 300);
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
     items["bed"]->setPosition(151, 583);
@@ -350,6 +362,8 @@ void Game::createObjects(){
     items["pot"]->move(700, 420);
     items["pot2"] = new ItemPot(anims["pot"], 1.0f);
     items["pot2"]->move(300, 500);
+    items["pot3"] = new ItemPot(anims["pot"], 1.0f);
+    items["pot3"]->move(3635, 480);
 
     ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 0.999999f);
     items["clockHand"] = itemClockHand;
@@ -380,10 +394,10 @@ void Game::createObjects(){
     items["doorLeftThirdRoom"]->move(70 + Settings::windowSize.x*2, 470);
 
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
-    items["sink"]->move(800+Settings::windowSize.x, Settings::floorLevel - 100);
+    items["sink"]->move(3021, 404);
 
     items["trash1"] = new ItemTrash(anims["trash"], 1.f);
-    items["trash1"]->move(380, Settings::floorLevel-40);
+    items["trash1"]->move(1000, Settings::floorLevel+100);
 
     items["gamepad1"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
     items["gamepad1"] -> move(600, Settings::floorLevel + 20);
