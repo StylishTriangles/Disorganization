@@ -388,10 +388,10 @@ void Game::createObjects(){
     tvOnOffButton->setPosition(itemScreen->getPosition()+sf::Vector2f(-165, 0));
     tvOnOffButton->setColor(sf::Color::Green);
 
-    /*pranks.push_back(new PrankBookThrow(this));
+    pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
     pranks.push_back(new PrankGlass(this));
-    pranks.push_back(new PrankThrowToTrash(this));*/
+    pranks.push_back(new PrankThrowToTrash(this));
     pranks.push_back(new PrankTVOn(this));
 
     roomSprite = sf::Sprite(assets.rooms);
