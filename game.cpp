@@ -210,7 +210,7 @@ void Game::drawStats(){
     for(const auto& it: items){
         if(it.second->state == Item::BROKEN){
             messiness+=2;
-            if(it.second->state && Item::TRASHED)
+            if(it.second->state & Item::TRASHED)
                 messiness--;
         }
     }
