@@ -35,5 +35,5 @@ void Item::onTrash(Item *trash){
     ItemTrash* trash2 = dynamic_cast<ItemTrash*>(trash);
     trash2->insert(this);
     this->setPosition(-10000, -10000);
-    this->state = TRASHED;
+    this->state = (Item::ItemState)(this->state ^ Item::TRASHED);
 }

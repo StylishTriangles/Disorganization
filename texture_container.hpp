@@ -18,6 +18,8 @@ public:
     sf::Texture trash;
     sf::Texture gamepad;
     sf::Texture bed;
+    sf::Texture mom;
+    sf::Texture cloud;
 };
 
 #endif // TEXTURE_CONTAINER_HPP

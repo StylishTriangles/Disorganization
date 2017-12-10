@@ -10,6 +10,8 @@
 #include "prank.hpp"
 #include "item.hpp"
 #include "texture_container.hpp"
+#include "soundBuffer_container.hpp"
+#include "soundHandler.hpp"
 #include "cat.hpp"
 #include "Utils.hpp"
 #include "Collision.hpp"
@@ -23,6 +25,7 @@ public:
 	void run();
 	void executeMouseEvents(sf::Event* ev);
 	void createObjects();
+	void introLogic(sf::Time);
 	void gameLogic(sf::Time);
 	void draw(sf::Time);
     void drawStats();
@@ -30,11 +33,13 @@ public:
 
 	sf::Event event;
     TextureContainer assets;
+    SoundBufferContainer soundBuffers;
     sf::Clock deltaClock;
 
     std::vector<Prank*> pranks;
     std::map<std::string, Item*> items;
     std::map<std::string, Anim*> anims;
+    std::vector<Item*> vItems; // items sorted by layer
 
     Cat cat;
     sf::Sprite roomSprite;
@@ -43,6 +48,8 @@ public:
     int objectNamesCtr=0;
 
 protected:
+    bool introDone=false;
+    bool introClockStarted=false;
     bool isMouseDown=false;
     int lastMouseX, lastMouseY;
     Item* draggedItem=nullptr;
@@ -51,6 +58,11 @@ protected:
     float secondsPassed=0;
     float totalTimeInSeconds=3600;
     float timeSpeed = 6;
+    AnimSprite mom;
+    AnimSprite momCloud;
+    sf::Text momText;
+    sf::Text countText;
+    sf::Clock introClock;
 
 };
 

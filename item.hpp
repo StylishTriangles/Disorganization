@@ -2,6 +2,8 @@
 #define ITEM_HPP
 
 #include "AnimatedSprite.hpp"
+#include "soundBuffer_container.hpp"
+#include "soundHandler.hpp"
 
 
 class Item: public AnimSprite{
@@ -19,10 +21,10 @@ public:
 	};
 
 	enum ItemState {
-		BROKEN,
-		DEFAULT,
-        DELETED,
-        TRASHED,
+        BROKEN  = 1,
+        DEFAULT = 1<<1,
+        DELETED = 1<<2,
+        TRASHED = 1<<3,
 	};
 
     Item(Anim* a, ItemType i, float _layer = 1.0f);
