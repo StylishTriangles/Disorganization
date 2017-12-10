@@ -48,7 +48,7 @@ public:
     int objectNamesCtr=0;
 
 protected:
-    bool introDone=false;
+    bool introDone=true;
     bool introClockStarted=false;
     bool isMouseDown=false;
     int lastMouseX, lastMouseY;
