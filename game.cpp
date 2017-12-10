@@ -143,7 +143,7 @@ void Game::draw(sf::Time dT){
     for (Item* item: vItems) {
         if (Utils::isMouseOnSprite(*item, &window)) {
             onSpr = true;
-            if (item->type == Item::POOL) {
+            if (item->type == Item::POOL || (item->type == Item::BED && (item->state == Item::BROKEN))) {
                 washyWashy = true;
             }
         }
@@ -320,7 +320,7 @@ void Game::createObjects(){
     TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
 
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow, 253, sf::milliseconds(50));
-    anims["catPrankBed"] = new Anim(&assets.catPrankBed, 253, sf::milliseconds(50));
+    anims["catPrankBed"] = new Anim(&assets.catPrankBed, 168, sf::milliseconds(300));
     anims["catPrankGlass"] = new Anim(&assets.catPrankGlass, 253, sf::milliseconds(50));
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
@@ -397,7 +397,7 @@ void Game::createObjects(){
     items["sink"]->move(3021, 404);
 
     items["trash1"] = new ItemTrash(anims["trash"], 1.f);
-    items["trash1"]->move(380, Settings::floorLevel-40);
+    items["trash1"]->move(1000, Settings::floorLevel+100);
 
     items["gamepad1"] = new ItemGamepad(anims["gamepad"], this, -1.0f);
     items["gamepad1"] -> move(600, Settings::floorLevel + 20);
