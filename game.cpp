@@ -144,14 +144,27 @@ void Game::draw(sf::Time dT){
         Utils::drawBoundingBox(*item, &window);
     }
     window.draw(cat);
-    if (Utils::isMouseOnSprite(cat, &window)) {
+    bool onSpr = false;
+    bool washyWashy = false;
+    for (Item* item: vItems) {
+        if (Utils::isMouseOnSprite(*item, &window)) {
+            onSpr = true;
+            if (item->type == Item::POOL) {
+                washyWashy = true;
+            }
+        }
+    }
+    if (!onSpr or Utils::isMouseOnSprite(cat, &window)) {
         if (hasWaterGun)
             pointer.setTexture(assets.pointerWaterGun);
         else
             pointer.setTexture(assets.pointerWaterGunEmpty);
     }
     else {
-        pointer.setTexture(assets.pointer);
+        if (washyWashy)
+            pointer.setTexture(assets.pointerCloth);
+        else
+            pointer.setTexture(assets.pointer);
     }
     pointer.setPosition(sf::Mouse::getPosition(window).x + Settings::room*Settings::windowSize.x, sf::Mouse::getPosition(window).y);
     window.draw(pointer);
@@ -283,6 +296,7 @@ void Game::createObjects(){
     assets.tv.loadFromFile("files/graphics/tv.png");
     assets.tvScreen.loadFromFile("files/graphics/defaultscreen.png");
     assets.pointer.loadFromFile("files/graphics/pointer.png");
+    assets.pointerCloth.loadFromFile("files/graphics/pointerCloth.png");
     assets.pointerWaterGun.loadFromFile("files/graphics/watergun.png");
     assets.pointerWaterGunEmpty.loadFromFile("files/graphics/watergunempty.png");
     pointer.setTexture(assets.pointer);
