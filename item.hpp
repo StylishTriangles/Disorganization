@@ -17,7 +17,9 @@ public:
         POOL,
         SINK,
         TRASH,
-        GAMEPAD
+        GAMEPAD,
+        RADIO,
+        ONOFF_BUTTON
 	};
 
 	enum ItemState {
