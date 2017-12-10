@@ -23,6 +23,7 @@ Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
 {
 	window.setFramerateLimit(60);
+    window.setMouseCursorVisible(false);
     createObjects();
     cat.create(anims);
 }
@@ -141,8 +142,18 @@ void Game::draw(sf::Time dT){
         window.draw(*item);
         Utils::drawBoundingBox(*item, &window);
     }
-
     window.draw(cat);
+    if (Utils::isMouseOnSprite(cat, &window)) {
+        if (hasWaterGun)
+            pointer.setTexture(assets.pointerWaterGun);
+        else
+            pointer.setTexture(assets.pointerWaterGunEmpty);
+    }
+    else {
+        pointer.setTexture(assets.pointer);
+    }
+    pointer.setPosition(sf::Mouse::getPosition(window).x + Settings::room*Settings::windowSize.x, sf::Mouse::getPosition(window).y);
+    window.draw(pointer);
     EffectHandler::draw(&window);
 }
 
@@ -264,6 +275,11 @@ void Game::createObjects(){
     assets.tree.loadFromFile("files/graphics/tree.png");
     assets.tv.loadFromFile("files/graphics/tv.png");
     assets.tvScreen.loadFromFile("files/graphics/defaultscreen.png");
+    assets.pointer.loadFromFile("files/graphics/pointer.png");
+    assets.pointerWaterGun.loadFromFile("files/graphics/watergun.png");
+    assets.pointerWaterGunEmpty.loadFromFile("files/graphics/watergunempty.png");
+    pointer.setTexture(assets.pointer);
+    pointer.setScale(0.2,0.2);
 
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
