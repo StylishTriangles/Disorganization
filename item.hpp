@@ -22,7 +22,8 @@ public:
         GAMEPAD,
         BED,
         RADIO,
-        ONOFF_BUTTON
+        ONOFF_BUTTON,
+        TABLE
 	};
 
 	enum ItemState {
