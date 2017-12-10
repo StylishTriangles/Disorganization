@@ -42,6 +42,7 @@ void Game::run() {
 	while (window.isOpen()) {
         if(secondsPassed > totalTimeInSeconds){
             gameState = OUTRO;
+            setupOutro();
         }
 		while (window.pollEvent(event)) {
             if(event.type == sf::Event::Closed){
@@ -70,9 +71,6 @@ void Game::run() {
             introLogic(dt);
 		else if(gameState == GAME){
             gameLogic(dt);
-		}
-		else if(gameState == OUTRO){
-
 		}
 		draw(dt);
 		window.display();
@@ -123,8 +121,19 @@ void Game::gameLogic(sf::Time dT){
     secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
 }
 
-void Game::outroLogic(sf::Time dT){
-    std::cout << "outro logic!\n";
+void Game::setupOutro(){
+    momText = sf::Text("Good job!\n", font);
+    if(calcMessiness() > 15)
+        momText = sf::Text("Terrible!\n", font);
+    momText.setColor(sf::Color::Black);
+
+    countText = sf::Text("This is the end", font);
+    countText.setCharacterSize(50);
+    countText.setColor(sf::Color::Red);
+
+    mom.setPosition(Settings::windowSize.x*2+700, Settings::floorLevel);
+    momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
+    momText.setPosition(momCloud.getPosition()+sf::Vector2f(-50, 0));
 }
 
 void Game::draw(sf::Time dT){
@@ -254,7 +263,7 @@ void Game::executeMouseEvents(sf::Event* ev){
     }
 }
 
-void Game::drawStats(){
+int Game::calcMessiness(){
     int messiness = 0;
     for(const auto& it: items){
         if(it.second->state & Item::BROKEN){
@@ -269,6 +278,11 @@ void Game::drawStats(){
             }
         }
     }
+    return messiness;
+}
+
+void Game::drawStats(){
+    int messiness = calcMessiness();
     std::string str =   "Time left " + Utils::stringify((int)(totalTimeInSeconds - secondsPassed)) + "s\n\n"
                         "Messiness: " + Utils::stringify(messiness)+"\n";
     sf::Text textStats(str, font);
@@ -495,7 +509,7 @@ void Game::createObjects(){
     momCloud = AnimSprite(anims["cloud"]);
     Utils::setOriginInCenter(momCloud);
 
-    momText = sf::Text("git good!\n", font);
+    momText = sf::Text("Clean it Boy!\n", font);
     momText.setColor(sf::Color::Black);
     momText.setOrigin(momText.getGlobalBounds().width/2.0f, momText.getGlobalBounds().height/2.f+momText.getCharacterSize()/2.f);
 

@@ -33,10 +33,11 @@ public:
 	void createObjects();
 	void introLogic(sf::Time);
 	void gameLogic(sf::Time);
-	void outroLogic(sf::Time);
 	void draw(sf::Time);
     void drawStats();
     void shotWater();
+    void setupOutro();
+    int calcMessiness();
 
 	sf::Event event;
     TextureContainer assets;
@@ -55,7 +56,7 @@ public:
     sf::Music music;
 
 protected:
-    unsigned int gameState = GAME;
+    unsigned int gameState = INTRO;
     bool introClockStarted=false;
     bool isMouseDown=false;
     int lastMouseX, lastMouseY;
@@ -63,8 +64,8 @@ protected:
 
     sf::Font font;
     float secondsPassed=0;
-    float totalTimeInSeconds=3600;
-    float timeSpeed = 6;
+    float totalTimeInSeconds=60*4;
+    float timeSpeed = 1;
     AnimSprite mom;
     AnimSprite momCloud;
     sf::Text momText;
