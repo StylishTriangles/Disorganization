@@ -296,7 +296,7 @@ void Game::createObjects(){
     items["pot3"] = new ItemPot(anims["pot"], 1.0f);
     items["pot3"]->move(400, 200);
 
-    ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 1.0f);
+    ItemClockHand* itemClockHand = new ItemClockHand(anims["clockHand"], 0.999999f);
     items["clockHand"] = itemClockHand;
     items["clock"] = new ItemClock(anims["clock"], itemClockHand, &secondsPassed, &totalTimeInSeconds, 1.0f);
     items["clock"]->setPosition(200, 100);
