@@ -61,8 +61,9 @@ void Game::introLogic(sf::Time dT){
             introClock.restart();
             introClockStarted=true;
         }
-        if(introClock.getElapsedTime().asSeconds() >= 4.0){
+        if(!introDone && introClock.getElapsedTime().asSeconds() >= 4.0){
             introDone = true;
+            SoundHandler::playSound(Sounds::disorganization2, 50, true);
         }
     }
 }
@@ -260,7 +261,7 @@ void Game::createObjects(){
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
     items["bed"]->setPosition(151, 583);
-    
+
     anims["mom"] = new Anim(&assets.mom);
     anims["cloud"] = new Anim(&assets.cloud);
 
@@ -318,7 +319,18 @@ void Game::createObjects(){
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
 
-    SoundBufferContainer::glass_crash_realistic.loadFromFile("files/tunes/glass_crash_realistic.ogg");
+    Sounds::glass_crash_realistic.loadFromFile("files/tunes/glass_crash_realistic.ogg");
+    Sounds::door_close.loadFromFile("files/tunes/door_close.ogg");
+    Sounds::door_open.loadFromFile("files/tunes/door_open.ogg");
+    Sounds::scratch_fast.loadFromFile("files/tunes/scratch_fast.ogg");
+    Sounds::scratch_slow.loadFromFile("files/tunes/scratch_slow.ogg");
+    Sounds::cat_meow1.loadFromFile("files/tunes/cat_meow1.ogg");
+    Sounds::cat_meow2.loadFromFile("files/tunes/cat_meow2.ogg");
+    Sounds::cat_meow3.loadFromFile("files/tunes/cat_meow3.ogg");
+    Sounds::cat_meow4.loadFromFile("files/tunes/cat_meow4.ogg");
+    Sounds::disorganization.loadFromFile("files/tunes/disorganization.ogg");
+    Sounds::disorganization2.loadFromFile("files/tunes/disorganization2.ogg");
+    Sounds::plum.loadFromFile("files/tunes/plum.ogg");
 
 
 

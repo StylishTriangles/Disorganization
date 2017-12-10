@@ -33,7 +33,6 @@ public:
 
 	sf::Event event;
     TextureContainer assets;
-    SoundBufferContainer soundBuffers;
     sf::Clock deltaClock;
 
     std::vector<Prank*> pranks;
