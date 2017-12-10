@@ -189,10 +189,9 @@ void Game::executeMouseEvents(sf::Event* ev){
         if (ev->mouseButton.button == sf::Mouse::Left && isMouseDown==true && draggedItem != nullptr){
             bool dumped=false;
             for(const auto& p: items){
-                if(draggedItem->type != Item::TRASH && p.second->type == Item::TRASH && Collision::PixelPerfectTest(*draggedItem, *p.second)){
+                if(draggedItem->isTrashable && draggedItem->type != Item::TRASH && p.second->type == Item::TRASH && Collision::PixelPerfectTest(*draggedItem, *p.second)){
                     dumped = true;
                     draggedItem->onTrash(p.second);
-                    std::cout << "on trash\n";
                 }
 
             }
@@ -319,6 +318,7 @@ void Game::createObjects(){
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
 
+
     Sounds::glass_crash_realistic.loadFromFile("files/tunes/glass_crash_realistic.ogg");
     Sounds::door_close.loadFromFile("files/tunes/door_close.ogg");
     Sounds::door_open.loadFromFile("files/tunes/door_open.ogg");
@@ -334,19 +334,11 @@ void Game::createObjects(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    std::vector<std::string> trashableItems = {
+        "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2", "pot3"
+    };
+    for(const auto& t: trashableItems)
+        items[t]->isTrashable=true;
 
 
     cat.move(640, Settings::floorLevel);
