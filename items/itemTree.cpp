@@ -11,5 +11,5 @@ void ItemTree::onClick(){
 }
 
 void ItemTree::onDrop() {
-    cout << this->getPosition().x << " " << this->getPosition().y << "\n";
+    //cout << this->getPosition().x << " " << this->getPosition().y << "\n";
 }
