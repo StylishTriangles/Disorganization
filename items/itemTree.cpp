@@ -4,7 +4,10 @@ using std::cout;
 
 ItemTree::ItemTree(Anim *a, float _layer)
     :Item(a, TREE, _layer)
-{}
+{
+    draggable = false;
+    isTrashable = false;
+}
 
 void ItemTree::onClick(){
 
