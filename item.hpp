@@ -19,7 +19,8 @@ public:
         TRASH,
         GAMEPAD,
         RADIO,
-        ONOFF_BUTTON
+        ONOFF_BUTTON,
+        CD
 	};
 
 	enum ItemState {

@@ -248,6 +248,8 @@ void Game::createObjects(){
     assets.cloud.loadFromFile("files/graphics/cloud.png");
     assets.radio.loadFromFile("files/graphics/radio.png");
     assets.onoff.loadFromFile("files/graphics/onoff.png");
+    assets.cd1.loadFromFile("files/graphics/cd1.png");
+    assets.cd2.loadFromFile("files/graphics/cd2.png");
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
@@ -266,6 +268,8 @@ void Game::createObjects(){
     anims["mom"] = new Anim(&assets.mom);
     anims["cloud"] = new Anim(&assets.cloud);
     anims["onoff_button"] = new Anim(&assets.onoff);
+    anims["cd1"] = new Anim(&assets.cd1);
+    anims["cd2"] = new Anim(&assets.cd2);
 
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
@@ -318,8 +322,14 @@ void Game::createObjects(){
 
     ItemOnOffButton* onOffButton = new ItemOnOffButton(anims["onoff_button"]);
     items["radioOnOff"] = onOffButton;
-    items["radio"] = new ItemRadio(anims["radio"], onOffButton, this);
+    ItemRadio* itemRadio = new ItemRadio(anims["radio"], onOffButton, this);
+    items["radio"] = itemRadio;
     items["radio"]->move(800, 500);
+
+    items["cd1"] = new ItemCD(anims["cd1"], true, itemRadio);
+    items["cd1"]->setPosition(850, 620);
+    items["cd2"] = new ItemCD(anims["cd2"], false, itemRadio);
+    items["cd2"]->setPosition(800, 620);
 
     pranks.push_back(new PrankBookThrow(this));
 
