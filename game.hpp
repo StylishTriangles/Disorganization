@@ -45,6 +45,7 @@ public:
     sf::View view;
     bool hasWaterGun=true;
     int objectNamesCtr=0;
+    sf::Music music;
 
 protected:
     bool introDone=true;

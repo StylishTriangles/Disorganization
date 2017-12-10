@@ -19,7 +19,10 @@ public:
         POOL,
         SINK,
         TRASH,
-        GAMEPAD
+        GAMEPAD,
+        BED,
+        RADIO,
+        ONOFF_BUTTON
 	};
 
 	enum ItemState {

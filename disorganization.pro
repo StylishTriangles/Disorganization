@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     items/itemPool.cpp \
     Settings.cpp \
     soundBuffer_container.cpp \
-    soundHandler.cpp
+    soundHandler.cpp \
+    items/itemRadio.cpp
 
 INCLUDEPATH += C:/SFML/include
 INCLUDEPATH += ./include
@@ -59,7 +60,8 @@ HEADERS += \
     items/itemPool.hpp \
     Settings.hpp \
     soundBuffer_container.hpp \
-    soundHandler.hpp
+    soundHandler.hpp \
+    items/itemRadio.hpp
 
 DISTFILES += \
     imgui.ini
