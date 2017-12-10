@@ -12,6 +12,7 @@
 #include "items/itemGamepad.hpp"
 #include "items/itemBed.hpp"
 #include "items/itemRadio.hpp"
+#include "items/itemTree.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
@@ -253,6 +254,7 @@ void Game::createObjects(){
     assets.onoff.loadFromFile("files/graphics/onoff.png");
     assets.cd1.loadFromFile("files/graphics/cd1.png");
     assets.cd2.loadFromFile("files/graphics/cd2.png");
+    assets.tree.loadFromFile("files/graphics/tree.png");
 
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
@@ -280,6 +282,7 @@ void Game::createObjects(){
     anims["onoff_button"] = new Anim(&assets.onoff);
     anims["cd1"] = new Anim(&assets.cd1);
     anims["cd2"] = new Anim(&assets.cd2);
+    anims["tree"] = new Anim(&assets.tree);
 
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
@@ -349,7 +352,9 @@ void Game::createObjects(){
                         window.getSize().y / roomSprite.getGlobalBounds().height);
     font.loadFromFile("files/fonts/Digital_7.ttf");
 
-
+    ItemTree* iTree = new ItemTree(anims["tree"], 2.9f);
+    items["tree"] = iTree;
+    items["tree"]->setPosition(389, 358);
 
     Sounds::glass_crash_realistic.loadFromFile("files/tunes/glass_crash_realistic.ogg");
     Sounds::door_close.loadFromFile("files/tunes/door_close.ogg");

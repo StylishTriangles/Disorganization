@@ -28,6 +28,7 @@ public:
     sf::Texture cd2;
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;
+    sf::Texture tree;
     static sf::Texture spsSmoke;
 };
 
