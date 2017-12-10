@@ -105,6 +105,7 @@ void Game::gameLogic(sf::Time dT){
     }
     cat.update(dT);
     SoundHandler::update();
+    EffectHandler::update(dT.asMilliseconds());
     secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
 }
 
@@ -136,6 +137,7 @@ void Game::draw(sf::Time dT){
     }
 
     window.draw(cat);
+    EffectHandler::draw(&window);
 }
 
 void Game::executeMouseEvents(sf::Event* ev){
@@ -248,9 +250,13 @@ void Game::createObjects(){
     assets.cloud.loadFromFile("files/graphics/cloud.png");
     assets.radio.loadFromFile("files/graphics/radio.png");
     assets.onoff.loadFromFile("files/graphics/onoff.png");
+    assets.cd1.loadFromFile("files/graphics/cd1.png");
+    assets.cd2.loadFromFile("files/graphics/cd2.png");
 
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
+
+    TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
@@ -270,6 +276,8 @@ void Game::createObjects(){
     anims["mom"] = new Anim(&assets.mom);
     anims["cloud"] = new Anim(&assets.cloud);
     anims["onoff_button"] = new Anim(&assets.onoff);
+    anims["cd1"] = new Anim(&assets.cd1);
+    anims["cd2"] = new Anim(&assets.cd2);
 
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
@@ -310,7 +318,7 @@ void Game::createObjects(){
     items["doorLeftThirdRoom"]->move(130 + 2560, 400);
 
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
-    items["sink"]->move(600+1280, 100);
+    items["sink"]->move(600+1280, Settings::floorLevel);
 
     items["trash1"] = new ItemTrash(anims["trash"], 5.f);
     items["trash1"]->move(300, 500);
@@ -322,8 +330,14 @@ void Game::createObjects(){
 
     ItemOnOffButton* onOffButton = new ItemOnOffButton(anims["onoff_button"]);
     items["radioOnOff"] = onOffButton;
-    items["radio"] = new ItemRadio(anims["radio"], onOffButton, this);
+    ItemRadio* itemRadio = new ItemRadio(anims["radio"], onOffButton, this);
+    items["radio"] = itemRadio;
     items["radio"]->move(800, 500);
+
+    items["cd1"] = new ItemCD(anims["cd1"], true, itemRadio);
+    items["cd1"]->setPosition(850, 620);
+    items["cd2"] = new ItemCD(anims["cd2"], false, itemRadio);
+    items["cd2"]->setPosition(800, 620);
 
     pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
@@ -340,17 +354,20 @@ void Game::createObjects(){
     Sounds::door_open.loadFromFile("files/tunes/door_open.ogg");
     Sounds::scratch_fast.loadFromFile("files/tunes/scratch_fast.ogg");
     Sounds::scratch_slow.loadFromFile("files/tunes/scratch_slow.ogg");
+    Sounds::scratch_paw.loadFromFile("files/tunes/scratch_paw.ogg");
     Sounds::cat_meow1.loadFromFile("files/tunes/cat_meow1.ogg");
     Sounds::cat_meow2.loadFromFile("files/tunes/cat_meow2.ogg");
     Sounds::cat_meow3.loadFromFile("files/tunes/cat_meow3.ogg");
     Sounds::cat_meow4.loadFromFile("files/tunes/cat_meow4.ogg");
+    Sounds::cat_purr1.loadFromFile("files/tunes/cat_purr1.ogg");
+    Sounds::cat_purr2.loadFromFile("files/tunes/cat_purr2.ogg");
+    Sounds::cat_screach1.loadFromFile("files/tunes/cat_screach1.ogg");
     //Sounds::disorganization.loadFromFile("files/tunes/disorganization.ogg");
     //Sounds::disorganization2.loadFromFile("files/tunes/disorganization2.ogg");
     Sounds::plum.loadFromFile("files/tunes/plum.ogg");
     Sounds::steppy.loadFromFile("files/tunes/steppy.ogg");
     Sounds::bec.loadFromFile("files/tunes/bec.ogg");
     Sounds::bupu_bupu.loadFromFile("files/tunes/bupu_bupu.ogg");
-    Sounds::screach1.loadFromFile("files/tunes/screach1.ogg");
     Sounds::pef.loadFromFile("files/tunes/pef.ogg");
     Sounds::pif.loadFromFile("files/tunes/pif.ogg");
     Sounds::shash.loadFromFile("files/tunes/shash.ogg");

@@ -2,6 +2,23 @@
 
 #include "../Game.hpp"
 
+ItemCD::ItemCD(Anim* a, bool isFirst, ItemRadio* ir, float layer)
+:Item(a, CD, layer), itemRadio(ir), isFirstAlbum(isFirst)
+{
+
+}
+
+void ItemCD::onClick(){
+
+}
+
+void ItemCD::onDrop(){
+    if(Collision::PixelPerfectTest(*itemRadio, *this)){
+        if(isFirstAlbum != itemRadio->track1)
+            itemRadio->changeState();
+    }
+}
+
 ItemOnOffButton::ItemOnOffButton(Anim* a, float layer)
 :Item(a, ONOFF_BUTTON, layer)
 {
@@ -24,12 +41,12 @@ ItemRadio::ItemRadio(Anim* a, ItemOnOffButton* of, Game* g, float layer)
 {
     isTrashable=true;
     onoff->setGame(g);
-    changeTrack();
+    changeState();
     //setScale(0.5, 0.5);
 }
 
 void ItemRadio::onClick() {
-    changeTrack();
+
 }
 
 void ItemRadio::update(sf::Time dt){
@@ -47,7 +64,7 @@ void ItemRadio::update(sf::Time dt){
     }
 }
 
-void ItemRadio::changeTrack(){
+void ItemRadio::changeState(){
     track1=!track1;
     if(track1){
         game->music.openFromFile("files/tunes/disorganization2.ogg");

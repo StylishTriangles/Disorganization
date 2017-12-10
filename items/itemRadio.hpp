@@ -21,11 +21,21 @@ public:
 
     void onClick() override ;
     void update(sf::Time dt) override ;
-    void changeTrack();
+    void changeState() override;
 
     Game* game;
     ItemOnOffButton* onoff;
     bool track1=false;
+};
+
+class ItemCD: public Item{
+public:
+    ItemCD(Anim* a, bool isFirstAlbum, ItemRadio* ir, float layer=0.0);
+
+    void onClick() override;
+    void onDrop() override;
+    bool isFirstAlbum;
+    ItemRadio* itemRadio;
 };
 
 #endif // ITEM_RADIO_HPP

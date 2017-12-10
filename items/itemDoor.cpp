@@ -9,10 +9,12 @@ ItemDoor::ItemDoor(Anim *a, bool lDoors, float layer = 0.0)
 
 void ItemDoor::onClick(){
     if(leftDoors){
+        SoundHandler::playSound(Sounds::door_close);
         Settings::room--;
         g->view.move(-Settings::windowSize.x, 0);
     }
     else{
+        SoundHandler::playSound(Sounds::door_open);
         Settings::room++;
         g->view.move(Settings::windowSize.x, 0);
     }
