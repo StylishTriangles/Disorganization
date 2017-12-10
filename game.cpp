@@ -9,6 +9,7 @@
 #include "items/itemPool.hpp"
 #include "items/itemTrash.hpp"
 #include "items/itemGamepad.hpp"
+#include "items/itemBed.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
@@ -240,6 +241,7 @@ void Game::createObjects(){
     assets.pool.loadFromFile("files/graphics/pool0.png");
     assets.trash.loadFromFile("files/graphics/trash.png");
     assets.gamepad.loadFromFile("files/graphics/gamepad.png");
+    assets.bed.loadFromFile("files/graphics/lozko.png");
     assets.mom.loadFromFile("files/graphics/mom1.png");
     assets.cloud.loadFromFile("files/graphics/cloud.png");
 
@@ -254,6 +256,11 @@ void Game::createObjects(){
     anims["pool"] = new Anim(&assets.pool);
     anims["trash"] = new Anim(&assets.trash);
     anims["gamepad"] = new Anim(&assets.gamepad);
+    anims["bed"] = new Anim(&assets.bed);
+
+    items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
+    items["bed"]->setPosition(151, 583);
+    
     anims["mom"] = new Anim(&assets.mom);
     anims["cloud"] = new Anim(&assets.cloud);
 

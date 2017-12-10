@@ -17,6 +17,7 @@ public:
     sf::Texture pool;
     sf::Texture trash;
     sf::Texture gamepad;
+    sf::Texture bed;
     sf::Texture mom;
     sf::Texture cloud;
 };
