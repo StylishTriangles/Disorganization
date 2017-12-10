@@ -19,18 +19,20 @@ public:
         POOL,
         SINK,
         TRASH,
+        TREE,
         GAMEPAD,
         BED,
         RADIO,
         ONOFF_BUTTON,
-        CD
+        CD,
 	};
 
 	enum ItemState {
-        BROKEN  = 1,
-        DEFAULT = 1<<1,
-        DELETED = 1<<2,
-        TRASHED = 1<<3,
+        ERRORSTATE  = 0,
+        BROKEN      = 1,
+        DEFAULT     = 1<<1,
+        DELETED     = 1<<2,
+        TRASHED     = 1<<3,
 	};
 
     Item(Anim* a, ItemType i, float _layer = 1.0f);

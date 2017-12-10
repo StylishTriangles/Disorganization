@@ -11,10 +11,12 @@
 enum catState {
 	IDLE,
 	TRAVEL,
+	TRAVELTOCENTER,
 	PRANK,
 	RUN,
 	CLOSETOPRANK,
-	GOINGTOPATH
+	GOINGTOPATH,
+	HISSING
 };
 
 enum direction {
