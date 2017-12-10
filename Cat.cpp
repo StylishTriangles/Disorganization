@@ -111,7 +111,7 @@ void Cat::update(sf::Time deltaTime) {
 	else if (state == HISSING) {
 		if (getLoops() > 5) {
 			do {
-				runTo = Utils::randInt(0, 2560);
+				runTo = Utils::randInt(0, Settings::windowSize.x*3);
 			}
 			while (abs(runTo - getPosition().x) < 500);
 			state = RUN;
