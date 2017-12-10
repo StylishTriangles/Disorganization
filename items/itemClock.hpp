@@ -27,6 +27,7 @@ public:
 
     void onClick() override {
         std::cout << "clock clicked\n";
+        SoundHandler::playSound(Sounds::tik_tok);
     }
 
     void update(sf::Time dt) override {

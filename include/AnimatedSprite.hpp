@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+#include "Utils.hpp"
+
 class Anim {
 public:
     Anim () {}
@@ -152,6 +154,10 @@ public:
         currentFrame = a;
         runTime=0;
         setTextureRect(sf::IntRect(currentFrame*animation->width, 0, animation->width, animation->height));
+    }
+    void flip() {
+		setScale(-getScale().x, getScale().y);
+		move(Utils::sgn(getScale().x)*getGlobalBounds().width/2, 0);
     }
 protected:
     bool m_destroy = false;
