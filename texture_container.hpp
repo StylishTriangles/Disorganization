@@ -29,6 +29,8 @@ public:
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;
     sf::Texture tree;
+    sf::Texture tv;
+    sf::Texture tvScreen;
     static sf::Texture spsSmoke;
 };
 

@@ -25,6 +25,7 @@ public:
         RADIO,
         ONOFF_BUTTON,
         CD,
+        TV
 	};
 
 	enum ItemState {

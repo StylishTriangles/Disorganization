@@ -14,6 +14,7 @@
 #include "items/itemBed.hpp"
 #include "items/itemRadio.hpp"
 #include "items/itemTree.hpp"
+#include "items/itemTV.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
@@ -257,6 +258,8 @@ void Game::createObjects(){
     assets.cd1.loadFromFile("files/graphics/cd1.png");
     assets.cd2.loadFromFile("files/graphics/cd2.png");
     assets.tree.loadFromFile("files/graphics/tree.png");
+    assets.tv.loadFromFile("files/graphics/tv.png");
+    assets.tvScreen.loadFromFile("files/graphics/defaultscreen.png");
 
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
@@ -285,6 +288,8 @@ void Game::createObjects(){
     anims["cd1"] = new Anim(&assets.cd1);
     anims["cd2"] = new Anim(&assets.cd2);
     anims["tree"] = new Anim(&assets.tree);
+    anims["tv"] = new Anim(&assets.tv);
+    anims["tvScreen"] = new Anim(&assets.tvScreen);
 
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
@@ -339,12 +344,20 @@ void Game::createObjects(){
     items["radioOnOff"] = onOffButton;
     ItemRadio* itemRadio = new ItemRadio(anims["radio"], onOffButton, this);
     items["radio"] = itemRadio;
-    items["radio"]->move(800, 500);
+    items["radio"]->move(600, 500);
 
     items["cd1"] = new ItemCD(anims["cd1"], true, itemRadio);
     items["cd1"]->setPosition(850, 620);
     items["cd2"] = new ItemCD(anims["cd2"], false, itemRadio);
     items["cd2"]->setPosition(800, 620);
+
+    items["tv"] = new ItemTV(anims["tv"]);
+    items["tv"]->layer= -10.0f;
+    items["tv"]->setPosition(920, 450);
+
+    items["tvScreen"] = new ItemTV(anims["tvScreen"]);
+    items["tvScreen"]->layer= -15.0f;
+    items["tvScreen"]->setPosition(920, 450);
 
     pranks.push_back(new PrankBookThrow(this));
     pranks.push_back(new PrankBed(this));
