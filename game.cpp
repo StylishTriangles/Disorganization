@@ -21,7 +21,7 @@
 #include "items/itemTV.hpp"
 
 Game::Game(int width, int height, std::string title)
-    : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
+    : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width*2, 0, width, height))
 {
 	window.setFramerateLimit(60);
     window.setMouseCursorVisible(false);
@@ -52,6 +52,17 @@ void Game::run() {
 		}
 		window.clear(sf::Color::Black);
 		sf::Time dt = deltaClock.restart();
+		vItems.clear();
+        for (auto it = items.cbegin(); it != items.cend(); ){
+            if (it->second->state == Item::DELETED){
+                items.erase(it++);
+            }
+            else {
+                vItems.push_back(it->second);
+                ++it;
+            }
+        }
+        sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
 		if(!introDone)
             introLogic(dt);
 		else{
@@ -66,7 +77,7 @@ void Game::introLogic(sf::Time dT){
     mom.move(100*dT.asSeconds(), 0);
     momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
     momText.setPosition(momCloud.getPosition());
-    if(mom.getPosition().x >= Settings::windowSize.x*2+100){
+    if(mom.getPosition().x >= Settings::windowSize.x*3+100){
         if(!introClockStarted){
             introClock.restart();
             introClockStarted=true;
@@ -80,17 +91,6 @@ void Game::introLogic(sf::Time dT){
 }
 
 void Game::gameLogic(sf::Time dT){
-    vItems.clear();
-    for (auto it = items.cbegin(); it != items.cend(); ){
-        if (it->second->state == Item::DELETED){
-            items.erase(it++);
-        }
-        else {
-            vItems.push_back(it->second);
-            ++it;
-        }
-    }
-    sort(vItems.rbegin(), vItems.rend(), Item::cmpLayer);
     if (cat.isIdle()) {
 		if (Utils::chance(1.0/(60.0))) {
 			int availablePranks = 0;
@@ -124,19 +124,6 @@ void Game::draw(sf::Time dT){
     window.draw(momCloud);
     window.draw(momText);
     window.draw(mom);
-    if(introClockStarted && !introDone){
-        if(introClock.getElapsedTime().asSeconds() < 4.0)
-            countText.setString("Go Clean!\n");
-        if(introClock.getElapsedTime().asSeconds() < 3.0)
-            countText.setString("1...\n");
-        if(introClock.getElapsedTime().asSeconds() < 2.0)
-            countText.setString("2...\n");
-        if(introClock.getElapsedTime().asSeconds() < 1.0)
-            countText.setString("3...\n");
-        countText.setPosition(Settings::windowSize.x*1.5 - countText.getGlobalBounds().width/2.f,
-                          Settings::windowSize.y/2.0 - countText.getCharacterSize()/2.f);
-        window.draw(countText);
-    }
 
     for(Item *item: vItems) {
         item->update(dT);
@@ -149,7 +136,7 @@ void Game::draw(sf::Time dT){
     for (Item* item: vItems) {
         if (Utils::isMouseOnSprite(*item, &window)) {
             onSpr = true;
-            if (item->type == Item::POOL) {
+            if (item->type == Item::POOL || (item->type == Item::BED && (item->state == Item::BROKEN))) {
                 washyWashy = true;
             }
         }
@@ -169,6 +156,20 @@ void Game::draw(sf::Time dT){
     pointer.setPosition(sf::Mouse::getPosition(window).x + Settings::room*Settings::windowSize.x, sf::Mouse::getPosition(window).y);
     window.draw(pointer);
     EffectHandler::draw(&window);
+
+    if(introClockStarted && !introDone){
+        if(introClock.getElapsedTime().asSeconds() < 4.0)
+            countText.setString("Go Clean!\n");
+        if(introClock.getElapsedTime().asSeconds() < 3.0)
+            countText.setString("1...\n");
+        if(introClock.getElapsedTime().asSeconds() < 2.0)
+            countText.setString("2...\n");
+        if(introClock.getElapsedTime().asSeconds() < 1.0)
+            countText.setString("3...\n");
+        countText.setPosition(Settings::windowSize.x*2.5 - countText.getGlobalBounds().width/2.f,
+                          Settings::windowSize.y/2.0 - countText.getCharacterSize()/2.f);
+        window.draw(countText);
+    }
 }
 
 void Game::executeMouseEvents(sf::Event* ev){
@@ -309,7 +310,7 @@ void Game::createObjects(){
     TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
 
     anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow, 253, sf::milliseconds(50));
-    anims["catPrankBed"] = new Anim(&assets.catPrankBed, 253, sf::milliseconds(50));
+    anims["catPrankBed"] = new Anim(&assets.catPrankBed, 168, sf::milliseconds(300));
     anims["catPrankGlass"] = new Anim(&assets.catPrankGlass, 253, sf::milliseconds(50));
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
@@ -471,7 +472,7 @@ void Game::createObjects(){
     cat.move(640, Settings::floorLevel);
     mom = AnimSprite(anims["mom"]);
     Utils::setOriginInCenter(mom);
-    mom.setPosition(2*Settings::windowSize.x-700, Settings::floorLevel);
+    mom.setPosition(3*Settings::windowSize.x-500, Settings::floorLevel);
     mom.setScale(-1, 1);
 
     momCloud = AnimSprite(anims["cloud"]);
