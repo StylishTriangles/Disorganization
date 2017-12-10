@@ -105,6 +105,7 @@ void Game::gameLogic(sf::Time dT){
     }
     cat.update(dT);
     SoundHandler::update();
+    EffectHandler::update(dT.asMilliseconds());
     secondsPassed += (dT.asSeconds()/1.0)*timeSpeed;
 }
 
@@ -136,6 +137,7 @@ void Game::draw(sf::Time dT){
     }
 
     window.draw(cat);
+    EffectHandler::draw(&window);
 }
 
 void Game::executeMouseEvents(sf::Event* ev){
@@ -251,6 +253,8 @@ void Game::createObjects(){
 
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
+
+    TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);

@@ -1,6 +1,8 @@
 #ifndef TEXTURE_CONTAINER_HPP
 #define TEXTURE_CONTAINER_HPP
 
+#include <SFML/Graphics.hpp>
+
 class TextureContainer{
 public:
     sf::Texture pot;
@@ -21,9 +23,9 @@ public:
     sf::Texture cloud;
     sf::Texture radio;
     sf::Texture onoff;
-
     sf::Texture catPrankBookThrow;
     sf::Texture catPrankBed;
+    static sf::Texture spsSmoke;
 };
 
 #endif // TEXTURE_CONTAINER_HPP

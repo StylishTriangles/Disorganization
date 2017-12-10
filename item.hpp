@@ -4,6 +4,8 @@
 #include "AnimatedSprite.hpp"
 #include "soundBuffer_container.hpp"
 #include "soundHandler.hpp"
+#include "effectHandler.hpp"
+#include "texture_container.hpp"
 
 
 class Item: public AnimSprite{
