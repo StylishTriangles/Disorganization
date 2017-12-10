@@ -26,7 +26,7 @@ bool PrankBookThrow::isAvailable(){
 }
 
 void PrankBookThrow::onStart() {
-
+	SoundHandler::playSound(Sounds::scratch_paw);
 }
 
 void PrankBookThrow::onFinish() {

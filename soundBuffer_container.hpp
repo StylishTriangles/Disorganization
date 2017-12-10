@@ -25,7 +25,6 @@ public:
     static sf::SoundBuffer steppy;
     static sf::SoundBuffer bec;
     static sf::SoundBuffer bupu_bupu;
-    static sf::SoundBuffer screach1;
     static sf::SoundBuffer pef;
     static sf::SoundBuffer pif;
     static sf::SoundBuffer shash;
