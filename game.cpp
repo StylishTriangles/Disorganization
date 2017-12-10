@@ -64,7 +64,8 @@ void Game::introLogic(sf::Time dT){
         }
         if(!introDone && introClock.getElapsedTime().asSeconds() >= 4.0){
             introDone = true;
-            SoundHandler::playSound(Sounds::disorganization2, 50, true);
+            //SoundHandler::playSound(Sounds::disorganization2, 50, true);
+            music.play();
         }
     }
 }
@@ -338,8 +339,8 @@ void Game::createObjects(){
     Sounds::cat_meow2.loadFromFile("files/tunes/cat_meow2.ogg");
     Sounds::cat_meow3.loadFromFile("files/tunes/cat_meow3.ogg");
     Sounds::cat_meow4.loadFromFile("files/tunes/cat_meow4.ogg");
-    Sounds::disorganization.loadFromFile("files/tunes/disorganization.ogg");
-    Sounds::disorganization2.loadFromFile("files/tunes/disorganization2.ogg");
+    //Sounds::disorganization.loadFromFile("files/tunes/disorganization.ogg");
+    //Sounds::disorganization2.loadFromFile("files/tunes/disorganization2.ogg");
     Sounds::plum.loadFromFile("files/tunes/plum.ogg");
 
 
@@ -370,4 +371,8 @@ void Game::createObjects(){
 
     momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
     momText.setPosition(momCloud.getPosition());
+
+    music.openFromFile("files/tunes/disorganization.ogg");
+    music.setLoop(true);
+    music.play();
 }

@@ -45,9 +45,10 @@ public:
     sf::View view;
     bool hasWaterGun=true;
     int objectNamesCtr=0;
+    sf::Music music;
 
 protected:
-    bool introDone=true;
+    bool introDone=false;
     bool introClockStarted=false;
     bool isMouseDown=false;
     int lastMouseX, lastMouseY;
@@ -62,6 +63,7 @@ protected:
     sf::Text momText;
     sf::Text countText;
     sf::Clock introClock;
+
 };
 
 #endif // GAME_HPP

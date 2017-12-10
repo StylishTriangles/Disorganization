@@ -9,7 +9,5 @@ sf::SoundBuffer Sounds::cat_meow1 = sf::SoundBuffer();
 sf::SoundBuffer Sounds::cat_meow2 = sf::SoundBuffer();
 sf::SoundBuffer Sounds::cat_meow3 = sf::SoundBuffer();
 sf::SoundBuffer Sounds::cat_meow4 = sf::SoundBuffer();
-sf::SoundBuffer Sounds::disorganization = sf::SoundBuffer();
-sf::SoundBuffer Sounds::disorganization2 = sf::SoundBuffer();
 sf::SoundBuffer Sounds::plum = sf::SoundBuffer();
 

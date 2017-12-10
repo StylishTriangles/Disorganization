@@ -5,21 +5,30 @@
 ItemOnOffButton::ItemOnOffButton(Anim* a, float layer)
 :Item(a, ONOFF_BUTTON, layer)
 {
-
+    isTrashable=true;
 }
 
 void ItemOnOffButton::onClick() {
-    std::cout << "on off action\n";
+    if(game->music.getStatus() == sf::Music::Paused)
+        game->music.play();
+    else if(game->music.getStatus() == sf::Music::Playing)
+        game->music.pause();
 }
 
-ItemRadio::ItemRadio(Anim* a, ItemOnOffButton* onoff, Game* g, float layer)
-:Item(a, RADIO, layer), game(g)
+void ItemOnOffButton::setGame(Game* g){
+    game=g;
+}
+
+ItemRadio::ItemRadio(Anim* a, ItemOnOffButton* of, Game* g, float layer)
+:Item(a, RADIO, layer), game(g), onoff(of)
 {
+    isTrashable=true;
+    onoff->setGame(g);
     //setScale(0.5, 0.5);
 }
 
 void ItemRadio::onClick() {
-    std::cout << "radio clicked\n";
+
 }
 
 void ItemRadio::update(sf::Time dt){

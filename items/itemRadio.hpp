@@ -10,6 +10,9 @@ public:
     ItemOnOffButton(Anim* a, float layer=-5.0);
 
     void onClick() override ;
+    void setGame(Game* g);
+
+    Game* game;
 };
 
 class ItemRadio: public Item{
@@ -20,6 +23,7 @@ public:
     void update(sf::Time dt) override ;
 
     Game* game;
+    ItemOnOffButton* onoff;
 };
 
 #endif // ITEM_RADIO_HPP

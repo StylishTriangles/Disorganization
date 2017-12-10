@@ -15,8 +15,6 @@ public:
     static sf::SoundBuffer cat_meow2;
     static sf::SoundBuffer cat_meow3;
     static sf::SoundBuffer cat_meow4;
-    static sf::SoundBuffer disorganization;
-    static sf::SoundBuffer disorganization2;
     static sf::SoundBuffer plum;
 
 };
