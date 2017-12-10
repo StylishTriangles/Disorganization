@@ -5,7 +5,6 @@
 PrankBookThrow::PrankBookThrow(Game* g)
 :Prank(g)
 {
-
 	catAnim = g->anims["catPrankBookThrow"];
 }
 

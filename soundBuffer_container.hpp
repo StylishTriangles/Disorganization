@@ -33,6 +33,8 @@ public:
     static sf::SoundBuffer tik_tok;
     static sf::SoundBuffer tsh;
     static sf::SoundBuffer wosh;
+    static sf::SoundBuffer tv_on;
+    static sf::SoundBuffer tv_off;
 };
 
 #endif // SOUNDS_CONTAINER_HPP

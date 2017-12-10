@@ -4,6 +4,7 @@
 #include "pranks/prankBed.hpp"
 #include "pranks/prankGlass.hpp"
 #include "pranks/prankThrowToTrash.hpp"
+#include "pranks/prankTVOn.hpp"
 
 #include "items/itemPot.hpp"
 #include "items/itemDoor.hpp"
@@ -23,6 +24,7 @@ Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
 {
 	window.setFramerateLimit(60);
+    window.setMouseCursorVisible(false);
     createObjects();
     cat.create(anims);
 }
@@ -141,8 +143,18 @@ void Game::draw(sf::Time dT){
         window.draw(*item);
         Utils::drawBoundingBox(*item, &window);
     }
-
     window.draw(cat);
+    if (Utils::isMouseOnSprite(cat, &window)) {
+        if (hasWaterGun)
+            pointer.setTexture(assets.pointerWaterGun);
+        else
+            pointer.setTexture(assets.pointerWaterGunEmpty);
+    }
+    else {
+        pointer.setTexture(assets.pointer);
+    }
+    pointer.setPosition(sf::Mouse::getPosition(window).x + Settings::room*Settings::windowSize.x, sf::Mouse::getPosition(window).y);
+    window.draw(pointer);
     EffectHandler::draw(&window);
 }
 
@@ -270,6 +282,11 @@ void Game::createObjects(){
     assets.tree.loadFromFile("files/graphics/tree.png");
     assets.tv.loadFromFile("files/graphics/tv.png");
     assets.tvScreen.loadFromFile("files/graphics/defaultscreen.png");
+    assets.pointer.loadFromFile("files/graphics/pointer.png");
+    assets.pointerWaterGun.loadFromFile("files/graphics/watergun.png");
+    assets.pointerWaterGunEmpty.loadFromFile("files/graphics/watergunempty.png");
+    pointer.setTexture(assets.pointer);
+    pointer.setScale(0.2,0.2);
 
     assets.catPrankBookThrow.loadFromFile("files/graphics/catPrankBookThrow.png");
     assets.catPrankBed.loadFromFile("files/graphics/catPrankBed.png");
@@ -387,6 +404,7 @@ void Game::createObjects(){
     pranks.push_back(new PrankBed(this));
     pranks.push_back(new PrankGlass(this));
     pranks.push_back(new PrankThrowToTrash(this));
+    pranks.push_back(new PrankTVOn(this));
 
     roomSprite = sf::Sprite(assets.rooms);
     roomSprite.setScale(window.getSize().x * 3.0f / roomSprite.getGlobalBounds().width,
@@ -425,6 +443,8 @@ void Game::createObjects(){
     Sounds::tik_tok.loadFromFile("files/tunes/tik_tok.ogg");
     Sounds::tsh.loadFromFile("files/tunes/tsh.ogg");
     Sounds::wosh.loadFromFile("files/tunes/wosh.ogg");
+    Sounds::tv_on.loadFromFile("files/tunes/tv_on.ogg");
+    Sounds::tv_off.loadFromFile("files/tunes/tv_off.ogg");
 
     std::vector<std::string> trashableItems = {
         "gamepad1", "gamepad2", "clock", "clockHand", "pot", "pot2"
