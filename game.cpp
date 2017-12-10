@@ -308,9 +308,9 @@ void Game::createObjects(){
 
     TextureContainer::spsSmoke.loadFromFile("files/graphics/spsSmoke.png");
 
-    anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow);
-    anims["catPrankBed"] = new Anim(&assets.catPrankBed);
-    anims["catPrankGlass"] = new Anim(&assets.catPrankGlass);
+    anims["catPrankBookThrow"] = new Anim(&assets.catPrankBookThrow, 253, sf::milliseconds(50));
+    anims["catPrankBed"] = new Anim(&assets.catPrankBed, 253, sf::milliseconds(50));
+    anims["catPrankGlass"] = new Anim(&assets.catPrankGlass, 253, sf::milliseconds(50));
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle, 110, sf::milliseconds(500));
@@ -364,29 +364,29 @@ void Game::createObjects(){
     ItemDoor *doorRightSecondRoom = new ItemDoor(anims["door"], false, 10.0f);
     doorRightSecondRoom->setGame(this);
     items["doorRightSecondRoom"] = doorRightSecondRoom;
-    items["doorRightSecondRoom"]->move(1210 + 1280, 470);
+    items["doorRightSecondRoom"]->move(1210 + Settings::windowSize.x, 470);
 
     ItemDoor* doorLeftSecondRoom = new ItemDoor(anims["door"], true, 10.0f);
     doorLeftSecondRoom->setScale(-1, 1);
     doorLeftSecondRoom->setGame(this);
     items["doorLeftSecondRoom"] = doorLeftSecondRoom;
-    items["doorLeftSecondRoom"]->move(70+1280, 470);
+    items["doorLeftSecondRoom"]->move(70+Settings::windowSize.x, 470);
 
     ItemDoor *doorLeftThirdRoom = new ItemDoor(anims["door"], true, 10.0f);
     doorLeftThirdRoom->setScale(-1, 1);
     doorLeftThirdRoom->setGame(this);
     items["doorLeftThirdRoom"] = doorLeftThirdRoom;
-    items["doorLeftThirdRoom"]->move(70 + 2560, 470);
+    items["doorLeftThirdRoom"]->move(70 + Settings::windowSize.x*2, 470);
 
     items["sink"] = new ItemSink(anims["sink"], this, 1.0f);
-    items["sink"]->move(800+1280, Settings::floorLevel - 100);
+    items["sink"]->move(800+Settings::windowSize.x, Settings::floorLevel - 100);
 
     items["trash1"] = new ItemTrash(anims["trash"], 1.f);
-    items["trash1"]->move(1580, Settings::floorLevel-70);
+    items["trash1"]->move(380, Settings::floorLevel-40);
 
-    items["gamepad1"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad1"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
     items["gamepad1"] -> move(600, Settings::floorLevel + 20);
-    items["gamepad2"] = new ItemGamepad(anims["gamepad"], 1.0f);
+    items["gamepad2"] = new ItemGamepad(anims["gamepad"], this, 1.0f);
     items["gamepad2"] -> move(480, Settings::floorLevel + 25);
 
     ItemOnOffButton* onOffButton = new ItemOnOffButton(anims["onoff_button"]);

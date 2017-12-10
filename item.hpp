@@ -45,8 +45,8 @@ public:
     bool draggable=true;
     bool isTrashable=false;
     float layer;
-    ItemType type;
-    ItemState state = DEFAULT;
+    unsigned int type;
+    unsigned int state = DEFAULT;
 
 
     virtual void update(sf::Time);
