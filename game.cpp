@@ -10,6 +10,7 @@
 #include "items/itemTrash.hpp"
 #include "items/itemGamepad.hpp"
 #include "items/itemBed.hpp"
+#include "items/itemRadio.hpp"
 
 Game::Game(int width, int height, std::string title)
     : window(sf::VideoMode(width, height), title), view(sf::FloatRect(width, 0, width, height))
@@ -241,9 +242,11 @@ void Game::createObjects(){
     assets.pool.loadFromFile("files/graphics/pool0.png");
     assets.trash.loadFromFile("files/graphics/trash.png");
     assets.gamepad.loadFromFile("files/graphics/gamepad.png");
-    assets.bed.loadFromFile("files/graphics/lozko.png");
+    assets.bed.loadFromFile("files/graphics/bed.png");
     assets.mom.loadFromFile("files/graphics/mom1.png");
     assets.cloud.loadFromFile("files/graphics/cloud.png");
+    assets.radio.loadFromFile("files/graphics/radio.png");
+    assets.onoff.loadFromFile("files/graphics/onoff.png");
 
     anims["pot"] = new Anim(&assets.pot, 58, sf::seconds(3600 * 24));
     anims["catIdle"] = new Anim(&assets.catIdle);
@@ -256,14 +259,16 @@ void Game::createObjects(){
     anims["pool"] = new Anim(&assets.pool);
     anims["trash"] = new Anim(&assets.trash);
     anims["gamepad"] = new Anim(&assets.gamepad);
-    anims["bed"] = new Anim(&assets.bed);
+    anims["radio"] = new Anim(&assets.radio);
+    anims["onoff"] = new Anim(&assets.onoff);
+    anims["bed"] = new Anim(&assets.bed, 254, sf::seconds(3600 * 24));
+    anims["mom"] = new Anim(&assets.mom);
+    anims["cloud"] = new Anim(&assets.cloud);
+    anims["onoff_button"] = new Anim(&assets.onoff);
+
 
     items["bed"] = new ItemBed(anims["bed"], 1.0f); // watch it!
     items["bed"]->setPosition(151, 583);
-
-    anims["mom"] = new Anim(&assets.mom);
-    anims["cloud"] = new Anim(&assets.cloud);
-
     items["pot"] = new ItemPot(anims["pot"], 1.0f);
     items["pot"]->move(600, 100);
     items["pot2"] = new ItemPot(anims["pot"], 1.0f);
@@ -309,6 +314,11 @@ void Game::createObjects(){
     items["gamepad1"] -> move(350, 300);
     items["gamepad2"] = new ItemGamepad(anims["gamepad"], 1.0f);
     items["gamepad2"] -> move(420, 300);
+
+    ItemOnOffButton* onOffButton = new ItemOnOffButton(anims["onoff_button"]);
+    items["radioOnOff"] = onOffButton;
+    items["radio"] = new ItemRadio(anims["radio"], onOffButton, this);
+    items["radio"]->move(800, 500);
 
     pranks.push_back(new PrankBookThrow(this));
 

@@ -20,6 +20,8 @@ public:
     sf::Texture bed;
     sf::Texture mom;
     sf::Texture cloud;
+    sf::Texture radio;
+    sf::Texture onoff;
 };
 
 #endif // TEXTURE_CONTAINER_HPP

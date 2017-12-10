@@ -62,7 +62,6 @@ protected:
     sf::Text momText;
     sf::Text countText;
     sf::Clock introClock;
-
 };
 
 #endif // GAME_HPP
