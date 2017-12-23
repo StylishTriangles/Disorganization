@@ -64,7 +64,7 @@ protected:
 
     sf::Font font;
     float secondsPassed=0;
-    float totalTimeInSeconds=60*4;
+    float totalTimeInSeconds=60*2;
     float timeSpeed = 1;
     AnimSprite mom;
     AnimSprite momCloud;

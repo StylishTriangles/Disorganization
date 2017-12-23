@@ -510,13 +510,13 @@ void Game::createObjects(){
     momCloud = AnimSprite(anims["cloud"]);
     Utils::setOriginInCenter(momCloud);
 
-    momText = sf::Text("Clean it Boy!\n", font);
+    momText = sf::Text("Leave this place in a mess\n\nand I'll whoop your ass!", font);
     momText.setColor(sf::Color::Black);
     momText.setOrigin(momText.getGlobalBounds().width/2.0f, momText.getGlobalBounds().height/2.f+momText.getCharacterSize()/2.f);
 
     countText = sf::Text("", font);
     countText.setCharacterSize(50);
-    countText.setColor(sf::Color::Red);
+    countText.setColor(sf::Color::Green);
 
     momCloud.setPosition(mom.getPosition()+sf::Vector2f(175, -230));
     momText.setPosition(momCloud.getPosition());
